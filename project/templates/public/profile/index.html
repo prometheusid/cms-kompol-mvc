@@ -1,0 +1,132 @@
+{% extends '/public/pub_base.html' %} {% block content %}
+<section class="py-5" style="margin-top: 20px">
+  <div class="container">
+    <div
+      class="d-sm-flex align-items-center justify-content-between mb-4"
+      style="margin-top: 2rem"
+    >
+      <h1 class="h3 mb-0 text-white-800">{{title}}</h1>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card user-card-full">
+      <div class="row m-l-0 m-r-0">
+        <div class="col-sm-4 bg-c-lite-green user-profile">
+          <div class="card-block text-center text-white">
+            <div class="m-b-25">
+              <img
+                src="https://img.icons8.com/bubbles/100/000000/user.png"
+                class="img-radius"
+                alt="User-Profile-Image"
+              />
+            </div>
+            {% if profile.role_id == 1 %}
+              <h4 class="f-w-700">{{profile.nama_user}}</h4>
+            {%  else %}
+            <h4 class="f-w-700">{{profile.nama_user}}</h4>
+            {%  endif %}
+            <br />
+            <a
+              href="https://twitter.com/{{profile.akun_twitter}}"
+              class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
+            >
+              <i
+                class="fab fa-twitter"
+                style="color: black"
+                aria-hidden="true"
+              ></i
+              >&nbsp; @{{profile.akun_twitter}}
+            </a>
+            <br />
+            <br />
+            <br />
+            {% if session['id'] %}
+            <a
+              href="/profile/edit/{{profile.user_id}}"
+              class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
+            >
+              <i class="fas fa-user-edit"></i>&nbsp; Edit</a
+            >
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="card-block">
+            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Email</p>
+                <h6 class="text-muted f-w-400">{{profile.email_user}}</h6>
+              </div>
+              {% if profile.role_id == 1 %}
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Email</p>
+                <h6 class="text-muted f-w-400">{{profile.email_user}}</h6>
+              </div>
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Role</p>
+                <h6 class="text-muted f-w-400">{{profile.role_user}}</h6>
+              </div>
+              {% endif %}
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Role</p>
+                <h6 class="text-muted f-w-400">{{profile.role_user}}</h6>
+              </div>
+            </div>
+            {% if profile.role_id == 2 %}
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Partai</p>
+                <h6 class="text-muted f-w-400">{{profile.nama_partai}}</h6>
+              </div>
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Role</p>
+                <h6 class="text-muted f-w-400">{{profile.role_user}}</h6>
+              </div>
+            </div>
+            {% endif %} {% if profile.role_id == 3 %}
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Partai</p>
+                <h6 class="text-muted f-w-400">{{profile.nama_partai}}</h6>
+              </div>
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Role</p>
+                <h6 class="text-muted f-w-400">{{profile.role_user}}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Pendidikan</p>
+                <h6 class="text-muted f-w-400">{{profile.pendidikan}}</h6>
+              </div>
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Pengalaman</p>
+                <h6 class="text-muted f-w-400">{{profile.pengalaman}}</h6>
+              </div>
+            </div>
+            {% endif %}
+            <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Timeline</h6>
+            {% if profile.created_at == true %}
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Joined</p>
+                <h6 class="text-muted f-w-400">
+                  {{profile.created_at.strftime('%d %B %Y - %H:%M')}}
+                </h6>
+              </div>
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Last Update</p>
+                <h6 class="text-muted f-w-400">
+                  {{profile.updated_at.strftime('%d %B %Y - %H:%M')}}
+                </h6>
+              </div>
+            </div>
+            {% else %} - {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -14,24 +14,28 @@ from project.models.Hello import Hello
 @app.route("/registrasi", methods=["GET", "POST"])
 def registrasi():
     if request.method == 'GET':
-        return render_template('auth/registrasi.html')
+        return render_template('public/pub_login/registrasi.html')
     else:
         name = request.form['name']
         email = request.form['email']
         password = request.form['password'].encode('utf-8')
         hash_password = bcrypt.hashpw(password, bcrypt.gensalt())
+        role_id = 4
+        partai = 0
+        created = datetime.now()
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO users (nama_user, email_user, password) VALUES (%s,%s,%s)",
-                    (name, email, hash_password,))
+        cur.execute("INSERT INTO users (nama_user, email_user, password, role_id, partai_id, created_at) VALUES (%s,%s,%s,%s,%s,%s)",
+                    (name, email, hash_password, role_id, partai, created))
         mysql.connection.commit()
         session['name'] = request.form['name']
         session['email'] = request.form['email']
-        return redirect(url_for('pub_home'))
+        return redirect(url_for('login'))
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    msg = ''
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password'].encode('utf-8')
@@ -39,7 +43,6 @@ def login():
         curl = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         curl.execute("SELECT * FROM users WHERE email_user=%s", (email,))
         user = curl.fetchone()
-        # dump(user)
         curl.close()
 
         if len(user) > 0:
@@ -48,18 +51,14 @@ def login():
                 session['name'] = user['nama_user']
                 session['email'] = user['email_user']
                 session['role'] = user['role_id']
-                # return render_template("/public/index.html")
-                if user['role_id'] == 0:
-                    return redirect(url_for('cp_survey'))
-                elif user['role_id'] == 1:
-                    return redirect(url_for('pub_home'))
-
+                return render_template("public/homepage/index.html")
+                #return redirect(url_for('pub_home'))
             else:
-                return "Error password and email not match"
+                msg = "Error password and email not match"
         else:
-            return "Error user not found"
+            msg = "Error user not found"
     else:
-        return render_template("auth/login.html")
+        return render_template("auth/login.html", msg=msg)
 
 
 @app.route('/logout')

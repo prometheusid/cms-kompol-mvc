@@ -10,9 +10,9 @@ from project.models.Hello import Hello
 @app.route('/', methods = ['GET'])
 def pub_home():
     title = ("KOMUNIKASI POLITIK")
-    cur = mysql.connection.cursor()
+    """ cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM info ORDER BY info_id DESC LIMIT 1")
     info = cur.fetchone()
     cur.execute("SELECT * FROM tbl_forum ORDER BY forum_id DESC LIMIT 1")
-    data = cur.fetchone()
-    return render_template('public/homepage/index.html', data=data, info=info, title=title)
+    data = cur.fetchone() """
+    return render_template('public/homepage/index.html', title=title)

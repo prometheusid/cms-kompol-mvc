@@ -1,0 +1,48 @@
+{% extends '/dashboard/cp_base.html' %} {% block content %}
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <h4>{{title}}</h4>
+      </div>
+      <div class="col-6">
+        <a
+          href="{{url_for('tambahanggota')}}"
+          class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+          ><i class="fas fa-plus"></i>&nbsp; Tambah Anggota</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container-fluid">
+  <div class="col">
+    <div class="row">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Nama Anggota</th>
+            <th scope="col">Email Anggota</th>
+            <th scope="col">Partai</th>
+            <th scope="col">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data%}
+          <tr>
+            <td>{{row['nama_user']}}</td>
+            <td>{{row['email_user']}}</td>
+            <td>{{row['nama_partai']}}</td>
+            <td>
+              <a href="/dashboard/cp_anggota/delete/{{row['user_id']}}"
+                ><button class="btn btn-sm btn-danger">Hapus</button></a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

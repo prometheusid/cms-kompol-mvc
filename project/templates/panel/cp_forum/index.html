@@ -1,80 +1,48 @@
-{% extends '/panel/cp_base.html' %}
-
-{% block body %}
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>{{title}}</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-  <section class="content">
-      <div class="container-fluid">
+{% extends '/dashboard/cp_base.html' %}
+{% block content %}
+<section class="content-header">
+    <div class="container-fluid">
         <div class="row">
-          <div class="col-12">
-
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Data Forum Diskusi </h3> 
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row">
-                 
-                </div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
-                    <thead>
-                    <tr role="row">  
-                      <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">No</th>
-                      <th scope="col">Judul</th>
-                      <th scope="col">Tanggal</th>
-                      <th scope="col">author</th>
-                      <th scope="col">Aksi</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    
-      
-                    {% for row in data %}
-    
-                    <tr role="row" class="odd">
-                      <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
-                      <td>{{row['forum_judul']}}</td>
-                      <td>{{row['created_at']}}</td>
-                      <td>{{row['nama_user']}}</td>
-                      <td> <a href="/dashboard/cp_forum/delete/{{row['forum_id']}}"><button class="btn btn-sm btn-danger">Hapus</button></a></td>
-                    </tr>
-                    {% endfor %}  
-                  </tbody>
-                    <tfoot>
-                    <tr>
-                      <th rowspan="1" colspan="1">No</th>
-                      <th rowspan="1" colspan="1">Judul</th>
-                      <th rowspan="1" colspan="1">Tanggal</th>
-                      <th rowspan="1" colspan="1">Author</th>
-                      <th rowspan="1" colspan="1">Aksi</th>
-                    </tr>
-                    </tfoot>
-                  </table></div></div>
-              </div>
-              </div>
-              <!-- /.card-body -->
+            <div class="col-6">
+                <h4>{{title}}</h4>
             </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
+            <div class="col-6">
+                <a href="{{url_for('tambahforum')}}"
+                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus"></i>&nbsp; Edit
+                Forum</a>
+            </div>
         </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
-    </section>
+    </div><!-- /.container-fluid -->
+</section>
+<div class="containe-fluidr">
+    <div class="col">
+        <div class="row">
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">author</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data%}
+                    <tr>
+                        <td>{{row['forum_judul']}}</td>
+                        <td>{{row['created_at']}}</td>
+                        <td>{{row['user_id']}}</td>
+                        <td>
+                            <a href="/dashboard/cp_forum/delete/{{row['forum_id']}}"><button
+                                    class="btn btn-sm btn-danger">Hapus</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
 {% endblock %}

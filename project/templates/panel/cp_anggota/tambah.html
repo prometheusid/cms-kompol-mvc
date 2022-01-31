@@ -1,0 +1,53 @@
+{% extends '/dashboard/cp_base.html' %} {% block content %}
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <a
+          href="{{url_for('cp_anggota')}}"
+          class="d-none d-sm-inline-block btn btn-sm btn-default shadow-sm"
+          ><i class="fas fa-arrow-left"></i>&nbsp; Kembali
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form action="{{url_for('tambahanggota')}}" method="POST">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control form-control-user"
+            name="nameAnggota"
+            id="nameAnggota"
+            placeholder="Nama lengkap Anggota"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="email"
+            class="form-control form-control-user"
+            name="emailAnggota"
+            id="emailAnggota"
+            placeholder="Email anda"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            class="form-control form-control-user"
+            name="passwordAnggota"
+            id="passwordAnggota"
+            placeholder="Password"
+          />
+        </div>
+        <button type="submit" name="submit" class="btn btn-primary">
+          Simpan
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

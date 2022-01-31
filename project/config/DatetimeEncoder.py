@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, date
 
 class DatetimeEncoder(json.JSONEncoder):
     def default(self, obj):
