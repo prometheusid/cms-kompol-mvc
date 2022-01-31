@@ -54,9 +54,9 @@ def login():
                 return render_template("public/homepage/index.html")
                 #return redirect(url_for('pub_home'))
             else:
-                msg = "Error password and email not match"
+                return ('Error password and email not match')
         else:
-            msg = "Error user not found"
+            return ('Error user not found')
     else:
         return render_template("auth/login.html", msg=msg)
 
