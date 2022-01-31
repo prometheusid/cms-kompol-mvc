@@ -3,8 +3,11 @@
 
 ## Cara Running
 Aktifkan environment : "env\scripts\activate"
+
 masuk ke file cms-kompol-mvc : "cd cms-kompol-mvc"
+
 install requirements.txt : "pip install -r requirements.txt"
+
 running server : "python server.py"
 
 ## Flask
