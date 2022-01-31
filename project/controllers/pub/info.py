@@ -15,7 +15,7 @@ from project.models.Hello import Hello
 def info():
     title = ("INFO PUBLIK")
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * from info as a JOIN users as b ON a.user_id = b.user_id WHERE b.user_id ORDER BY created_at DESC")
+    cur.execute("SELECT * FROM info as a JOIN users as b ON a.user_id = b.user_id WHERE b.user_id ORDER BY a.created_at DESC")
     data = cur.fetchall()
     return render_template('public/info/index.html', data = data, title = title)
 
