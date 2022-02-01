@@ -6,6 +6,7 @@ from datetime import datetime
 from project.config.Database import mysql
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
+from bcrypt import hashpw
 """
     Import MOdels
 from project.models.Hello import Hello
@@ -14,7 +15,7 @@ from project.models.Hello import Hello
 @app.route("/registrasi", methods=["GET", "POST"])
 def registrasi():
     if request.method == 'GET':
-        return render_template('public/pub_login/registrasi.html')
+        return render_template('auth/registrasi.html')
     else:
         name = request.form['name']
         email = request.form['email']
@@ -46,12 +47,11 @@ def login():
         curl.close()
 
         if len(user) > 0:
-            if bcrypt.hashpw(password, user["password"].encode('utf-8')) == user["password"].encode('utf-8'):
+            if hashpw(password, user["password"].encode('utf-8')) == user["password"].encode('utf-8'):
                 session['id'] = user['user_id']
                 session['name'] = user['nama_user']
                 session['email'] = user['email_user']
                 session['role'] = user['role_id']
-                #return render_template("public/homepage/index.html")
                 return redirect(url_for('pub_home'))
             else:
                 return ('Error password and email not match')
