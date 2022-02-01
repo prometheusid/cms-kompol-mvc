@@ -1,25 +1,20 @@
-from ast import dump
 from project import app
-from flask import render_template, redirect, url_for, request, session, make_response
+from flask import render_template, redirect, url_for, request
 from datetime import datetime
 from project.config.Database import mysql
-from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
+from ..auth.auth import session
 
 @app.route("/profile/<id>")
 def profileuser(id):
     title = ("PROFILE")
-    profile = mysql.connection.cursor()
-    profile.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
                  JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id \
                  JOIN tbl_pendidikan ON tbl_Pendidikan.id_pendidikan=users.id_pendidikan WHERE users.user_id=%s", (id,))
-    profile = profile.fetchone()
+    profiles = cur.fetchone()
 
-    """ adm = mysql.connection.cursor()
-    adm.execute("SELECT * FROM users WHERE role_id=1")
-    adm = adm.fetchone() """
-
-    return render_template('public/profile/index.html', title=title, profile=profile)
+    return render_template('public/profile/index.html', title=title, profiles=profiles)
 
 @app.route("/profile/edit/<id>", methods=["GET", "POST"])
 def profileedit(id):
@@ -27,7 +22,7 @@ def profileedit(id):
     if request.method == 'GET':
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
-                    JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id WHERE user_id=%s", (id,))
+                    JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id WHERE users.user_id=%s", (id,))
         profile = cur.fetchone()
 
         edu = mysql.connection.cursor()

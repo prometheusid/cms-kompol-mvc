@@ -142,7 +142,7 @@
                   <li>
                     <a
                       class="dropdown-item nav-link"
-                      href="{{url_for('dashboard')}}"
+                      href="/dashboard/{{session['id']}}"
                       >Dashboard</a
                     >
                   </li>
@@ -185,7 +185,7 @@
                   <li>
                     <a
                       class="dropdown-item nav-link"
-                      href="/profile/{{profile.user_id}}"
+                      href="/profile/{{session['id']}}"
                       >Profile</a
                     >
                   </li>

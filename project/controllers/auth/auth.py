@@ -51,8 +51,8 @@ def login():
                 session['name'] = user['nama_user']
                 session['email'] = user['email_user']
                 session['role'] = user['role_id']
-                return render_template("public/homepage/index.html")
-                #return redirect(url_for('pub_home'))
+                #return render_template("public/homepage/index.html")
+                return redirect(url_for('pub_home'))
             else:
                 return ('Error password and email not match')
         else:

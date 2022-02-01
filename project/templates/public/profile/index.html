@@ -20,14 +20,10 @@
                 alt="User-Profile-Image"
               />
             </div>
-            {% if profile.role_id == 1 %}
-              <h4 class="f-w-700">{{profile.nama_user}}</h4>
-            {%  else %}
-            <h4 class="f-w-700">{{profile.nama_user}}</h4>
-            {%  endif %}
+            <h4 class="f-w-700">{{session['name']}}</h4>
             <br />
             <a
-              href="https://twitter.com/{{profile.akun_twitter}}"
+              href="https://twitter.com/{{profiles.akun_twitter}}"
               class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
             >
               <i
@@ -35,90 +31,74 @@
                 style="color: black"
                 aria-hidden="true"
               ></i
-              >&nbsp; @{{profile.akun_twitter}}
+              >&nbsp; @{{profiles.akun_twitter}}
             </a>
             <br />
             <br />
             <br />
-            {% if session['id'] %}
             <a
-              href="/profile/edit/{{profile.user_id}}"
+              href="/profile/edit/{{session['id']}}"
               class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
             >
               <i class="fas fa-user-edit"></i>&nbsp; Edit</a
             >
-            {% endif %}
           </div>
         </div>
         <div class="col-sm-8">
           <div class="card-block">
             <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+            {% if profiles.role_id == 4 %}
             <div class="row">
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Email</p>
-                <h6 class="text-muted f-w-400">{{profile.email_user}}</h6>
+                <h6 class="text-muted f-w-400">{{session['email']}}</h6>
               </div>
-              {% if profile.role_id == 1 %}
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Role</p>
+                <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
+              </div>
+            </div>
+            {% endif %} {% if session['id'] == 3 and 2 %}
+            <div class="row">
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Email</p>
-                <h6 class="text-muted f-w-400">{{profile.email_user}}</h6>
-              </div>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Role</p>
-                <h6 class="text-muted f-w-400">{{profile.role_user}}</h6>
-              </div>
-              {% endif %}
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Role</p>
-                <h6 class="text-muted f-w-400">{{profile.role_user}}</h6>
+                <h6 class="text-muted f-w-400">{{session['email']}}</h6>
               </div>
             </div>
-            {% if profile.role_id == 2 %}
             <div class="row">
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Partai</p>
-                <h6 class="text-muted f-w-400">{{profile.nama_partai}}</h6>
+                <h6 class="text-muted f-w-400">{{profiles.nama_partai}}</h6>
               </div>
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Role</p>
-                <h6 class="text-muted f-w-400">{{profile.role_user}}</h6>
-              </div>
-            </div>
-            {% endif %} {% if profile.role_id == 3 %}
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Partai</p>
-                <h6 class="text-muted f-w-400">{{profile.nama_partai}}</h6>
-              </div>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Role</p>
-                <h6 class="text-muted f-w-400">{{profile.role_user}}</h6>
+                <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Pendidikan</p>
-                <h6 class="text-muted f-w-400">{{profile.pendidikan}}</h6>
+                <h6 class="text-muted f-w-400">{{profiles.pendidikan}}</h6>
               </div>
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Pengalaman</p>
-                <h6 class="text-muted f-w-400">{{profile.pengalaman}}</h6>
+                <h6 class="text-muted f-w-400">{{profiles.pengalaman}}</h6>
               </div>
             </div>
             {% endif %}
             <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Timeline</h6>
-            {% if profile.created_at == true %}
+            {% if profiles.created_at == 1 %}
             <div class="row">
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Joined</p>
                 <h6 class="text-muted f-w-400">
-                  {{profile.created_at.strftime('%d %B %Y - %H:%M')}}
+                  {{profiles.created_at.strftime('%d %B %Y - %H:%M')}}
                 </h6>
               </div>
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Last Update</p>
                 <h6 class="text-muted f-w-400">
-                  {{profile.updated_at.strftime('%d %B %Y - %H:%M')}}
+                  {{profiles.updated_at.strftime('%d %B %Y - %H:%M')}}
                 </h6>
               </div>
             </div>

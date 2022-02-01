@@ -46,11 +46,11 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="" class="brand-link">
+            <a href="{{ url_for('pub_home')}}" class="brand-link">
                 <span class="brand-text font-weight-light">Komunikasi Politik</span>
             </a>
 
-            <!-- Sidebar -->
+        z    <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -78,7 +78,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url_for('cp_lapkun')}}" class="nav-link">
+                            <a href="{{ url_for('cp_forum')}}" class="nav-link">
                                 <p>
                                     Laporan Kunjungan
                                 </p>

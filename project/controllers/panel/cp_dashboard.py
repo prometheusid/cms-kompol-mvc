@@ -7,10 +7,9 @@ from datetime import datetime
 from project.models.Hello import Hello
 """
 # dashboard / cpanel admin
-@app.route("/dashboard")
-def dashboard():
-    user_role = session['role']
-    if user_role == 0 and user_role != None:
-        return render_template('panel/cp_dashboard/index.html')
-    else:
-        return redirect(url_for('pub_home'))
+@app.route("/dashboard/<id>")
+def dashboard(id):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM users WHERE user_id=%s", (id,))
+    user = cur.fetchone()
+    return render_template('panel/cp_dashboard/index.html', user=user)
