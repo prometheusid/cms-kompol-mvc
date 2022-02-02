@@ -62,7 +62,8 @@
                 >Login</a
               >
             </li>
-            {% else %} {% if session['role'] < 3 %}
+            {% endif %} 
+            {% if session['role'] == 1 %}
             <li class="nav-item">
               <div class="dropdown">
                 <a
@@ -74,7 +75,7 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <i class="fas fa-user-alt"></i>&nbsp;&nbsp;{{session['name']}} {{session['role']}}
+                  <i class="fas fa-user-alt"></i>&nbsp;&nbsp;{{session['name']}}
                 </a>
                 <ul class="dropdown-menu">
                   <li>
@@ -104,7 +105,94 @@
                 </ul>
               </div>
             </li>
-            {% endif %} {% endif %} {% if session['role'] == 4 %}
+            {% endif %} 
+            {% if session['role'] == 2 %}
+            <li class="nav-item">
+              <div class="dropdown">
+                <a
+                  class="btn dropdown-toggle nav-link"
+                  style="color: white"
+                  href="#"
+                  role="button"
+                  id="dropdownMenuLink"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-user-alt"></i>&nbsp;&nbsp;{{session['name']}}
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      class="dropdown-item nav-link"
+                      href="/dashboard/{{session['id']}}"
+                      >Dashboard</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item nav-link"
+                      href="/profile/{{session['id']}}"
+                      >Profile</a
+                    >
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item nav-link"
+                      href="{{url_for('logout')}}"
+                      >Logout</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </li>
+            {% endif %}
+            {% if session['role'] == 3 %}
+            <li class="nav-item">
+              <div class="dropdown">
+                <a
+                  class="btn dropdown-toggle nav-link"
+                  style="color: white"
+                  href="#"
+                  role="button"
+                  id="dropdownMenuLink"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-user-alt"></i>&nbsp;&nbsp;{{session['name']}}
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      class="dropdown-item nav-link"
+                      href="/dashboard/{{session['id']}}"
+                      >Dashboard</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item nav-link"
+                      href="/profile/{{session['id']}}"
+                      >Profile</a
+                    >
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item nav-link"
+                      href="{{url_for('logout')}}"
+                      >Logout</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </li>
+            {% endif %}
+            {% if session['role'] == 4 %}
             <li class="nav-item">
               <div class="dropdown">
                 <a

@@ -44,7 +44,7 @@
             <br />
             <br />
             <a
-              href="/profile/{{session['id']}}"
+              href="/profile/{{session['name']}}"
               class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
             >
               <i class="fas fa-arrow-left"></i>&nbsp; Kembali</a
@@ -100,6 +100,7 @@
                       type="password"
                       class="form-control form-control-user"
                       name="password"
+                      value="{{profile.password}}"
                       id="txtPassword"
                     />
                   </div>
@@ -111,19 +112,34 @@
                       type="password"
                       class="form-control form-control-user"
                       name="password"
+                      value="{{profile.password}}"
                       id="txtConfirmPassword"
                     />
                   </div>
                 </div>
               </div>
+              {% if profile.role_id == 2 %}
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Twitter Account</p>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control form-control-user"
+                    name="twitter"
+                    id="twitter"
+                    value="{{profile.akun_twitter}}"
+                  />
+                </div>
+              </div>
+              {% endif %}
               {% if profile.role_id == 3 %}
               <div class="row">
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Last Education</p>
                   <div class="form-group">
-                    <select class="form-control" name="education">
+                    <select class="form-control" name="education" method="GET">
                       {% for column in edu %}
-                      <option value="{{column['id_pendidikan']}}">
+                      <option value="{{column['id_pendidikan']}}" selected>
                         {{column['pendidikan']}}
                       </option>
                       {% endfor %}
@@ -154,6 +170,20 @@
                       id="pengalaman"
                     >{{profile.pengalaman}}</textarea>
                   </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if profile.role_id == 4 %}
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Twitter Account</p>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control form-control-user"
+                    name="twitter"
+                    id="twitter"
+                    value="{{profile.akun_twitter}}"
+                  />
                 </div>
               </div>
               {% endif %}
