@@ -1,0 +1,40 @@
+{% extends '/public/pub_base.html' %} {% block content %}
+<section class="py-5" style="margin-top: 20px">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
+            <h1 class="h3 mb-0 text-white-800">LAPORAN KUNJUNGAN</h1>
+            {% if session['id'] %}
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="fas fa-plus"></i>&nbsp; Tambah Baru</a>
+            {% endif %}
+        </div>
+        {% for column in data %}
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <ol>
+                    <li class="row">
+                        <a class="thread-link" href="#">
+                            <p style="margin-right: 1.5em">#</p>
+                            <h4 class="forum-title">#</h4>
+                            <br />
+                            <div class="bottom">
+                                {% if data.updated_at %}
+                                <p style="margin-right: 1.5em">
+                                    Terakhir diperbaharui : #
+                                </p>
+                                {% else %}
+                                <p style="margin-right: 1.5em">
+                                    Terakhir diperbaharui : #
+                                </p>
+                                {% endif %}
+                                <p class="comment-count">{{counting}} comments</p>
+                            </div>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
