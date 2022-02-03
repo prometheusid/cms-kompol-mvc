@@ -1,5 +1,5 @@
 {% extends '/public/pub_base.html' %} {% block content %}
-<section class="py-5" style="margin-top: 20px">
+<section class="py-5" style="margin-top: 40px;">
   <div class="container">
     <div
       class="d-sm-flex align-items-center justify-content-between mb-4"
@@ -44,7 +44,7 @@
             <br />
             <br />
             <a
-              href="/profile/{{session['name']}}"
+              href="/profile/{{session['id']}}"
               class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
             >
               <i class="fas fa-arrow-left"></i>&nbsp; Kembali</a

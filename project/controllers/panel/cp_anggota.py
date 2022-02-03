@@ -8,7 +8,7 @@ import bcrypt
 @app.route("/dashboard/anggota")
 def cp_anggota():
     title = ("TAMBAH ANGGOTA")
-    if 'loggedin' in session and session['role'] == 2:
+    if 'loggedin' in session and session['role'] == 2 and session['role'] == 1:
         par = mysql.connection.cursor()
         par.execute("SELECT users.nama_user, users.email_user, tbl_partai.nama_partai FROM users JOIN tbl_partai \
                      WHERE users.partai_id = tbl_partai.partai_id ORDER BY users.created_at DESC")
@@ -23,10 +23,10 @@ def cp_anggota():
 
 @app.route("/dashboard/anggota/tambah", methods=["GET", "POST"])
 def tambahanggota(): 
-    if request.method == 'GET' and 'loggedin' in session and session['role'] == 2:
+    if request.method == 'GET' and 'loggedin' in session and session['role'] == 2 and session['role'] == 1:
         return render_template('panel/cp_anggota/tambah.html')
     else:
-        if 'loggedin' in session and session['role'] == 2: 
+        if 'loggedin' in session and session['role'] == 2 and session['role'] == 1: 
             nameAnggota = request.form['nameAnggota']
             emailAnggota = request.form['emailAnggota']
             passwordAnggota = request.form['passwordAnggota'].encode('utf-8')
@@ -48,7 +48,7 @@ def tambahanggota():
 
 @app.route("/dashboard/anggota/delete/<id>")
 def hapus_anggota(id):
-    if 'loggedin' in session and session['role'] == 2 :
+    if 'loggedin' in session and session['role'] == 2 and session['role'] == 1:
         cur = mysql.connection.cursor()
         cur.execute("DELETE FROM users WHERE forum_id=%s", (id,))
         mysql.connection.commit()
