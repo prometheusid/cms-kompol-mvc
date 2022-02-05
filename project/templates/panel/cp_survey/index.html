@@ -1,4 +1,4 @@
-{% extends '/panel/cp_base.html' %}
+{% extends '/panel/cp_base1.html' %}
 
 {% block body %}
     <!-- Content Header (Page header) -->
@@ -26,6 +26,9 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">DPRD / <a href="#">Partai</a></h3> 
+                <div class="card-tools">
+                  <a class="btn btn-success" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal_add" href="#"><i class="fas fa-plus"></i>&nbsp;Tambah Jadwal</a>
+              </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -75,5 +78,47 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+
+    <!-- Modal add -->
+    <div class="modal fade" id="modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Tambah Pertanyaan</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <form action="/survey/tambah-question" method="POST">
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label for="code"><span style="color: red">*</span> Code</label>
+                          <input type="text" class="form-control" id="code" name="code" value="{{value}}" required readonly>
+                        </div>  
+                        <div class="form-group">
+                            <label for="question"><span style="color: red">*</span> Pertanyaan</label>
+                            <input type="text" class="form-control" id="question" name="question" placeholder="Pertanyaan" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="variabel"><span style="color: red">*</span> Variabel</label>
+                          <select class="form-control variabel" id="variabel" name="variabel" required>
+                              <option value="1">Partai</option>
+                              <option value="2">DPR</option>
+                          </select>
+                      </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                  <button class="btn btn-success">Tambah</button>
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>
+  <!-- END Modal add -->
 {% endblock %}
 
