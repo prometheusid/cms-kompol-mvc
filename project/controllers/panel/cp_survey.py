@@ -24,3 +24,8 @@ def cp_survey():
 def cp_survey_question():
     data = Survey.addDataQuestion()
     return redirect(url_for('cp_survey'))
+
+@app.route("/survey/delete/<int:id>")
+def hapus_survey(id):
+    data = Survey.deleteDataQuestion(id)
+    return redirect(url_for('cp_survey'))
