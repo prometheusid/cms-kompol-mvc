@@ -5,25 +5,17 @@
       <div class="col">
         <form action="/pub_info/tambahinfo" method="POST">
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"
-              >Judul Info</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="judul-info"
-              name="judul-info"
-            />
+            <label for="exampleFormControlInput1" class="form-label">Judul Info</label>
+            <input type="text" class="form-control" id="judul-info" name="judul-info" />
           </div>
           <div class="mb-3">
             <label class="form-label">Isi Info</label>
-            <textarea
-              class="form-control"
-              id="summernote"
-              rows="3"
-              name="isi-info"
-            ></textarea>
+            <textarea class="form-control" id="summernote" rows="3" name="isi-info"></textarea>
           </div>
+          <div class="forum-group">
+            <label for="file">Upload File PDF</label><br>
+            <input type=file name=file>
+          </div><br>
           <button type="submit" name="submit" class="btn btn-primary">
             Simpan
           </button>
@@ -34,7 +26,7 @@
 </section>
 <script>
   $("#summernote").summernote({
-    placeholder: "Hello stand alone ui",
+    placeholder: "Tulis sesuatu disini",
     tabsize: 2,
     height: 120,
     toolbar: [
