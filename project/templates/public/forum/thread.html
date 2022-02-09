@@ -16,11 +16,11 @@
                     <h4 style="color: white;">{{data.forum_judul}}</h4>
                 </p>
                 <div class="bottom">
-                    <p style="margin-right: 1.5em; color: white;">Oleh : {{data.nama_user}}</p>
+                    <p style="margin-right: 1.5em; color: white;">{{data.nama_user}}</p>
                     {% if data.updated_at %}
-                    <p style="margin-right: 1.5em; color: white;">Terakhir diperbaharui : {{data.updated_at.strftime('%d %B %Y - %H:%M')}}</p>
+                    <p style="margin-right: 1.5em; color: white;">Terakhir diperbaharui : <br> {{data.updated_at.strftime('%d %B %Y - %H:%M')}}</p>
                     {% else %}
-                    <p style="margin-right: 1.5em; color: white;">Terakhir diperbaharui : {{data.created_at.strftime('%d %B %Y - %H:%M')}}</p>
+                    <p style="margin-right: 1.5em; color: white;">{{data.created_at.strftime('%d %B %Y - %H:%M')}}</p>
                     {% endif %}
                 </div>
             </div>
@@ -39,23 +39,31 @@
         </div>
         {% for column in comment %}
         <div class="row">
-            <div class="card shadow col-sm-2 bg-c-lite-green" style=" margin-left: 10px; margin-right: 10px; height: 15%">
-                  <div class="user-profile">
-                    <div class="card-block text-center text-white" style="margin-top: -10px;">
+            <!-- <div class="card shadow col-sm-2 mb-4 bg-c-lite-green" style=" margin-left: 10px; margin-right: 10px; height: 15%; width: 20%;">
+                  <div class="card-body">
+                    <div class="card-block text-center text-white" >
                       <h5 class="f-w-700">{{column['nama_user']}}</h5>
                       <br />
                       <p>{{column.created_at.strftime('%d %B %Y - %H:%M')}}</p>
                     </div>
                 </div>
+            </div> -->
+
+            <div class="card shadow col-sm-2 bg-c-lite-green" style=" margin-left: 10px; margin-right: 10px; height: 15%">
+                <div class="card-body">
+                    <div class="card-block text-center text-white" >
+                        <h5 class="f-w-700">{{column['nama_user']}}</h5>
+                        <br />
+                        <p>{{column.created_at.strftime('%d %B %Y - %H:%M')}}</p>
+                      </div>
+                </div>
             </div>
         
-        <div class="card shadow col-sm-9" style="width: 81%;">
+        <div class="card shadow col-sm-7" style="width: 81%;">
             <div class="row m-l-0 m-r-0">
-              <div class="col-sm-8">
-                <div class="card-block" style="width: 1000px;">
-                  <h6 style="font-weight: normal;">{{column['komentar']|safe}}</h6>
+                <div class="card-block" style="width: 100%;">
+                    <h6 style="font-weight: normal;">{{column['komentar']|safe}}</h6>
                 </div>
-              </div>
             </div>
         </div>
     </div>
