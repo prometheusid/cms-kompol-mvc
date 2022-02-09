@@ -39,8 +39,8 @@
                   <tr role="row">
                     <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">No</th>
                     <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Pertanyaan</th>
-                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Variabel</th>
                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Date Created</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Aksi</th>
                     
                   </tr>
                   </thead>
@@ -52,8 +52,10 @@
                   <tr role="row" class="odd">
                     <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
                     <td tabindex="0" class="sorting_1">{{row['question']}}</td>
-                    <td>{{row['variabel']}}</td>
                     <td>{{row['created_date']}}</td>
+                    <td>
+                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_delete{{row['id_survey_question']}}">Hapus</button>
+                  </td>
                   </tr>
                   {% endfor %}  
                 </tbody>
@@ -61,7 +63,6 @@
                   <tr>
                     <th rowspan="1" colspan="1">No</th>
                     <th rowspan="1" colspan="1">Pertanyaan</th>
-                    <th rowspan="1" colspan="1">Variabel</th>
                     <th rowspan="1" colspan="1">Created Date</th>
                   </tr>
                   </tfoot>
@@ -120,5 +121,30 @@
       </div>
   </div>
   <!-- END Modal add -->
+
+  <!-- Modal Delete -->
+  <!-- Modal -->
+  {% for row in data %}
+  <div class="modal fade" id="modal_delete{{row['id_survey_question']}}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal_delete{{row['id_survey_question']}}">Anda Akan Menghapus Pertanyaan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Yakin akan menghapus data?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+          <a href="/survey/delete/{{row['id_survey_question']}}"><button class="btn btn-sm btn-danger">Ya, Hapus</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
 {% endblock %}
 
