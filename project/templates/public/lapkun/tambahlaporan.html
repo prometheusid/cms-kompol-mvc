@@ -1,0 +1,39 @@
+{% extends '/public/pub_base.html' %} {% block content %}
+<section class="py-5" style="margin-top: 40px">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="/laporankunjungan/tambahlaporan" method="POST">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Judul Laporan</label>
+                        <input type="text" class="form-control" id="judul-laporan" name="judul-laporan" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Isi Laporan</label>
+                        <textarea class="form-control" id="summernote" rows="3" name="isi-laporan"></textarea>
+                    </div>
+                    <button type="submit" name="submit" class="btn btn-primary">
+                        Simpan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $("#summernote").summernote({
+        placeholder: "Tulis sesuatu disini",
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+            ["style", ["style"]],
+            ["font", ["bold", "underline", "clear"]],
+            ["color", ["color"]],
+            ["para", ["ul", "ol", "paragraph"]],
+            ["table", ["table"]],
+            ["insert", ["link", "picture", "video"]],
+            ["view", ["fullscreen", "codeview", "help"]],
+        ],
+    });
+</script>
+{% endblock %}
