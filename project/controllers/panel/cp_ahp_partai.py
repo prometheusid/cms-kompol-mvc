@@ -5,7 +5,7 @@ from datetime import datetime
 
 # Import models
 from project.models.Ahp import Ahp
-from project.models.Matrix import Matrix
+from project.models.Criteria import Criteria
 
 
 # #route index
@@ -33,7 +33,7 @@ def cp_ahp_partai_q():
     # fetch data from model
     # TODO : tampilkan semua data dan bisa melakukan perhitungan lagi.
     # untuk Score mending lakukakn dengan ulang agar score bisa diambil dari data yg paling baru
-    data = Matrix.perbandingan([3, 3, 0.33, 3, 0.2, 0.33], 4)
+    data = Criteria.perbandingan([3, 3, 0.33, 3, 0.2, 0.33], 4)
     return str(data)
 
 # @app.route("/survey/tambah-question", methods=["GET", "POST"])
