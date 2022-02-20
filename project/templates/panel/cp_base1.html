@@ -89,7 +89,6 @@
     </script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
@@ -123,7 +122,7 @@
                 <span class="brand-text font-weight-light">Komunikasi Politik</span>
             </a>
 
-        z    <!-- Sidebar -->
+            <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -183,10 +182,36 @@
                                 </a>
                               </li>
                             </ul>
-                          </li>
-                        </ul>
+                        </li>
                         <!-- Akhir Menu Survey -->
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-chart-bar"></i>
+                                <p>
+                                  AHP
+                                  <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
                 
+                            <ul class="nav nav-treeview">
+                                <!-- Sub Menu - Data Survey -->
+                                <li class="nav-item">
+                                <a href="/dashboard/ahp/partai" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Partai</p>
+                                </a>
+                                </li>
+                
+                                <!-- Sub Menu - Hasil Survey -->
+                                <li class="nav-item">
+                                <a href="/dashboard/ahp/dewan" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Dewan</p>
+                                </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- End menu AHP -->                
                     </ul>
                 </nav>
                 {% if session['role'] <= 2 %}

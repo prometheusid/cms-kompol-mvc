@@ -1,0 +1,94 @@
+{% extends '/panel/cp_base1.html' %}
+
+{% block body %}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>{{title}}</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item">
+            <!-- TODO : Generate Hasil Perhitungan Ahp Terbaru dengan memperhitungkan data2 terbaru -->
+            <a class="btn btn-success" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+              href="#">Generate</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+
+        <div class="card">
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+              <div class="row">
+
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid"
+                    aria-describedby="example1_info">
+                    <thead>
+                      <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">No
+                        </th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+                          Partai</th>
+                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-label="Browser: activate to sort column ascending">
+                          Komunikator</th>
+                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-label="Browser: activate to sort column ascending">
+                          Popularitas</th>
+                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-label="Browser: activate to sort column ascending">
+                          Akuntabilitas</th>
+                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-label="Browser: activate to sort column ascending">
+                          Integritas</th>
+                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-label="Platform(s): activate to sort column ascending">
+                          Score</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for row in data %}
+                      <tr role="row" class="odd">
+                        <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
+                        <td tabindex="0" class="sorting_1">{{row['nama_partai']}}</td>
+                        <td>{{row['komunikator_jumlah_partai']}}</td>
+                        <td>{{row['popularitas_partai']}}</td>
+                        <td>{{row['laporan_jumlah_partai']}}</td>
+                        <td>{{row['integritas_jumlah_partai']}}</td>
+                        <td>{{row['score']}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+{% endblock %}

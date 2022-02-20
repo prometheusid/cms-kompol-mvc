@@ -1,0 +1,42 @@
+from project import app
+from flask import render_template, redirect, url_for, request, session
+from project.config.Database import mysql
+from datetime import datetime
+
+# Import models
+from project.models.Ahp import Ahp
+from project.models.Matrix import Matrix
+
+
+# #route index
+
+# 1. index untuk menampilkan data keseluruhan
+# 2. create untuk tombol memlih create/or function dll.
+# 3. store create/add from database(menyimpan)
+# 4. show (menampilkan satu bagian)
+# 5. edit (untuk redirect tombol edit)
+# 6. update (untuk update data yg baru)
+# 7. destroy (hapus)
+
+@app.route("/dashboard/ahp/partai")
+def cp_ahp_partai():
+    title = ("Ahp Partai")
+    # fetch data from model
+    # TODO : tampilkan semua data dan bisa melakukan perhitungan lagi.
+    # untuk Score mending lakukakn dengan ulang agar score bisa diambil dari data yg paling baru
+    data = Ahp.fetchValue()
+    return render_template('panel/cp_ahp_partai/index.html', data=data, title=title)
+
+@app.route("/dashboard/ahp/partai/test")
+def cp_ahp_partai_q():
+    title = ("Ahp Partai")
+    # fetch data from model
+    # TODO : tampilkan semua data dan bisa melakukan perhitungan lagi.
+    # untuk Score mending lakukakn dengan ulang agar score bisa diambil dari data yg paling baru
+    data = Matrix.perbandingan([3, 3, 0.33, 3, 0.2, 0.33], 4)
+    return str(data)
+
+# @app.route("/survey/tambah-question", methods=["GET", "POST"])
+# def cp_survey_question():
+#     data = Survey.addDataQuestion()
+#     return redirect(url_for('cp_survey'))
