@@ -30,3 +30,8 @@ def detailinfo(id):
     title = ("INFO PUBLIK")
     data = Info.detailDataInfo(id)
     return render_template('public/info/detail.html', data=data, title=title)
+
+@app.route('/uploads/<filename>')
+def uploadedFiles(filename=''):
+    from flask import send_from_directory
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
