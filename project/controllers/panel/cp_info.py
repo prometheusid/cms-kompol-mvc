@@ -6,18 +6,17 @@ from datetime import datetime
     Import MOdels
 from project.models.Hello import Hello
 """
+# Import models
+from project.models.Info import Info
+
 @app.route('/dashboard/cp_info')
 def cp_info():
     title = ('INFO PUBLIK')
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM info as a join users as b on a.user_id = b.user_id")
-    data = cur.fetchall()
+    data = Info.fetchInfo()
     return render_template('panel/cp_info/index.html', data=data, title=title)
 
 
 @app.route("/dashboard/cp_info/delete/<int:id>")
 def hapus_info(id):
-    cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM info WHERE info_id=%s", (id,))
-    mysql.connection.commit()
+    data = Info.deleteDataInfo(id)
     return redirect(url_for('cp_info'))
