@@ -1,16 +1,12 @@
 {% extends '/public/pub_base.html' %} {% block content %}
 <section class="py-5" style="margin-top: 40px">
   <div class="container-sm">
-    <div
-      class="d-sm-flex align-items-center justify-content-between mb-4"
-      style="margin-top: 2rem"
-    >
+    <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
       <h1 class="h3 mb-0 text-white-800">INFO PUBLIK</h1>
-      <a
-        href="{{ url_for('tambahinfo') }}"
-        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-        ><i class="fas fa-plus"></i>&nbsp; Tambah Baru</a
-      >
+      {% if session['id'] %}
+      <a href="{{ url_for('tambahinfo') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+          class="fas fa-plus"></i>&nbsp; Tambah Baru</a>
+      {% endif %}
     </div>
     {% for row in data%}
 
@@ -20,6 +16,7 @@
           <li class="row">
             <a class="thread-link" href="info/detail/{{row['info_id']}}">
               <h4 class="forum-title">{{row['judul_info']}}</h4>
+              <p><img src="{{ url_for('uploadedFiles', filename=row['thumb']) }}" /></p>
               <div class="bottom">
                 <p style="margin-right: 1.5em">{{row['created_at']}}</p>
                 <p class="comment-count">Oleh : {{row['nama_user']}}</p>
