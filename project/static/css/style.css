@@ -114,3 +114,18 @@ a {
   .nav-link {
     color: white;
   }
+
+.thmb {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
+
+.image-up {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: auto;
+}
