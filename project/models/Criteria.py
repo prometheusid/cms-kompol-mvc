@@ -1,4 +1,3 @@
-from array import array
 import math
 
 def aksen(nilai):
@@ -12,11 +11,18 @@ def nilai_eigen(criteria , total):
     x = criteria / total
     return x
 
+def sum_avg_eigen(jumlah, n):
+    x = jumlah / n
+    return x
+
+# TODO : bisa dicari untuk ri berapa2nya 
+
 class Criteria():
     def perbandingan(value, n):
         data = {}
         criteria = []
         eigen = []
+        rata_eigen = []
 
         # Masukan criteria ke dalam matrix perbadingan
         temp = 0
@@ -42,7 +48,10 @@ class Criteria():
         # Row Eigen
         jumlah_eigen = list(map(sum, eigen))
         # Row Rata-rata Eigen
+        # TODO : Bisa di cek knp gagal menggunakan 
         rata_eigen = map(lambda x: x/n, jumlah_eigen)
+        for i in range(n):
+            rata_eigen.append(sum_avg_eigen(jumlah_eigen[i], n)) 
         # Cek eigen apakah 1 jika sesuai berarti benar
         cek_eigen = sum(map(lambda x: x, rata_eigen))
         # Menghitung lambda
