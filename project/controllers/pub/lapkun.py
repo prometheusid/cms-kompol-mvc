@@ -9,15 +9,18 @@ from project.models.Hello import Hello
 
 # route index
 
-@app.route("/laporankunjungan/")
+
+@app.route("/kunjungan/")
 def lapkun():
     title = ('LAPORAN KUNJUNGAN')
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM tbl_lapkun as a JOIN users as b ON a.user_id = b.user_id WHERE b.user_id ORDER BY a.created_at DESC")
+    cur.execute(
+        "SELECT * FROM tbl_lapkun as a JOIN users as b ON a.user_id = b.user_id WHERE b.user_id ORDER BY a.created_at DESC")
     data = cur.fetchall()
     return render_template("/public/lapkun/index.html", data=data, title=title)
 
-@app.route("/laporankunjungan/thread/<int:id>")
+
+@app.route("/kunjungan/thread/<int:id>")
 def lapkun_thread(id):
     title = ('LAPORAN KUNJUNGAN')
     cur = mysql.connection.cursor()
@@ -26,7 +29,8 @@ def lapkun_thread(id):
     data = cur.fetchone()
     return render_template("/public/lapkun/thread.html", data=data, title=title)
 
-@app.route("/laporankunjungan/tambahlaporan", methods=["GET", "POST"])
+
+@app.route("/kunjungan/tambahlaporan", methods=["GET", "POST"])
 def tambahlaporan():
     title = ("LAPORAN KUNJUNGAN")
     if request.method == 'GET':
