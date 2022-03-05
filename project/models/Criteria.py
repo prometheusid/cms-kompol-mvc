@@ -47,9 +47,7 @@ class Criteria():
             eigen.append(temp)
         # Row Eigen
         jumlah_eigen = list(map(sum, eigen))
-        # Row Rata-rata Eigen
-        # TODO : Bisa di cek knp gagal menggunakan 
-        rata_eigen = map(lambda x: x/n, jumlah_eigen)
+        # Row Rata-rata Eigen 
         for i in range(n):
             rata_eigen.append(sum_avg_eigen(jumlah_eigen[i], n)) 
         # Cek eigen apakah 1 jika sesuai berarti benar
