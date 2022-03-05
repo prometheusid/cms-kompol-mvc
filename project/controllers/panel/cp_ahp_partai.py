@@ -27,14 +27,24 @@ def cp_ahp_partai():
     data = Ahp.fetchValue()
     return render_template('panel/cp_ahp_partai/index.html', data=data, title=title)
 
-@app.route("/dashboard/ahp/bobot")
+@app.route("/dashboard/ahp/bobot", methods=["GET", "POST"])
 def cp_ahp_partai_bobot():
     title = ("Ahp bobot")
     # fetch data from model
     # TODO : tampilkan semua data dan bisa melakukan perhitungan lagi.
     # untuk Score mending lakukakn dengan ulang agar score bisa diambil dari data yg paling baru
     data = Ahp.fetchValue()
-    return render_template('panel/cp_ahp_partai/bobot.html', data=data, title=title)
+    criteria = ""
+    if (request.form) :
+        c12 = request.form['c12']
+        c13 = request.form['c13']
+        c14 = request.form['c14']
+        c23 = request.form['c23']
+        c24 = request.form['c24']
+        c34 = request.form['c34']
+        criteria = Criteria.perbandingan([c12, c13, c14, c23, c24, c34], 4)
+
+    return render_template('panel/cp_ahp_partai/bobot.html', data=data, criteria=str(criteria), title=title)
 
 @app.route("/dashboard/ahp/partai/test", methods=["GET", "POST"]) 
 def cp_ahp_partai_q():
