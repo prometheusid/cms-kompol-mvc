@@ -1,6 +1,5 @@
 {% extends '/public/pub_base.html' %}
 {% block content %}
-<section class="py-5" style="margin-top: 40px;">
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
             <h1 class="h3 mb-0 text-white-800"></h1>
@@ -38,35 +37,23 @@
             </div>
         </div>
         {% for column in comment %}
-        <div class="row">
-            <!-- <div class="card shadow col-sm-2 mb-4 bg-c-lite-green" style=" margin-left: 10px; margin-right: 10px; height: 15%; width: 20%;">
-                  <div class="card-body">
-                    <div class="card-block text-center text-white" >
-                      <h5 class="f-w-700">{{column['nama_user']}}</h5>
-                      <br />
-                      <p>{{column.created_at.strftime('%d %B %Y - %H:%M')}}</p>
-                    </div>
-                </div>
-            </div> -->
-
-            <div class="card shadow col-sm-2 bg-c-lite-green" style=" margin-left: 10px; margin-right: 10px; height: 15%">
-                <div class="card-body">
+        <div class="card user-card-full" >
+            <div class="row m-l-0 m-r-0">
+                <div class="col-sm-2 bg-c-lite-green" style="height: 15%; border-radius: 10px;">
                     <div class="card-block text-center text-white" >
                         <h5 class="f-w-700">{{column['nama_user']}}</h5>
                         <br />
                         <p>{{column.created_at.strftime('%d %B %Y - %H:%M')}}</p>
-                      </div>
+                    </div>
                 </div>
-            </div>
-        
-        <div class="card shadow col-sm-7" style="width: 81%;">
-            <div class="row m-l-0 m-r-0">
-                <div class="card-block" style="width: 100%;">
-                    <h6 style="font-weight: normal;">{{column['komentar']|safe}}</h6>
+                        
+                <div class="col-lg-10" >
+                        <div class="card-block">
+                            <h6 style="font-weight: normal;">{{column['komentar']|safe}}</h6>
+                        </div>
                 </div>
             </div>
         </div>
-    </div>
         {% endfor %}
         {% if session['id'] %}
         <div class="card shadow mb-4">
@@ -86,7 +73,6 @@
         </div>
                 {% endif %}
     </div>
-</section>
 <script>
     $('#summernote').summernote({
         tabsize: 2,
