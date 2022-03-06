@@ -16,3 +16,9 @@ class Ahp:
         data["nilai"] = nilai
         data["tambahan"] = 10
         return data
+    
+    def fetchCriteriaPartai():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from tbl_criteria_partai WHERE id = 1 ")
+        data = cur.fetchone()
+        return data

@@ -27,6 +27,15 @@ def cp_ahp_partai():
     data = Ahp.fetchValue()
     return render_template('panel/cp_ahp_partai/index.html', data=data, title=title)
 
+
+@app.route("/dashboard/ahp/bobot/partai")
+def cp_bobot_partai():
+    # memanggil hasil data dari tabel tbl_criteria_partai
+    # simpan kedalam sebuah tabel untuk menampilkan tabel tersebut.
+    data = Ahp.fetchCriteriaPartai()
+    return data
+
+
 @app.route("/dashboard/ahp/partai/test")
 def cp_ahp_partai_q():
     title = ("Ahp Partai")

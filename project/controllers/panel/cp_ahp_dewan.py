@@ -23,7 +23,10 @@ from project.models.Survey import Survey
 
 @app.route("/dashboard/ahp/dewan")
 def cp_ahp_dewan():
-    return "Sedang dibuat sabar dan kalem wak"
+    # TODO : get konstatnta from table criteria ahp
+    # 2. menmpilkan contoh perhitungan yang akan dipakai
+    # 3. bisa menampilkan data yang digunakan
+    return render_template('panel/cp_ahp_dewan/index.html')
 
 # @app.route("/survey/tambah-question", methods=["GET", "POST"])
 # def cp_survey_question():
