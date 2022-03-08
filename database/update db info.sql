@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2022 at 07:40 AM
+-- Generation Time: Mar 08, 2022 at 05:33 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -31,7 +31,7 @@ CREATE TABLE `info` (
   `info_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `judul_info` varchar(255) DEFAULT NULL,
-  `isi_info` varchar(255) DEFAULT NULL,
+  `isi_info` text DEFAULT NULL,
   `thumb` varchar(255) NOT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -41,8 +41,7 @@ CREATE TABLE `info` (
 --
 
 INSERT INTO `info` (`info_id`, `user_id`, `judul_info`, `isi_info`, `thumb`, `created_at`) VALUES
-(25, 30, 'Cosplayer & Vtuber', '<p>Cosplayer satu ini memiliki 1jt follower di Twitter .. .. ..&nbsp;</p><p>Dia sangat terkenal di Jepang sana&nbsp;</p>', 'FMCDm9macAQ0MXi.jpg', '2022-02-21 12:44:39'),
-(26, 30, 'Akari Kitou', '', '43SgANYtj7vpsHmz68hgPDlxC15.jpg', '2022-02-21 13:08:14');
+(28, 30, 'Vaksin Ke 2 Untuk Guru dan Karyawan SD/MI Pundong', '<p><span style=\"color: rgb(34, 34, 34); font-family: &quot;Droid Serif&quot;, sans-serif, Helvetica, Arial; font-size: 16px; background-color: rgb(255, 255, 255);\">Vaksin tahap ke 2 untuk guru dan karyawan Sekolah Dasar di lingkungan Kapanewon Pundong dilakukan di lingkungan kapanewon, Senin (5/4). Semua petugas dari Puskesmas Pundong telah disiapkan sejak pagi dibantu dari Polsek dan Koramil Pundong untuk membantu mengatasi antrian.Dari data yang diundang sebanyak 180 orang yang hadir 179 dan satu orang baru dalam keadaan sakit. (Dib).</span><br></p>', 'img730_IMG_20210405_083500.jpg', '2022-03-08 11:19:05');
 
 --
 -- Indexes for dumped tables
@@ -62,7 +61,7 @@ ALTER TABLE `info`
 -- AUTO_INCREMENT for table `info`
 --
 ALTER TABLE `info`
-  MODIFY `info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
