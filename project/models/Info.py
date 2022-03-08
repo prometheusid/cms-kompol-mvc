@@ -19,6 +19,12 @@ class Info:
         cur.execute("SELECT * FROM info as a JOIN users as b ON a.user_id = b.user_id WHERE b.user_id ORDER BY a.created_at DESC")
         data = cur.fetchall()
         return data
+    
+    def fetchInfo3():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM info as a JOIN users as b ON a.user_id = b.user_id WHERE b.user_id ORDER BY a.created_at DESC LIMIT 6")
+        data = cur.fetchall()
+        return data
 
     def allowed_file(filename):
         return '.' in filename and \
