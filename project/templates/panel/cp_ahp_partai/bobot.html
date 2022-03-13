@@ -1,274 +1,319 @@
 {% extends '/panel/cp_base1.html' %}
 
 {% block body %}
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>{{title}}</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-  <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Bobot Kriteria Partai / <a href="#">Bobot Kriteria DPRD</a></h3> 
-                <div class="card-tools">
-                  <a class="btn btn-success" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal_add" href="#"><i class="fas fa-plus"></i>&nbsp;Tambah Perbandingan</a>
-              </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row">
-                 
-              </div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
-                  <thead>
-                  <tr role="row">
-                    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">No</th>
-                    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Pertanyaan</th>
-                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Date Created</th>
-                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Aksi</th>
-                    
-                  </tr>
-                  </thead>
-                  <tbody>
-                  
-    
-                  {% for row in data %}
-
-                  <tr role="row" class="odd">
-                    <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
-                    <td tabindex="0" class="sorting_1">{{row['question']}}</td>
-                    <td>{{row['created_date']}}</td>
-                    <td>
-                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_delete{{row['id_survey_question']}}">Hapus</button>
-                  </td>
-                  </tr>
-                  {% endfor %}  
-                </tbody>
-                  <tfoot>
-                  <tr>
-                    <th rowspan="1" colspan="1">No</th>
-                    <th rowspan="1" colspan="1">Pertanyaan</th>
-                    <th rowspan="1" colspan="1">Created Date</th>
-                  </tr>
-                  </tfoot>
-                </table></div></div>
-              </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>{{title}}</h1>
+        <h3 class="card-title">Bobot Kriteria Partai / <a href="#">Bobot Kriteria DPRD</a></h3>
       </div>
-      <!-- /.container-fluid -->
-    </section>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
 
-    <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-  
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Hitung Bobot Kriteria</h3> 
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row">
-                   
-                </div><div class="row"><div class="col-sm-12">
-                    <form action="/dashboard/ahp/bobot" method="POST">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="question"><span style="color: red">*</span> C1 - C2</label>
-                                <input type="number" class="form-control" id="question" name="c12" placeholder="Perbandingan C1 - C2" required>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="question"><span style="color: red">*</span> C1 - C3</label>
-                                <input type="number" class="form-control" id="question" name="c13" placeholder="Perbandingan C1 - C3" required>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="question"><span style="color: red">*</span> C1 - C4</label>
-                                <input type="number" class="form-control" id="question" name="c14" placeholder="Perbandingan C1 - C4" required>
-                            </div>
-                        </div>
-                    </div>
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
 
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="question"><span style="color: red">*</span> C2 - C3</label>
-                                <input type="number" class="form-control" id="question" name="c23" placeholder="Perbandingan C2 - C3" required>
-                            </div>
-                        </div>     
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="question"><span style="color: red">*</span> C2 - C4</label>
-                                <input type="number" class="form-control" id="question" name="c24" placeholder="Perbandingan C2 - C4" required>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="question"><span style="color: red">*</span> C3 - C4</label>
-                                <input type="number" class="form-control" id="question" name="c34" placeholder="Perbandingan C3 - C4" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <button class="btn btn-success">Hitung</button> 
-                    </div>  
-                </form>         
-                </div></div>
-                </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-            </div>
-            <!-- /.col -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Matrix Perbandingan Antar Kriteria</h3>
           </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
-      </section>
 
-      {% if(criteria != "") %}
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-  
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Hitung Bobot Kriteria</h3> 
+          <div class="card-body">
+            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <!-- Tabel hanya untuk partai -->
+                  <table class="table table-bordered table-striped dataTable dtr-inline"
+                    aria-describedby="example1_info">
+
+                    <thead>
+                      <tr role="row">
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending"
+                          aria-label="Rendering engine: activate to sort column descending">
+
+                        </th>
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending"
+                          aria-label="Rendering engine: activate to sort column descending">
+                          Komunikator Politik</th>
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-label="Platform(s): activate to sort column ascending">Popularitas</th>
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-label="Platform(s): activate to sort column ascending">Akuntabilitas</th>
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-label="Platform(s): activate to sort column ascending">Integritas</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {% for i in range(0,4) %}
+                      <tr role="row" class="odd">
+                        <th scope="row">{{value['name_criteria'][i]}}</th>
+                        <td>{{value['criteria'][i][0]}}</td>
+                        <td>{{value['criteria'][i][1]}}</td>
+                        <td>{{value['criteria'][i][2]}}</td>
+                        <td>{{value['criteria'][i][3]}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+
+                    <tfoot>
+                      <tr>
+                        <th scope="row">Rata-rata nilai eigen</th>
+                        <td>{{value['rata_eigen'][0]}}</td>
+                        <td>{{value['rata_eigen'][1]}}</td>
+                        <td>{{value['rata_eigen'][2]}}</td>
+                        <td>{{value['rata_eigen'][3]}}</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+
+                  <br>
+
+                  <table class="table table-bordered table-striped dataTable dtr-inline"
+                    aria-describedby="example1_info">
+                    <tbody>
+                      <tr role="row" class="odd">
+                        <th scope="row">Consistency Index</th>
+                        <td>{{value['ci']}}</td>
+                      </tr>
+                      <tr role="row" class="odd">
+                        <th scope="row">Consistency Ratio</th>
+                        <td>{{value['cr']}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row">
-                    {{criteria}}
-                </div><div class="row"><div class="col-sm-12">
-                    <form action="/dashboard/ahp/bobot" method="POST">
-                    
-                    <div class="text-right">
-                        <button class="btn btn-success">Hitung</button> 
-                    </div>  
-                </form>         
-                </div></div>
-                </div>
-                </div>
-                <!-- /.card-body -->
               </div>
-              <!-- /.card -->
             </div>
-            <!-- /.col -->
           </div>
-          <!-- /.row -->
+          <!-- /.card-body -->
         </div>
-        <!-- /.container-fluid -->
-      </section>
-      {% endif %}
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
 
-    <!-- Modal add -->
-    <div class="modal fade" id="modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Perbandingan Bobot</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Hitung Bobot Kriteria</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+              <div class="row">
+
               </div>
-              <form action="/dashboard/ahp/partai/test" method="POST">
-              <div class="modal-body">
-                  <div class="row">
-                      <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-12">
+                  <form action="/dashboard/ahp/bobot" method="POST">
+                    <div class="row">
+                      <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="question"><span style="color: red">*</span> C1 - C2</label>
-                            <input type="number" class="form-control" id="question" name="c12" placeholder="Perbandingan C1 - C2" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="question"><span style="color: red">*</span> C1 - C3</label>
-                            <input type="number" class="form-control" id="question" name="c13" placeholder="Perbandingan C1 - C3" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="question"><span style="color: red">*</span> C1 - C4</label>
-                            <input type="number" class="form-control" id="question" name="c14" placeholder="Perbandingan C1 - C4" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="question"><span style="color: red">*</span> C2 - C3</label>
-                            <input type="number" class="form-control" id="question" name="c23" placeholder="Perbandingan C2 - C3" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="question"><span style="color: red">*</span> C2 - C4</label>
-                            <input type="number" class="form-control" id="question" name="c24" placeholder="Perbandingan C2 - C4" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="question"><span style="color: red">*</span> C3 - C4</label>
-                            <input type="number" class="form-control" id="question" name="c34" placeholder="Perbandingan C3 - C4" required>
+                          <label for="question"><span style="color: red">*</span> C1 - C2</label>
+                          <input type="number" class="form-control" id="question" name="c12"
+                            placeholder="Perbandingan C1 - C2" required>
                         </div>
                       </div>
-                  </div>
-              </div>
-              <div class="modal-footer">
-                  <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                  <button class="btn btn-success">Tambah</button>
-              </div>
-            </form>
-          </div>
-      </div>
-  </div>
-  <!-- END Modal add -->
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="question"><span style="color: red">*</span> C1 - C3</label>
+                          <input type="number" class="form-control" id="question" name="c13"
+                            placeholder="Perbandingan C1 - C3" required>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="question"><span style="color: red">*</span> C1 - C4</label>
+                          <input type="number" class="form-control" id="question" name="c14"
+                            placeholder="Perbandingan C1 - C4" required>
+                        </div>
+                      </div>
+                    </div>
 
-  <!-- Modal Delete -->
-  <!-- Modal -->
-  {% for row in data %}
-  <div class="modal fade" id="modal_delete{{row['id_survey_question']}}">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal_delete{{row['id_survey_question']}}">Anda Akan Menghapus Pertanyaan</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="question"><span style="color: red">*</span> C2 - C3</label>
+                          <input type="number" class="form-control" id="question" name="c23"
+                            placeholder="Perbandingan C2 - C3" required>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="question"><span style="color: red">*</span> C2 - C4</label>
+                          <input type="number" class="form-control" id="question" name="c24"
+                            placeholder="Perbandingan C2 - C4" required>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label for="question"><span style="color: red">*</span> C3 - C4</label>
+                          <input type="number" class="form-control" id="question" name="c34"
+                            placeholder="Perbandingan C3 - C4" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <button class="btn btn-success">Hitung</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
         </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+{% if(criteria != "") %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Hitung Bobot Kriteria</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+              <div class="row">
+                {{criteria}}
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <form action="/dashboard/ahp/bobot" method="POST">
+
+                    <div class="text-right">
+                      <button class="btn btn-success">Hitung</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+{% endif %}
+
+<!-- Modal add -->
+<div class="modal fade" id="modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Perbandingan Bobot</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/dashboard/ahp/partai/test" method="POST">
         <div class="modal-body">
-          <p>Yakin akan menghapus data?</p>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="question"><span style="color: red">*</span> C1 - C2</label>
+                <input type="number" class="form-control" id="question" name="c12" placeholder="Perbandingan C1 - C2"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label for="question"><span style="color: red">*</span> C1 - C3</label>
+                <input type="number" class="form-control" id="question" name="c13" placeholder="Perbandingan C1 - C3"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label for="question"><span style="color: red">*</span> C1 - C4</label>
+                <input type="number" class="form-control" id="question" name="c14" placeholder="Perbandingan C1 - C4"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label for="question"><span style="color: red">*</span> C2 - C3</label>
+                <input type="number" class="form-control" id="question" name="c23" placeholder="Perbandingan C2 - C3"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label for="question"><span style="color: red">*</span> C2 - C4</label>
+                <input type="number" class="form-control" id="question" name="c24" placeholder="Perbandingan C2 - C4"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label for="question"><span style="color: red">*</span> C3 - C4</label>
+                <input type="number" class="form-control" id="question" name="c34" placeholder="Perbandingan C3 - C4"
+                  required>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
-          <a href="/survey/delete/{{row['id_survey_question']}}"><button class="btn btn-sm btn-danger">Ya, Hapus</button></a>
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+          <button class="btn btn-success">Tambah</button>
         </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END Modal add -->
+
+<!-- Modal Delete -->
+<!-- Modal -->
+{% for row in data %}
+<div class="modal fade" id="modal_delete{{row['id_survey_question']}}">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal_delete{{row['id_survey_question']}}">Anda Akan Menghapus Pertanyaan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Yakin akan menghapus data?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+        <a href="/survey/delete/{{row['id_survey_question']}}"><button class="btn btn-sm btn-danger">Ya,
+            Hapus</button></a>
       </div>
     </div>
   </div>
-  {% endfor %}
+</div>
+{% endfor %}
 
 {% endblock %}
-
