@@ -50,35 +50,29 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-<!-- Page Content -->
-<!-- <section class="py-5">
-  <div class="container">
-    <h1 class="fw-light">KOMUNIKASI POLITIK</h1>
-    <p class="lead">Shofa Shofia Hilabi, M.Kom</p>
-  </div>
-</section> -->
 
 <!-- ##### Top News Area Start ##### -->
 <div class="top-news-area">
   <div class="container">
     <div class="row">
-
+      {% for laporans in laporan%}
       <!-- Single News Area -->
       <div class="col-12 col-sm-6 col-lg-4">
         <div class="single-blog-post style-2 mb-5">
             <!-- Blog Thumbnail -->
             <div class="blog-thumbnail">
-              <a href="#"><img src="img/bg-img/4.jpg" alt=""></a>
+              <a href="#"><img src="/static/assets/front/img/lapkun/thumbnail.jpg" alt=""></a>
             </div>
 
             <!-- Blog Content -->
           <div class="blog-content">
-            <span class="post-date">June 20, 2018</span>
-            <a href="#" class="post-title">Elon Musk: Tesla worker admitted to sabotage</a>
-            <a href="#" class="post-author">By Michael Smith</a>
+            <span class="post-date">{{laporans['created_at']}}</span>
+            <a href="#" class="post-title">{{laporans['lapkun_judul']}}</a>
+            <a href="#" class="post-author">Oleh {{laporans['nama_user']}}</a>
           </div>
         </div>
       </div>
+      {% endfor %}
 <!-- 
       <div class="col-12">
         <div class="load-more-button text-center">
@@ -92,7 +86,7 @@
 <!-- ##### Top News Area End ##### -->
 
 <!-- ##### Intro News Area Start ##### -->
-<section class="intro-news-area section-padding-100-0 mb-70">
+<section class="intro-news-area section mb-70">
   <div class="container">
     <div class="row justify-content-center">
       <!-- Intro News Tabs Area -->
@@ -148,7 +142,7 @@
 
           <!-- Newsletter Widget -->
           <div class="single-widget-area newsletter-widget mb-30">
-            <h4>Survey Pendapat</h4>
+            <h4>Survey DPRD dan Partai Pilihan Anda</h4>
             <form action="#" method="post">
               <!-- <textarea></textarea> -->
               <!-- <input type="text" name="nl-email" id="nlemail" placeholder="Masukan Pendapat Anda"> -->
@@ -163,5 +157,57 @@
   </div>
 </section>
 <!-- ##### Intro News Area End ##### -->
+<!-- ##### Video Area Start ##### -->
+<section class="video-area bg-img bg-overlay bg-fixed" style="background-image: url(/static/assets/front/img/lapkun/thumbnail.jpg);">
+  <!-- Featured Video Area -->
+  <!-- <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="featured-video-area d-flex align-items-center justify-content-center">
+          <div class="video-content text-center">
+            <a href="#" class="video-btn"><i class="fa fa-play" aria-hidden="true"></i></a>
+            <span class="published-date">June 20, 2018</span>
+            <h3 class="video-title">Traffic Problems in Time Square</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Video Slideshow -->
+  <div class="video-slideshow py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- Video Slides -->
+          <div class="video-slides owl-carousel">
+            {% for forums in forum %}
+            <!-- Single News Area -->
+            <div class="single-blog-post style-3">
+              <!-- Blog Thumbnail -->
+              <div class="blog-thumbnail">
+                <a href="#"><img src="/static/assets/front/img/lapkun/forums.jpg" alt=""></a>  
+              </div>
+
+              <!-- Blog Content -->
+              <div class="blog-content">
+                {% if forum.updated_at %}
+                <span class="post-date">{{forums.updated_at.strftime('%d %B %Y - %H:%M')}}</span>
+                {% else %}
+                <span class="post-date">{{forums.created_at.strftime('%d %B %Y - %H:%M')}}</span>
+                {% endif %}
+                <p class="post-title">{{forums['forum_judul']}}</p>
+                <a href="#" class="post-author">{{forums['nama_user']}} - <i class="fas fa-comment"></i> comments</a>
+              </div>
+            </div>
+            {% endfor %}
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ##### Video Area End ##### -->
 
 {% endblock %}
