@@ -166,15 +166,62 @@
   <main>
     {% block content %} {% endblock %}
   </main> 
-  
+  <!-- ##### Footer Area Start ##### -->
+	<footer class="footer-area">
+		<!-- Footer Logo -->
+		<!-- <div class="footer-logo nav-brand">
+			
+      <a href="index.html"><h4>Oleh : Shofa Shofia</h4></a>
+		</div> -->
+		<!-- Footer Content -->
+		<div class="container mt-100">
+			<div class="row">
+				<div class="col-12">
+					<div class="footer-content text-center">
+						<!-- Footer Nav -->
+						<div class="footer-nav">
+							<ul>
+								<li><a href="#">Contact Us</a></li>
+								<li><a href="https://goo.gl/maps/XeP8QjwgiZkk1yx7A" target="_blank">Site Map</a></li>
+							</ul>
+						</div>
+						<!-- Social Info -->
+						<div class="footer-social-info">
+              <a href="https://www.youtube.com/channel/UCDMDPa0iVwQRArTmdqe9l1g" target="_blank" data-toggle="tooltip" data-placement="top" title="youtube"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+							<a href="https://www.instagram.com/reaksisaintek/" target="_blank" data-toggle="tooltip" data-placement="top" title="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+              <a href="https://wa.me/6281286081016" target="_blank" data-toggle="tooltip" data-placement="top" title="whatsapp"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+							<a href="#" data-toggle="tooltip" data-placement="top" title="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+							<a href="#" data-toggle="tooltip" data-placement="top" title="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+						</div>
+
+						<p class="mb-15">"MODEL MEDIA SOSIAL UNTUK KOMUNIKASI POLITIK ANTARA ANGGOTA DPRD, PARTAI POLITIK DAN WARGA NEGARA" <br>- Shofa Shofia -</p>
+
+						<!-- Copywrite Text -->
+						<p class="copywrite-text"><a href="https://www.instagram.com/reaksisaintek/" target="_blank">
+						Copyright &copy;<script>document.write(new Date().getFullYear());</script> | All Right Deserved </p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- ##### Footer Area Start ##### -->
     <!-- bootstraps 5 js -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
   </script>
-
-  <script src="https://kit.fontawesome.com/8da0a2e753.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css">
   </script>
+  <script src="{{url_for ('static', filename='/assets/front/js/jquery/jquery-2.2.4.min.js') }}"></script>
+  <!-- Popper js -->
+	<script src="{{url_for ('static', filename='/assets/front/js/bootstrap/popper.min.js') }}"></script>
+  <!-- All Plugins js -->
+  <!-- Bootstrap js -->
+	<!-- <script src="{{url_for ('static', filename='/assets/front/jsjs/bootstrap/bootstrap.min.js') }}"></script> -->
+	<script src="{{url_for ('static', filename='/assets/front/js/plugins/plugins.js')}}"></script>
+	<!-- Active js -->
+	<script src="{{url_for ('static', filename='/assets/front/js/active.js')}}"></script>
+  <script src="https://kit.fontawesome.com/8da0a2e753.js" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
