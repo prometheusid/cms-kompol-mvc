@@ -5,9 +5,15 @@ from flask import render_template, redirect, url_for, request, session
 
 class Survey:
     
-    def fetchQuestion():
+    def fetchQuestionDPRD():
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * from tbl_survey_question ORDER BY created_date DESC")
+        cur.execute("SELECT * from tbl_survey_question WHERE variabel = 2 ORDER BY created_date ASC")
+        data = cur.fetchall()
+        return data
+
+    def fetchQuestionPartai():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from tbl_survey_question WHERE variabel = 1 ORDER BY created_date ASC")
         data = cur.fetchall()
         return data
 
@@ -17,8 +23,8 @@ class Survey:
         variabel = request.form['variabel']
         created_date = datetime.now()
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO `tbl_survey_question` (`id_survey_question`, `code`, `question`, `variabel`, `created_date`) VALUES (%s,%s,%s,%s,%s)",
-                    ('Null', code, question, variabel, created_date))
+        cur.execute("INSERT INTO `tbl_survey_question` (`code`, `question`, `variabel`, `created_date`) VALUES (%s,%s,%s,%s)",
+                    (code, question, variabel, created_date))
         alt = mysql.connection.cursor()
         alt.execute(f"ALTER TABLE `tbl_answer_column` ADD {code} VARCHAR(255) NULL DEFAULT NULL")
         mysql.connection.commit()

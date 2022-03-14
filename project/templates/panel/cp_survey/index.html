@@ -25,9 +25,9 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">DPRD / <a href="#">Partai</a></h3> 
+                <h3 class="card-title">DPRD / <a href="/dashboard/survey/question/partai">Partai</a></h3> 
                 <div class="card-tools">
-                  <a class="btn btn-success" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal_add" href="#"><i class="fas fa-plus"></i>&nbsp;Tambah Jadwal</a>
+                  <a class="btn btn-success" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal_add" href="#"><i class="fas fa-plus"></i>&nbsp;Tambah Pertanyaan</a>
               </div>
               </div>
               <!-- /.card-header -->
@@ -39,7 +39,7 @@
                   <tr role="row">
                     <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">No</th>
                     <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Pertanyaan</th>
-                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Date Created</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Variabel</th>
                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Aksi</th>
                     
                   </tr>
@@ -52,20 +52,25 @@
                   <tr role="row" class="odd">
                     <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
                     <td tabindex="0" class="sorting_1">{{row['question']}}</td>
-                    <td>{{row['created_date']}}</td>
+                    {% if row['variabel'] == '2' %}
+                    <!-- <td>{{row['created_date']}}</td> -->
+                    <td>DPRD</td>
+                    {% elif row['variabel'] == '1' %}
+                    <td>PARTAI</td>
+                    {% endif %}
                     <td>
                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_delete{{row['id_survey_question']}}">Hapus</button>
                   </td>
                   </tr>
                   {% endfor %}  
                 </tbody>
-                  <tfoot>
+                  <!-- <tfoot>
                   <tr>
                     <th rowspan="1" colspan="1">No</th>
                     <th rowspan="1" colspan="1">Pertanyaan</th>
                     <th rowspan="1" colspan="1">Created Date</th>
                   </tr>
-                  </tfoot>
+                  </tfoot> -->
                 </table></div></div>
               </div>
               </div>
@@ -106,7 +111,7 @@
                           <label for="variabel"><span style="color: red">*</span> Variabel</label>
                           <select class="form-control variabel" id="variabel" name="variabel" required>
                               <option value="1">Partai</option>
-                              <option value="2">DPR</option>
+                              <option value="2">DPRD</option>
                           </select>
                       </div>
                       </div>

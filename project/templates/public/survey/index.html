@@ -1,0 +1,5 @@
+{% for row in data%}
+<p> Question {{data.index(row)+1}}: {{row}} 
+    <input type="text" class="input-block-level" placeholder="Enter Question {{data.index(row)+1}}" autocomplete="off" name="row{{data.index(row)}}">
+</p>
+{% endfor %}
