@@ -126,7 +126,7 @@
 
                               <!-- Blog Content -->
                               <div class="blog-content">
-                                  <span class="post-date">{{infos['created_at']}}</span>
+                                  <span class="post-date">{{infos.created_at.strftime('%d %b %Y')}}</span>
                                   <span class="post-date"> - {{infos['nama_user']}}</span>
                                   <a href="#" class="post-title">{{infos['judul_info']}}</a>
                               </div>

@@ -25,9 +25,38 @@ def lapkun_thread(id):
     title = ('LAPORAN KUNJUNGAN')
     cur = mysql.connection.cursor()
     cur.execute(
-        "SELECT * FROM tbl_lapkun as a LEFT JOIN users as b ON a.user_id = b.user_id WHERE a.lapkun_id=%s", (id,))
+        "SELECT * FROM tbl_lapkun as a \
+        LEFT JOIN users as b ON a.user_id = b.user_id \
+        LEFT JOIN tbl_detail_forum as c ON c.lapkun_id = a.lapkun_id \
+        WHERE a.lapkun_id=%s", (id,))
     data = cur.fetchone()
-    return render_template("/public/lapkun/thread.html", data=data, title=title)
+
+    # Get Count commentar
+    count = mysql.connection.cursor()
+    count.execute(
+        "SELECT count('lapkun_id') FROM tbl_detail_forum  WHERE lapkun_id=%s", (id,))
+    num_of_items = [v for v in count.fetchone().values()][0]
+
+    # Get data commentar
+    com = mysql.connection.cursor()
+    com.execute(
+        "SELECT * FROM tbl_detail_forum as a JOIN users as b ON a.user_id = b.user_id WHERE a.lapkun_id=%s", (id,))
+    comment = com.fetchall()
+    return render_template("/public/lapkun/thread.html", data=data, title=title, comment=comment, counting=num_of_items)
+
+
+@app.route("/kunjungan/thread/<int:id>", methods=["POST"])
+def komentarlapkun(id):
+    idKomen = request.form['idKomen']
+    idLapkun = request.form['idLapkun']
+    komen = request.form['komen']
+    komenUser = session['id']
+    waktu = datetime.now()
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO tbl_detail_forum (id_detail_forum, lapkun_id, komentar, user_id, created_at) VALUES (%s,%s,%s,%s,%s)",
+                (idKomen, idLapkun, komen, komenUser, waktu))
+    mysql.connection.commit()
+    return redirect(url_for('lapkun_thread', id=id))
 
 
 @app.route("/kunjungan/tambahlaporan", methods=["GET", "POST"])
