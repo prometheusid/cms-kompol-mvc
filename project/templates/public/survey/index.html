@@ -1,5 +1,23 @@
-{% for row in data%}
-<p> Question {{data.index(row)+1}}: {{row}} 
-    <input type="text" class="input-block-level" placeholder="Enter Question {{data.index(row)+1}}" autocomplete="off" name="row{{data.index(row)}}">
-</p>
-{% endfor %}
+{% extends '/public/pub_base.html' %} {% block content %}
+<div class="container">
+  <div
+    class="d-sm-flex align-items-center justify-content-between mb-4"
+    style="margin-top: 2rem;"
+  >
+    <h1 class="h3 mb-0 text-white-800">{{title}}</h1>
+  </div>
+</div>
+<div class="container">
+  <div class="card user-card-full">
+    <div class="card text-center" style="padding: 1rem;">
+      <h5>Pilih Survey</h5>
+      <p>Berikan tanggapan dan penilaian anda.</p>
+      
+      <a href="/survey-dprd" class="btn btn-small btn-primary">Survey DPRD</a>
+      <br>
+      <a href="/survey-partai" class="btn btn-small btn-success">Survey Partai</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends '/public/pub_base.html' %} {% block content %}
+<div class="container">
+    <div
+      class="d-sm-flex align-items-center justify-content-between mb-4"
+      style="margin-top: 2rem"
+    >
+      <h1 class="h3 mb-0 text-white-800">{{title}}</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="card user-card-full">
+        <div style="margin-left: 1rem; margin-top: 1rem;">
+            <p>Berikan penilaian terhadap pertanyaan yang diajukan</p>
+            <p>1 - Sangat Tidak Setuju</p>
+            <p>2 - Tidak Setuju</p>
+            <p>3 - Netral</p>
+            <p>4 - Setuju</p>
+            <p>5 - Sangat Setuju</p>
+          </div>
+        <br>
+        <form action="/surveys/save" method="POST">
+        <div class="mx-0 mx-sm-auto">
+            <div class="text-left" style="margin-left: 1rem;">
+                <p>
+                  <strong>Pilih Salah Satu Anggota DPRD </strong>
+                </p>
+            </div>
+
+            <div class="col-12" style="padding-left: 1rem; padding-right: 1rem;">
+                <select class="form-control" name="id_dprd">
+                    <option>Default select</option>
+                </select>
+            </div>
+            <hr>
+            {% for row in data%}
+            <div class="text-left" style="margin-left: 1rem;">
+              <p>
+                <strong>{{row['question']}} </strong>
+                <input type="hidden" id="id" name="id" value="1">
+                <input type="hidden" id="id_question{{data.index(row)+1}}" name="id_question{{data.index(row)+1}}" value="{{row['id_survey_question']}}">
+              </p>
+            </div>
+          
+            <div class="text-center mb-3">
+              <div class="d-inline mx-3">
+                Tidak Setuju
+              </div>
+          
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="row{{data.index(row)+1}}" id="row{{data.index(row)+1}}"
+                  value="1" />
+                <label class="form-check-label" for="inlineRadio1">1</label>
+              </div>
+          
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="row{{data.index(row)+1}}" id="row{{data.index(row)+1}}"
+                  value="2" />
+                <label class="form-check-label" for="inlineRadio2">2</label>
+              </div>
+          
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="row{{data.index(row)+1}}" id="row{{data.index(row)+1}}"
+                  value="3" />
+                <label class="form-check-label" for="inlineRadio3">3</label>
+              </div>
+          
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="row{{data.index(row)+1}}" id="row{{data.index(row)+1}}"
+                  value="4" />
+                <label class="form-check-label" for="inlineRadio4">4</label>
+              </div>
+          
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="row{{data.index(row)+1}}" id="row{{data.index(row)+1}}"
+                  value="5" />
+                <label class="form-check-label" for="inlineRadio5">5</label>
+              </div>
+              <div class="d-inline me-4">
+                Sangat Setuju
+              </div>
+            </div>
+            <hr>
+            {% endfor %}
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </form>
+            </div>
+            <br>
+          </div>
+    </div> 
+</div>
+
+  {% endblock %}
