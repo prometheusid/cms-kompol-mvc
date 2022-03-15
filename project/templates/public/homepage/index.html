@@ -61,14 +61,14 @@
         <div class="single-blog-post style-2 mb-5">
             <!-- Blog Thumbnail -->
             <div class="blog-thumbnail">
-              <a href="#"><img src="/static/assets/front/img/lapkun/thumbnail.jpg" alt=""></a>
+              <a href="/kunjungan/thread/{{laporans['lapkun_id']}}"><img src="/static/assets/front/img/lapkun/thumbnail.jpg" alt=""></a>
             </div>
 
             <!-- Blog Content -->
           <div class="blog-content">
             <span class="post-date">{{laporans['created_at']}}</span>
-            <a href="#" class="post-title">{{laporans['lapkun_judul']}}</a>
-            <a href="#" class="post-author">Oleh {{laporans['nama_user']}}</a>
+            <a href="/kunjungan/thread/{{laporans['lapkun_id']}}" class="post-title">{{laporans['lapkun_judul']}}</a>
+            <a href="/kunjungan/thread/{{laporans['lapkun_id']}}" class="post-author">Oleh {{laporans['nama_user']}}</a>
           </div>
         </div>
       </div>
@@ -99,7 +99,7 @@
               <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       <a class="nav-item nav-link active" id="nav1" data-toggle="tab" href="#nav-1" role="tab" aria-controls="nav-1" aria-selected="true">Terbaru</a>
-                      <a class="nav-item nav-link" id="nav2" data-toggle="tab" href="#nav-2" role="tab" aria-controls="nav-2" aria-selected="false">Berita Lainnya</a>
+                      <a class="nav-item nav-link" id="nav2" data-toggle="tab" href="/info" role="tab" aria-controls="nav-2" aria-selected="false">Berita Lainnya</a>
                   </div>
               </nav>
           </div>
@@ -115,14 +115,14 @@
                           <div class="single-blog-post d-flex style-4 mb-30">
                               <!-- Blog Thumbnail -->
                               <div class="blog-thumbnail">
-                                  <a href="#"><img src="{{ url_for('uploadedFiles', filename=infos['thumb']) }}" alt=""></a>
+                                  <a href="info/detail/{{infos['info_id']}}"><img src="{{ url_for('uploadedFiles', filename=infos['thumb']) }}" alt=""></a>
                               </div>
 
                               <!-- Blog Content -->
                               <div class="blog-content">
                                   <span class="post-date">{{infos.created_at.strftime('%d %b %Y')}}</span>
                                   <span class="post-date"> - {{infos['nama_user']}}</span>
-                                  <a href="#" class="post-title">{{infos['judul_info']}}</a>
+                                  <a href="info/detail/{{infos['info_id']}}" class="post-title">{{infos['judul_info']}}</a>
                               </div>
                           </div>
                       </div>
@@ -160,21 +160,6 @@
 <!-- ##### Video Area Start ##### -->
 <section class="video-area bg-img bg-overlay bg-fixed" style="background-image: url(/static/assets/front/img/lapkun/thumbnail.jpg);">
   <!-- Featured Video Area -->
-  <!-- <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="featured-video-area d-flex align-items-center justify-content-center">
-          <div class="video-content text-center">
-            <a href="#" class="video-btn"><i class="fa fa-play" aria-hidden="true"></i></a>
-            <span class="published-date">June 20, 2018</span>
-            <h3 class="video-title">Traffic Problems in Time Square</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- Video Slideshow -->
   <div class="video-slideshow py-5">
     <div class="container">
       <div class="row">
@@ -186,7 +171,7 @@
             <div class="single-blog-post style-3">
               <!-- Blog Thumbnail -->
               <div class="blog-thumbnail">
-                <a href="#"><img src="/static/assets/front/img/lapkun/forums.jpg" alt=""></a>  
+                <a href="/forum/thread/{{forums['forum_id']}}"><img src="/static/assets/front/img/lapkun/forums.jpg" alt=""></a>  
               </div>
 
               <!-- Blog Content -->
@@ -197,7 +182,7 @@
                 <span class="post-date">{{forums.created_at.strftime('%d %B %Y - %H:%M')}}</span>
                 {% endif %}
                 <p class="post-title">{{forums['forum_judul']}}</p>
-                <a href="#" class="post-author">{{forums['nama_user']}} - <i class="fas fa-comment"></i> comments</a>
+                <a href="/forum/thread/{{forums['forum_id']}}" class="post-author">{{forums['nama_user']}} - <i class="fas fa-comment"></i> comments</a>
               </div>
             </div>
             {% endfor %}
