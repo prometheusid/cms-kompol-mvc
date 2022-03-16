@@ -2,6 +2,7 @@ from project import app
 from project.config.Database import mysql
 from datetime import datetime
 from flask import render_template, redirect, url_for, request, session
+from flask_mysqldb import MySQLdb
 
 # generate random integer values
 from random import seed
@@ -159,3 +160,28 @@ class Survey:
 
         alt.execute(sql_dprd, val_answer_pil)
         mysql.connection.commit()
+    
+    def saveAHPPartai():
+        
+        id_partai = request.form['id_partai']
+        post_score_eksistensi = request.form['row1']
+        post_score_citra = request.form['row10']
+
+        curl = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        curl.execute("SELECT * FROM tbl_ahp_partai WHERE partai_id = %s", (id_partai,))
+        ahp_partai = curl.fetchone()
+        curl.close()
+
+        ahp_citra_before = ahp_partai['popularitas_citra_partai']
+        ahp_eksistensi_before = ahp_partai['popularitas_eksistensi_partai']
+
+        ahp_citra = (int(post_score_citra)*20) + int(ahp_citra_before) + 10
+        ahp_eksistensi = (int(post_score_eksistensi)*20) + int(ahp_eksistensi_before) + 15
+
+        update = mysql.connection.cursor()
+        sql_update = "UPDATE tbl_ahp_partai SET popularitas_citra_partai = %s,  popularitas_eksistensi_partai = %s WHERE partai_id = %s"
+        value_ahp = (ahp_citra, ahp_eksistensi, id_partai)
+        update.execute(sql_update, value_ahp)
+        mysql.connection.commit()
+
+        

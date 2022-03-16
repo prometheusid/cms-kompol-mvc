@@ -38,4 +38,5 @@ def saveSurveyDpr():
 def saveSurveyPartai():
     title = ("Survey DPRD")
     data = Survey.savePartaiSurvey()
+    ahp = Survey.saveAHPPartai()
     return redirect(url_for('surveys', title=title))
