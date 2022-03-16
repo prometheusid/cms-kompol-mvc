@@ -18,17 +18,20 @@
             <p>5 - Sangat Setuju</p>
           </div>
         <br>
-        <form action="/surveys/save" method="POST">
+        <form action="/surveys/partai/save" method="POST">
         <div class="mx-0 mx-sm-auto">
             <div class="text-left" style="margin-left: 1rem;">
                 <p>
-                  <strong>Pilih Salah Satu Anggota DPRD </strong>
+                  <strong>Pilih Salah Satu Partai Politik </strong>
                 </p>
             </div>
 
             <div class="col-12" style="padding-left: 1rem; padding-right: 1rem;">
-                <select class="form-control" name="id_dprd">
-                    <option>Default select</option>
+                <select class="form-control" name="id_partai">
+                    <option>Pilih Partai</option>
+                    {% for selects in select %}
+                    <option value="{{selects['partai_id']}}">{{selects['nama_partai']}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <hr>
@@ -36,8 +39,7 @@
             <div class="text-left" style="margin-left: 1rem;">
               <p>
                 <strong>{{row['question']}} </strong>
-                <input type="hidden" id="id" name="id" value="1">
-                <input type="hidden" id="id_question{{data.index(row)+1}}" name="id_question{{data.index(row)+1}}" value="{{row['id_survey_question']}}">
+                <input type="hidden" id="id_question{{data.index(row)+1}}" name="id_question{{data.index(row)+1}}" value="{{row['id_survey_question']}}" required>
               </p>
             </div>
           

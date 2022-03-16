@@ -13,9 +13,13 @@
       <h5>Pilih Survey</h5>
       <p>Berikan tanggapan dan penilaian anda.</p>
       
+      {% if session['id'] %}
       <a href="/survey-dprd" class="btn btn-small btn-primary">Survey DPRD</a>
       <br>
       <a href="/survey-partai" class="btn btn-small btn-success">Survey Partai</a>
+      {% else %}
+      <a href="/login" class="btn btn-small btn-success">Silahkan Login Untuk Melakukan Survey</a>
+      {% endif %}
     </div>
   </div>
 </div>

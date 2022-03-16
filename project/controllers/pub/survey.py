@@ -18,20 +18,24 @@ def surveys():
 def surveyDpr():
     title = ("Survey DPRD")
     data = Survey.fetchQuestionDPRD()
-    return render_template('public/survey/dprd.html', data = data, title = title)
+    select = Survey.fetchDataDPRD()
+    return render_template('public/survey/dprd.html', data = data, title = title, select = select)
 
 @app.route('/survey-partai', methods = ['GET'])
 def surveyPartai():
     title = ("Survey Partai")
     data = Survey.fetchQuestionPartai()
-    return render_template('public/survey/partai.html', data = data, title = title)
+    select = Survey.fetchDataPartai()
+    return render_template('public/survey/partai.html', data = data, title = title, select = select)
 
-@app.route('/surveys/save', methods = ['POST'])
+@app.route('/surveys/dprd/save', methods = ['POST'])
 def saveSurveyDpr():
     title = ("Survey DPRD")
-    data = Survey.fetchQuestionDPRD()
-    jumlah = len(data)
-    for i in range(1, jumlah):
-        id_question = request.form['id_question'+str(i)]
-        jawaban = request.form.getlist('row'+str(i))
-        return render_template('public/survey/index2.html', data = data, title = title, hasil=id_question, jawaban=i)
+    data = Survey.saveDPRDSurvey()
+    return redirect(url_for('surveys', title=title))
+
+@app.route('/surveys/partai/save', methods = ['POST'])
+def saveSurveyPartai():
+    title = ("Survey DPRD")
+    data = Survey.savePartaiSurvey()
+    return redirect(url_for('surveys', title=title))
