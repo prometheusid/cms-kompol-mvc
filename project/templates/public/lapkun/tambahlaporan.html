@@ -3,29 +3,24 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="/kunjungan/tambahlaporan" method="POST">
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Judul Laporan</label>
-                        <input type="text" class="form-control" id="judul-laporan" name="judul-laporan" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Isi Laporan</label>
-                        <textarea class="form-control" id="summernote" rows="3" name="isi-laporan"></textarea>
-                    </div>
-                    <div class="forum-group">
-                        <label for="gambar">Upload Gambar</label><br>
-                        <input type=file name=gambar>
-                    </div><br>
-                    <div class="forum-group">
-                        <label for="dokumen">Upload File PDF</label><br>
-                        <input type=file name="dokumen">
-                    </div><br>
-                    <button type="submit" name="submit" class="btn btn-primary">
-                        Simpan
-                    </button>
-                </form>
+                <form action="/kunjungan/tambahlaporan" method="POST" enctype=multipart/form-data> <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Judul Laporan</label>
+                    <input type="text" class="form-control" id="judul-laporan" name="judul-laporan" />
             </div>
+            <div class="mb-3">
+                <label class="form-label">Isi Laporan</label>
+                <textarea class="form-control" id="summernote" rows="3" name="isi-laporan"></textarea>
+            </div>
+            <div class="forum-group">
+                <label for="file">Upload PDF</label><br>
+                <input type=file name=file>
+            </div><br>
+            <button type="submit" name="submit" class="btn btn-primary">
+                Simpan
+            </button>
+            </form>
         </div>
+    </div>
     </div>
 </section>
 <script>

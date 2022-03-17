@@ -2,11 +2,12 @@ from project import app
 from flask import render_template, redirect, url_for, request, session
 from project.config.Database import mysql
 from datetime import datetime
+
 """
     Import MOdels
 from project.models.Hello import Hello
 """
-
+from project.models.LaporanKunjungan import LaporanKunjungan
 # route index
 
 
@@ -65,12 +66,10 @@ def tambahlaporan():
     if request.method == 'GET':
         return render_template('public/lapkun/tambahlaporan.html', title=title)
     else:
-        author = session['id']
-        judul = request.form['judul-laporan']
-        isi = request.form['isi-laporan']
-        waktu = datetime.now()
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO tbl_lapkun (user_id, lapkun_judul, lapkun_isi, created_at) VALUES (%s,%s,%s,%s)",
-                    (author, judul, isi, waktu))
-        mysql.connection.commit()
+        data = LaporanKunjungan.addDataLaporanKunjungan()
     return redirect(url_for('lapkun'))
+
+# @app.route('/uploads/<filename>')
+# def uploadedFiles(filename=''):
+#     from flask import send_from_directory
+#     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
