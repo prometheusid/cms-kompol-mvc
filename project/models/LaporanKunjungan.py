@@ -19,7 +19,7 @@ class LaporanKunjungan:
     def fetchKunjungan3():
         cur = mysql.connection.cursor()
         cur.execute(
-            "SELECT * FROM tbl_lapkun as a JOIN users as b ON a.user_id = b.user_id WHERE b.user_id ORDER BY a.created_at DESC LIMIT 3")
+            "SELECT * FROM tbl_lapkun as a LEFT JOIN users as b ON a.user_id = b.user_id ORDER BY a.created_at DESC LIMIT 3")
         data = cur.fetchall()
         return data
     

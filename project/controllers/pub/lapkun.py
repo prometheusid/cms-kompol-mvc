@@ -16,7 +16,7 @@ def lapkun():
     title = ('LAPORAN KUNJUNGAN')
     cur = mysql.connection.cursor()
     cur.execute(
-        "SELECT * FROM tbl_lapkun as a JOIN users as b ON a.user_id = b.user_id WHERE b.user_id ORDER BY a.created_at DESC")
+        "SELECT * FROM tbl_lapkun as a LEFT JOIN users as b ON a.user_id = b.user_id ORDER BY a.created_at DESC")
     data = cur.fetchall()
     return render_template("/public/lapkun/index.html", data=data, title=title)
 
@@ -28,22 +28,21 @@ def lapkun_thread(id):
     cur.execute(
         "SELECT * FROM tbl_lapkun as a \
         LEFT JOIN users as b ON a.user_id = b.user_id \
-        LEFT JOIN tbl_detail_forum as c ON c.lapkun_id = a.lapkun_id \
         WHERE a.lapkun_id=%s", (id,))
     data = cur.fetchone()
 
     # Get Count commentar
-    count = mysql.connection.cursor()
-    count.execute(
-        "SELECT count('lapkun_id') FROM tbl_detail_forum  WHERE lapkun_id=%s", (id,))
-    num_of_items = [v for v in count.fetchone().values()][0]
+    # count = mysql.connection.cursor()
+    # count.execute(
+    #     "SELECT count('lapkun_id') FROM tbl_detail_forum  WHERE lapkun_id=%s", (id,))
+    # num_of_items = [v for v in count.fetchone().values()][0]
 
     # Get data commentar
-    com = mysql.connection.cursor()
-    com.execute(
-        "SELECT * FROM tbl_detail_forum as a JOIN users as b ON a.user_id = b.user_id WHERE a.lapkun_id=%s", (id,))
-    comment = com.fetchall()
-    return render_template("/public/lapkun/thread.html", data=data, title=title, comment=comment, counting=num_of_items)
+    # com = mysql.connection.cursor()
+    # com.execute(
+    #     "SELECT * FROM tbl_detail_forum as a JOIN users as b ON a.user_id = b.user_id WHERE a.lapkun_id=%s", (id,))
+    # comment = com.fetchall()
+    return render_template("/public/lapkun/thread.html", data=data, title=title, id=id)
 
 
 @app.route("/kunjungan/thread/<int:id>", methods=["POST"])
