@@ -7,6 +7,8 @@ from datetime import datetime
     Import MOdels
 from project.models.Hello import Hello
 """
+
+from project.models.Forum import Forum
 # route index
 
 
@@ -55,15 +57,7 @@ def thread(id):
 
 @app.route("/forum/thread/<id>", methods=["POST"])
 def komentar(id):
-    idKomen = request.form['idKomen']
-    idForum = request.form['idForum']
-    komen = request.form['komen']
-    komenUser = session['id']
-    waktu = datetime.now()
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO tbl_detail_forum (id_detail_forum, forum_id, komentar, user_id, created_at) VALUES (%s,%s,%s,%s,%s)",
-                (idKomen, idForum, komen, komenUser, waktu))
-    mysql.connection.commit()
+    komentar = Forum.komentarForum()
     return redirect(url_for('thread', id=id))
 
 
@@ -73,16 +67,7 @@ def tambahforum():
     if request.method == 'GET':
         return render_template('public/forum/tambahforum.html', title=title)
     else:
-        idForum = request.form['idForum']
-        judulForum = request.form['judulForum']
-        isi = request.form['content']
-        ts = session['id']
-        author = 'Author'
-        waktu = datetime.now()
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO tbl_forum (forum_id, forum_judul, forum_isi, user_id, author, created_at) VALUES (%s,%s,%s,%s,%s,%s)",
-                    (idForum, judulForum, isi, ts, author, waktu))
-        mysql.connection.commit()
+        data = Forum.tambahForum()
     return redirect(url_for('forum'))
 
 
