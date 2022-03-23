@@ -14,6 +14,9 @@
                 <p>
                     <h4 style="color: white;">{{data.lapkun_judul}}</h4>
                 </p>
+                <p style="color: white;">
+                    <h7 style="color: white;">{{data.lapkun_isi|safe}}</h7>
+                </p>
                 <div class="bottom">
                     <p style="margin-right: 1.5em; color: white;">{{data.nama_user}}</p>
                     
@@ -22,18 +25,29 @@
                 </div>
             </div>
         </div>
+        {% if data.document%}
         <div class="card shadow mb-4">
             <div class="card-body">
-                <div class="comment">
+                <!-- <div class="comment">
                     <p class="comment text-light badge bg-secondary">
                         <i
-                        class="far fa-comment"
+                        class="fas fa-download"
                         style="color: white"
-                        aria-hidden="true">&nbsp;&nbsp;</i>{{counting}} Komentar</p>
-                </div>
-                <p>{{data.lapkun_isi|safe}}</p><br>
+                        aria-hidden="true">&nbsp;&nbsp;</i>Unduh Laporan</p>
+                </div> -->
+                <p>Klik tombol dibawah untuk melihat atau mengunduh laporan</p>
+                <div class="comment"> 
+                    <a href="{{ url_for('uploadedFiles', filename=data.document) }}" target="_blank">
+                        <p class="comment text-light badge bg-secondary">
+                            <i
+                            class="fas fa-download"
+                            style="color: white"
+                            aria-hidden="true">&nbsp;&nbsp;</i>Klik untuk Unduh Laporan </p>
+                    </a>
+                </div><br>
             </div>
         </div>
+        {% endif %}
         {% for column in comment %}
         <div class="card user-card-full" >
             <div class="row m-l-0 m-r-0">
