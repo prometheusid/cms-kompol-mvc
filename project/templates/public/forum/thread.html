@@ -63,7 +63,7 @@
                         <input type="text" class="form-control" id="idKomen" name="idKomen" hidden>
                         <input type="text" class="form-control" id="idForum" name="idForum" value="{{data['forum_id']}}"
                             hidden>
-                        <textarea class="form-control" id="summernote" rows="3" name="komen"></textarea>
+                        <textarea class="form-control" id="komen" rows="3" name="komen"></textarea>
                     </div>
                     <button type="submit" name="submit" class="btn text-light bg-c-lite-green">
                         add comment
@@ -74,7 +74,7 @@
                 {% endif %}
     </div>
 <script>
-    $('#summernote').summernote({
+    $('#komen').summernote({
         tabsize: 2,
         height: 200,
         toolbar: [

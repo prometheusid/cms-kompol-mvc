@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2022 at 04:36 AM
+-- Generation Time: Mar 17, 2022 at 07:24 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -32,6 +32,7 @@ CREATE TABLE `tbl_lapkun` (
   `lapkun_judul` varchar(255) NOT NULL,
   `lapkun_isi` text NOT NULL,
   `user_id` int(11) NOT NULL,
+  `document` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,9 +40,11 @@ CREATE TABLE `tbl_lapkun` (
 -- Dumping data for table `tbl_lapkun`
 --
 
-INSERT INTO `tbl_lapkun` (`lapkun_id`, `lapkun_judul`, `lapkun_isi`, `user_id`, `created_at`) VALUES
-(1, 'Tes Laporan Kunjungan', 'Ini adalah tes laporan kunjungan yang diisi lagsung via sql', 30, '2022-02-14 04:11:53'),
-(2, 'tes tambah laporan', '<p><span style=\"background-color: rgb(255, 255, 0);\">tes isi laporan</span></p>', 30, '2022-02-14 10:32:46');
+INSERT INTO `tbl_lapkun` (`lapkun_id`, `lapkun_judul`, `lapkun_isi`, `user_id`, `document`, `created_at`) VALUES
+(1, 'Tes Laporan Kunjungan', 'Ini adalah tes laporan kunjungan yang diisi lagsung via sql', 30, NULL, '2022-02-14 04:11:53'),
+(2, 'tes tambah laporan', '<p><span style=\"background-color: rgb(255, 255, 0);\">tes isi laporan</span></p>', 30, NULL, '2022-02-14 10:32:46'),
+(3, 'Jalan Rusak', '<p>Rusak</p>', 28, NULL, '2022-03-03 18:44:37'),
+(4, 'tes upload file pdf', '<p>pdf</p>', 30, 'CV_AEP_RUKMANA.pdf', '2022-03-17 13:16:33');
 
 --
 -- Indexes for dumped tables
@@ -61,7 +64,7 @@ ALTER TABLE `tbl_lapkun`
 -- AUTO_INCREMENT for table `tbl_lapkun`
 --
 ALTER TABLE `tbl_lapkun`
-  MODIFY `lapkun_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `lapkun_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

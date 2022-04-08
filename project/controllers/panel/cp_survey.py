@@ -17,8 +17,16 @@ def cp_survey():
     title = ("Data Survey")
     # fetch data from model
     value = "q"+str(randint(0, 999))
-    data = Survey.fetchQuestion()
+    data = Survey.fetchQuestionDPRD()
     return render_template('panel/cp_survey/index.html', data=data, value=value, title=title)
+
+@app.route("/dashboard/survey/question/partai")
+def cp_survey_partai():
+    title = ("Data Survey")
+    # fetch data from model
+    value = "q"+str(randint(0, 999))
+    data = Survey.fetchQuestionPartai()
+    return render_template('panel/cp_survey/index2.html', data=data, value=value, title=title)
 
 @app.route("/survey/tambah-question", methods=["GET", "POST"])
 def cp_survey_question():
