@@ -6,7 +6,7 @@ class Hash:
         pass
 
     def cekHash(self, pHash, password):
-        return check_password_hash(pwhash, password)
+        return check_password_hash(pHash, password)
 
     def getHash(self, password):
         self.pasHash = generate_password_hash(password)
