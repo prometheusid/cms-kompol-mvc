@@ -65,10 +65,10 @@
                     <tfoot>
                       <tr>
                         <th scope="row">Rata-rata nilai eigen</th>
-                        <td>{{value['rata_eigen'][0]}}</td>
-                        <td>{{value['rata_eigen'][1]}}</td>
-                        <td>{{value['rata_eigen'][2]}}</td>
-                        <td>{{value['rata_eigen'][3]}}</td>
+                        <td>{{value['new_rata_eigen'][0]}}</td>
+                        <td>{{value['new_rata_eigen'][1]}}</td>
+                        <td>{{value['new_rata_eigen'][2]}}</td>
+                        <td>{{value['new_rata_eigen'][3]}}</td>
                       </tr>
                     </tfoot>
                   </table>
@@ -88,7 +88,7 @@
                       </tr>
                     </tbody>
                   </table>
-                  
+
                 </div>
               </div>
             </div>
@@ -188,6 +188,7 @@
   <!-- /.container-fluid -->
 </section>
 
+<!-- Memunculkan data baru ketika mencoba perhitungan -->
 {% if(criteria != "") %}
 <section class="content">
   <div class="container-fluid">
@@ -206,12 +207,13 @@
               </div>
               <div class="row">
                 <div class="col-sm-12">
+                  <!-- TODO : Menyimpan jika data baru yg dimasukin benar dan munculkan alert terlebih dahulu -->
                   <form action="/dashboard/ahp/bobot" method="POST">
-
                     <div class="text-right">
-                      <button class="btn btn-success">Hitung</button>
+                      <button class="btn btn-success">Simpan</button>
                     </div>
                   </form>
+
                 </div>
               </div>
             </div>
@@ -227,93 +229,5 @@
   <!-- /.container-fluid -->
 </section>
 {% endif %}
-
-<!-- Modal add -->
-<div class="modal fade" id="modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Perbandingan Bobot</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="/dashboard/ahp/partai/test" method="POST">
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C1 - C2</label>
-                <input type="number" class="form-control" id="question" name="c12" placeholder="Perbandingan C1 - C2"
-                  required>
-              </div>
-
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C1 - C3</label>
-                <input type="number" class="form-control" id="question" name="c13" placeholder="Perbandingan C1 - C3"
-                  required>
-              </div>
-
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C1 - C4</label>
-                <input type="number" class="form-control" id="question" name="c14" placeholder="Perbandingan C1 - C4"
-                  required>
-              </div>
-
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C2 - C3</label>
-                <input type="number" class="form-control" id="question" name="c23" placeholder="Perbandingan C2 - C3"
-                  required>
-              </div>
-
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C2 - C4</label>
-                <input type="number" class="form-control" id="question" name="c24" placeholder="Perbandingan C2 - C4"
-                  required>
-              </div>
-
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C3 - C4</label>
-                <input type="number" class="form-control" id="question" name="c34" placeholder="Perbandingan C3 - C4"
-                  required>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-          <button class="btn btn-success">Tambah</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- END Modal add -->
-
-<!-- Modal Delete -->
-<!-- Modal -->
-{% for row in data %}
-<div class="modal fade" id="modal_delete{{row['id_survey_question']}}">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modal_delete{{row['id_survey_question']}}">Anda Akan Menghapus Pertanyaan</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Yakin akan menghapus data?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
-        <a href="/survey/delete/{{row['id_survey_question']}}"><button class="btn btn-sm btn-danger">Ya,
-            Hapus</button></a>
-      </div>
-    </div>
-  </div>
-</div>
-{% endfor %}
 
 {% endblock %}

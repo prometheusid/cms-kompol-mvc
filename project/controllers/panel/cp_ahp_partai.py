@@ -37,12 +37,8 @@ def cp_bobot_partai():
 @app.route("/dashboard/ahp/bobot", methods=["GET", "POST"])
 def cp_ahp_partai_bobot():
     title = ("Ahp bobot")
-
-    # GET konstanta criteria AHP partai
     ahp = Ahp.fetchCriteriaPartai()
     value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c23'], ahp['c24'], ahp['c34']], 4)
-
-    data = Ahp.fetchValue()
     criteria = ""
     if (request.form) :
         c12 = request.form['c12']
@@ -52,8 +48,7 @@ def cp_ahp_partai_bobot():
         c24 = request.form['c24']
         c34 = request.form['c34']
         criteria = Criteria.perbandingan([c12, c13, c14, c23, c24, c34], 4)
-
-    return render_template('panel/cp_ahp_partai/bobot.html', data=data, criteria=str(criteria), title=title, value=value)
+    return render_template('panel/cp_ahp_partai/bobot.html', criteria=str(criteria), title=title, value=value)
 
 @app.route("/dashboard/ahp/partai/test", methods=["GET", "POST"]) 
 def cp_ahp_partai_q():

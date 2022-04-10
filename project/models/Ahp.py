@@ -11,7 +11,6 @@ class Ahp:
         return data
     
     def matrixPartai(nilai):
-        # https://www.w3schools.com/python/python_dictionaries.asp
         data = {}
         data["nilai"] = nilai
         data["tambahan"] = 10
