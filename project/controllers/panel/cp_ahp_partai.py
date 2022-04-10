@@ -48,7 +48,7 @@ def cp_ahp_partai_bobot():
         c24 = request.form['c24']
         c34 = request.form['c34']
         criteria = Criteria.perbandingan([c12, c13, c14, c23, c24, c34], 4)
-    return render_template('panel/cp_ahp_partai/bobot.html', criteria=str(criteria), title=title, value=value)
+    return render_template('panel/cp_ahp_partai/bobot.html', criteria=criteria, title=title, value=value)
 
 @app.route("/dashboard/ahp/partai/test", methods=["GET", "POST"]) 
 def cp_ahp_partai_q():
