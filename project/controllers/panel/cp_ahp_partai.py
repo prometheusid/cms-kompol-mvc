@@ -50,18 +50,20 @@ def cp_ahp_partai_bobot():
         criteria = Criteria.perbandingan([c12, c13, c14, c23, c24, c34], 4)
     return render_template('panel/cp_ahp_partai/bobot.html', criteria=criteria, title=title, value=value)
 
+@app.route("/dashboard/ahp/bobot/save", methods=["POST"])
+def cp_ahp_partai_bobot_save():
+    title = ("Ahp bobot")
+    save = Ahp.addDataCriteria()
+    ahp = Ahp.fetchCriteriaPartai()
+    value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c23'], ahp['c24'], ahp['c34']], 4)
+    criteria = ""
+
+    return render_template('panel/cp_ahp_partai/bobot.html', criteria=criteria, title=title, value=value)
+
 @app.route("/dashboard/ahp/partai/test", methods=["GET", "POST"]) 
 def cp_ahp_partai_q():
     title = ("Ahp Partai")
-    # fetch data from model
-    # TODO : tampilkan semua data dan bisa melakukan perhitungan lagi.
-    # untuk Score mending lakukakn dengan ulang agar score bisa diambil dari data yg paling baru
-    c12 = request.form['c12']
-    c13 = request.form['c13']
-    c14 = request.form['c14']
-    c23 = request.form['c23']
-    c24 = request.form['c24']
-    c34 = request.form['c34']
+    test = '[[1, 2.0, 2.0, 2.0], [0.5, 1, 2.0, 2.0], [0.5, 0.5, 1, 2.0], [0.5, 0.5, 0.5, 1]]'
     # data = Criteria.perbandingan([3, 3, 5, 3, 3, 3], 4)
-    data = Criteria.perbandingan([c12, c13, c14, c23, c24, c34], 4)
-    return str(data)
+    # data = Criteria.perbandingan([c12, c13, c14, c23, c24, c34], 4)
+    return str(test)

@@ -1,6 +1,7 @@
 from project.config.Database import mysql
 from datetime import datetime
 from flask import request
+import ast
 
 
 class Ahp:
@@ -21,3 +22,20 @@ class Ahp:
         cur.execute("SELECT * from tbl_criteria_partai WHERE id = 1 ")
         data = cur.fetchone()
         return data
+    
+    def addDataCriteria():
+        criteria = request.form['criteria']
+        c = ast.literal_eval(criteria)
+        c12 = c[0][1]
+        c13 = c[0][2]
+        c14 = c[0][3]
+        c23 = c[1][2]
+        c24 = c[1][3]
+        c34 = c[2][3]
+
+        update_at = datetime.now()
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO `tbl_criteria_partai` (`c12`, `c13`, `c14`, `c23`, `c24`, `c34`, `update_at`) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+                    (c12, c13, c14, c23, c24, c34, update_at))
+        mysql.connection.commit()
+
