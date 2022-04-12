@@ -53,7 +53,7 @@ def cp_ahp_partai_bobot():
 @app.route("/dashboard/ahp/bobot/save", methods=["POST"])
 def cp_ahp_partai_bobot_save():
     title = ("Ahp bobot")
-    save = Ahp.addDataCriteria()
+    save = Ahp.updateDataCriteriaPartai()
     ahp = Ahp.fetchCriteriaPartai()
     value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c23'], ahp['c24'], ahp['c34']], 4)
     criteria = ""

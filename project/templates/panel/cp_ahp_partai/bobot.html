@@ -297,9 +297,9 @@
           </tbody>
         </table>
       </div>
-      {{criteria}}
       <form action="/dashboard/ahp/bobot/save" method="POST">
-        <input type="hidden" id="criteria" name="criteria" value="{{criteria['criteria'] if criteria['criteria'] != '' else null}}">
+        <input type="hidden" id="criteria" name="criteria"
+          value="{{criteria['criteria'] if criteria['criteria'] != '' else null}}">
         <!-- TODO : Bantuin gua munculin ini if Consistency Index dibawah 10% -->
         <div class="modal-footer">
           <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>

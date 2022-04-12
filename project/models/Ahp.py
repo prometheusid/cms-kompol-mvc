@@ -23,7 +23,7 @@ class Ahp:
         data = cur.fetchone()
         return data
     
-    def addDataCriteria():
+    def updateDataCriteriaPartai():
         criteria = request.form['criteria']
         c = ast.literal_eval(criteria)
         c12 = c[0][1]
@@ -33,9 +33,10 @@ class Ahp:
         c24 = c[1][3]
         c34 = c[2][3]
 
-        update_at = datetime.now()
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO `tbl_criteria_partai` (`c12`, `c13`, `c14`, `c23`, `c24`, `c34`, `update_at`) VALUES (%s,%s,%s,%s,%s,%s,%s)",
-                    (c12, c13, c14, c23, c24, c34, update_at))
+        updated_at = datetime.now()
+        update = mysql.connection.cursor()
+        sql_update = "UPDATE tbl_criteria_partai SET c12 = %s, c13 = %s, c14 = %s, c23 = %s, c24 = %s, c34 = %s, updated_at = %s  WHERE id = 1"
+        value = (c12, c13, c14, c23, c24, c34, updated_at)
+        update.execute(sql_update, value)
         mysql.connection.commit()
 
