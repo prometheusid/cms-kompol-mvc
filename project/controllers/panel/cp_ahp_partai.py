@@ -8,14 +8,6 @@ from project.models.Ahp import Ahp
 from project.models.Calculate import Calculate
 from project.models.Criteria import Criteria
 
-# 1. index untuk menampilkan data keseluruhan
-# 2. create untuk tombol memlih create/or function dll.
-# 3. store create/add from database(menyimpan)
-# 4. show (menampilkan satu bagian)
-# 5. edit (untuk redirect tombol edit)
-# 6. update (untuk update data yg baru)
-# 7. destroy (hapus)
-
 @app.route("/dashboard/ahp/partai")
 def cp_ahp_partai():
     title = ("Ahp Partai")
@@ -24,7 +16,6 @@ def cp_ahp_partai():
     dataAhpPartai = Ahp.fetchValue()
     sumDataAhpPartai = Ahp.sumValue()
     data = Calculate.eigen_partai(dataAhpPartai, sumDataAhpPartai, value['rata_eigen'])
-    # return str(data)
     return render_template('panel/cp_ahp_partai/index.html', data=data, title=title)
 
 @app.route("/dashboard/ahp/bobot", methods=["GET", "POST"])
@@ -51,11 +42,3 @@ def cp_ahp_partai_bobot_save():
     value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c23'], ahp['c24'], ahp['c34']], 4)
     criteria = ""
     return render_template('panel/cp_ahp_partai/bobot.html', criteria=criteria, title=title, value=value)
-
-@app.route("/dashboard/ahp/partai/test", methods=["GET", "POST"]) 
-def cp_ahp_partai_q():
-    title = ("Ahp Partai")
-    test = '[[1, 2.0, 2.0, 2.0], [0.5, 1, 2.0, 2.0], [0.5, 0.5, 1, 2.0], [0.5, 0.5, 0.5, 1]]'
-    # data = Criteria.perbandingan([3, 3, 5, 3, 3, 3], 4)
-    # data = Criteria.perbandingan([c12, c13, c14, c23, c24, c34], 4)
-    return str(test)
