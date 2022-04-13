@@ -1,34 +1,81 @@
 {% extends '/public/pub_base.html' %} {% block content %}
 <div class="container">
-  <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
-    <h1 class="h3 mb-0 text-white-800">INFO PUBLIK</h1>
-    {% if session['id'] %}
-    <a href="{{ url_for('tambahinfo') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-        class="fas fa-plus"></i>&nbsp; Tambah Baru</a>
-    {% endif %}
-  </div>
-  {% for row in data%}
-
-  <div class="card shadow mb-4">
-    <div class="card-body">
-      <ol>
-        <li class="row">
-          <a class="thread-link" href="info/detail/{{row['info_id']}}">
-            <h4 class="forum-title">{{row['judul_info']}}</h4>
-            <p>
-              <img src="{{ url_for('uploadedFiles', filename=row['thumb']) }}" class="thmb" />
-            </p>
-            <div class="bottom">
-              <p style="margin-right: 1.5em">{{row['created_at']}}</p>
-              <p class="comment-count">Oleh : {{row['nama_user']}}</p>
-            </div>
-          </a>
-        </li>
-      </ol>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
+      <h1 class="h3 mb-0 text-white-800">INFO PUBLIK</h1>
+      {% if session['id'] %}
+      <a href="{{ url_for('tambahinfo') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+          class="fas fa-plus"></i>&nbsp; Tambah Baru</a>
+      {% endif %}
     </div>
-  </div>
-  {% endfor %}
+  <!-- ##### Intro News Area Start ##### -->
+  <div class="intro-news-area">
+    <div class="container">
+      <div class="row justify-content-center">
+        <!-- Intro News Tabs Area -->
+        <div class="col-12">
+          <div class="intro-news-tab">
+  
+            <!-- Intro News Filter -->
+            <div class="intro-news-filter d-flex justify-content-between">
+              <h6>All the news</h6>
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="nav1" data-toggle="tab" href="#nav-1" role="tab" aria-controls="nav-1" aria-selected="true">Latest</a>
+                </div>
+              </nav>
+            </div>
+  
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-1" role="tabpanel" aria-labelledby="nav1">
+                <div class="row">
+                  
+                    {% for row in data%}
+                  <!-- Single News Area -->
+                  <div class="col-12 col-sm-4">
+                    <div class="single-blog-post style-2 mb-5 card shadow card-body">
+                      <!-- Blog Thumbnail -->
+                      <div class="blog-thumbnail">
+                        <a href="info/detail/{{row['info_id']}}"><img src="{{ url_for('uploadedFiles', filename=row['thumb']) }}" alt=""></a>
+                      </div>
+  
+                      <!-- Blog Content -->
+                      <div class="blog-content">
+                        <span class="post-date">{{row['created_at']}}</span>
+                        <a href="info/detail/{{row['info_id']}}" class="post-title">{{row['judul_info']}}</a>
+                        <a href="info/detail/{{row['info_id']}}" class="post-author">{{row['nama_user']}}</a>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+        <!-- Sidebar Widget -->
+
+            <!-- Newsletter Widget -->
+            <!-- <div class="single-widget-area newsletter-widget mb-30">
+              <h4>Subscribe to our newsletter</h4>
+              <form action="#" method="post">
+                <input type="email" name="nl-email" id="nlemail" placeholder="Your E-mail">
+                <button type="submit" class="btn newsbox-btn w-100">Subscribe</button>
+              </form>
+              <p class="mt-30">Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh . volutpat lobortis.</p>
+            </div> -->
+  
+            <!-- Add Widget -->
+            <!-- <div class="single-widget-area add-widget mb-30">
+              <a href="#">
+                <img src="img/bg-img/add3.png" alt="">
+              </a>
+            </div> -->
+          </div>
+        </div> -->
+      </div>
+    </div>
 </div>
-<!-- end forum -->
-<!-- end content -->
-{% endblock%}
+  <!-- ##### Intro News Area End ##### -->
+  {% endblock%}
