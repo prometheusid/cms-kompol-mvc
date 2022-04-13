@@ -46,3 +46,24 @@ class LaporanKunjungan:
         cur.execute("INSERT INTO tbl_lapkun (user_id, lapkun_judul, lapkun_isi, document, created_at) VALUES (%s,%s,%s,%s,%s)",
                     (author, judul, isi, filename, waktu))
         mysql.connection.commit()
+
+    def fetchLapkun():
+        cur = mysql.connection.cursor()
+        cur.execute(
+            "SELECT * FROM tbl_lapkun as a LEFT JOIN users as b ON a.user_id = b.user_id ORDER BY a.created_at DESC")
+        data = cur.fetchall()
+        return data
+
+    def detailLapkun(id):
+        cur = mysql.connection.cursor()
+        cur.execute(
+            "SELECT * FROM tbl_lapkun as a \
+            LEFT JOIN users as b ON a.user_id = b.user_id \
+            WHERE a.lapkun_id=%s", (id,))
+        data = cur.fetchone()
+        return data
+    
+    def deleteDataLapkun(id):
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM tbl_lapkun WHERE lapkun_id=%s", (id,))
+        mysql.connection.commit()
