@@ -19,10 +19,9 @@ def cp_ahp_dewan():
 @app.route("/dashboard/ahp/bobot/dewan", methods=["GET", "POST"])
 def cp_ahp_bobot_dewan():
     title = ("Ahp bobot")
-    ahp = Ahp.fetchCriteriaPartai()
-    return str(ahp)
-    # value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c23'], ahp['c24'], ahp['c34']], 4)
-    # criteria = ""
+    ahp = Ahp.fetchCriteriaDewan()
+    value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c15'], ahp['c23'], ahp['c24'], ahp['c25'], ahp['c34'], ahp['c35'], ahp['c45']], 5)
+    criteria = ""
     # if (request.form) :
     #     c12 = request.form['c12']
     #     c13 = request.form['c13']
@@ -31,4 +30,5 @@ def cp_ahp_bobot_dewan():
     #     c24 = request.form['c24']
     #     c34 = request.form['c34']
     #     criteria = Criteria.perbandingan([c12, c13, c14, c23, c24, c34], 4)
-    # return render_template('panel/cp_ahp_partai/bobot.html', criteria=criteria, title=title, value=value)
+    return render_template('panel/cp_ahp_dewan/bobot.html', criteria=criteria, title=title, value=value)
+    # return str(value)
