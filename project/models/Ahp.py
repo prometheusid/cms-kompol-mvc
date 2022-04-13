@@ -51,4 +51,25 @@ class Ahp:
         value = (c12, c13, c14, c23, c24, c34, updated_at)
         update.execute(sql_update, value)
         mysql.connection.commit()
+    
+    def updateDataCriteriaDewan():
+        criteria = request.form['criteria']
+        c = ast.literal_eval(criteria)
+        c12 = c[0][1]
+        c13 = c[0][2]
+        c14 = c[0][3]
+        c15 = c[0][4]
+        c23 = c[1][2]
+        c24 = c[1][3]
+        c25 = c[1][4]
+        c34 = c[2][3]
+        c35 = c[2][4]
+        c45 = c[3][4]
+
+        updated_at = datetime.now()
+        update = mysql.connection.cursor()
+        sql_update = "UPDATE tbl_criteria_dprd SET c12 = %s, c13 = %s, c14 = %s, c15 = %s, c23 = %s, c24 = %s, c25 = %s, c34 = %s, c35 = %s, c45 = %s, updated_at = %s  WHERE id = 1"
+        value = (c12, c13, c14, c15, c23, c24, c25, c34, c35, c45, updated_at)
+        update.execute(sql_update, value)
+        mysql.connection.commit()
 
