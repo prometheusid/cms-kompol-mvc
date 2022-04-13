@@ -1,11 +1,10 @@
 {% extends '/public/pub_base.html' %}
 {% block content %}
-<section class="py-5">
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
             <h1 class="h3 mb-0 text-white-800"></h1>
             {% if session['id'] ==  data.user_id %}
-            <a href="/pub_forum/update/{{data.forum_id}}"
+            <a href="/forum/update/{{data.forum_id}}"
                 class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus"></i>&nbsp; Edit
                 Forum</a>
             {% endif %}
@@ -16,63 +15,68 @@
                     <h4 style="color: white;">{{data.forum_judul}}</h4>
                 </p>
                 <div class="bottom">
-                    <p style="margin-right: 1.5em; color: white;">Oleh : {{data.nama_user}}</p>
+                    <p style="margin-right: 1.5em; color: white;">{{data.nama_user}}</p>
                     {% if data.updated_at %}
-                    <p style="margin-right: 1.5em; color: white;">Terakhir diperbaharui : {{data.updated_at}}</p>
+                    <p style="margin-right: 1.5em; color: white;">Terakhir diperbaharui : <br> {{data.updated_at.strftime('%d %B %Y - %H:%M')}}</p>
                     {% else %}
-                    <p style="margin-right: 1.5em; color: white;">Terakhir diperbaharui : {{data.created_at}}</p>
+                    <p style="margin-right: 1.5em; color: white;">{{data.created_at.strftime('%d %B %Y - %H:%M')}}</p>
                     {% endif %}
                 </div>
             </div>
         </div>
         <div class="card shadow mb-4">
             <div class="card-body">
-                <div class="bottom">
-                    <p class="comment-count">{{counting}} comment</p>
+                <div class="comment">
+                    <p class="comment text-light badge bg-secondary">
+                        <i
+                        class="far fa-comment"
+                        style="color: white"
+                        aria-hidden="true">&nbsp;&nbsp;</i>{{counting}} Komentar</p>
                 </div>
                 <p>{{data.forum_isi|safe}}</p><br>
             </div>
         </div>
-        <div class="card shadow mb-4">
-            <div class="card-body">
-                {% for column in comment %}
-                <div class="comments">
-                    <div class="bottom">
-
-                    </div>
-                    <p>{{column['komentar']|safe}}</p><br>
-                    <div class="bottom">
-                        <p style="margin-right: 1.5em">Terakhir diperbaharui : {{column['created_at']}}</p>
-                        <p style="margin-right: 1.5em">Oleh : {{column['nama_user']}}</p>
-                        {% if column.author == column.user_id %}
-                        <p style="margin-right: 1.5em" class="badge badge-primary">{{column['author']}}</p>
-                        {% endif %}
+        {% for column in comment %}
+        <div class="card user-card-full" >
+            <div class="row m-l-0 m-r-0">
+                <div class="col-sm-2 bg-c-lite-green" style="height: 15%; border-radius: 10px;">
+                    <div class="card-block text-center text-white" >
+                        <h5 class="f-w-700">{{column['nama_user']}}</h5>
+                        <br />
+                        <p>{{column.created_at.strftime('%d %B %Y - %H:%M')}}</p>
                     </div>
                 </div>
-                <hr>
-                {% endfor %}
-                <br>
-                <br>
-                {% if session['id'] %}
+                        
+                <div class="col-lg-10" >
+                        <div class="card-block">
+                            <h6 style="font-weight: normal;">{{column['komentar']|safe}}</h6>
+                        </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% if session['id'] %}
+        <div class="card shadow mb-4">
+            <div class="card-body">
                 <form action="{{url_for('komentar', id=id)}}" method="POST">
                     <div class="mb-3">
                         <input type="text" class="form-control" id="idKomen" name="idKomen" hidden>
                         <input type="text" class="form-control" id="idForum" name="idForum" value="{{data['forum_id']}}"
                             hidden>
-                        <textarea class="form-control" id="summernote" rows="3" name="komen"></textarea>
+                        <textarea class="form-control" id="komen" rows="3" name="komen"></textarea>
                     </div>
-                    <button type="submit" name="submit" class="btn btn-primary">
+                    <button type="submit" name="submit" class="btn text-light bg-c-lite-green">
                         add comment
                     </button>
                 </form>
-                {% endif %}
             </div>
         </div>
-</section>
+                {% endif %}
+    </div>
 <script>
-    $('#summernote').summernote({
+    $('#komen').summernote({
         tabsize: 2,
-        height: 120,
+        height: 200,
         toolbar: [
             ['style', ['style']],
             ['font', ['bold', 'underline', 'clear']],

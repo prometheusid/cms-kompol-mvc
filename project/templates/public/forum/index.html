@@ -1,5 +1,4 @@
 {% extends '/public/pub_base.html' %} {% block content %}
-<section class="py-5" style="margin-top: 20px">
   <div class="container">
     <div
       class="d-sm-flex align-items-center justify-content-between mb-4"
@@ -29,11 +28,11 @@
               <div class="bottom">
                 {% if data.updated_at %}
                 <p style="margin-right: 1.5em">
-                  Terakhir diperbaharui : {{column.updated_at}}
+                  {{column.updated_at.strftime('%d %B %Y - %H:%M')}}
                 </p>
                 {% else %}
                 <p style="margin-right: 1.5em">
-                  Terakhir diperbaharui : {{column.created_at}}
+                  {{column.created_at.strftime('%d %B %Y - %H:%M')}}
                 </p>
                 {% endif %}
                 <p class="comment-count">{{counting}} comments</p>
@@ -45,5 +44,4 @@
     </div>
     {% endfor %}
   </div>
-</section>
 {% endblock %}

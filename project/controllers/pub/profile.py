@@ -1,3 +1,4 @@
+from flask_login import login_required
 from project import app
 from flask import render_template, redirect, url_for, request
 from datetime import datetime
@@ -5,31 +6,36 @@ from project.config.Database import mysql
 import bcrypt
 from ..auth.auth import session
 
-@app.route("/profile/<id>")
-def profileuser(id):
+@app.route("/profile/<name>")
+def profileuser(name):
     title = ("PROFILE")
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
-                 JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id \
-                 JOIN tbl_pendidikan ON tbl_Pendidikan.id_pendidikan=users.id_pendidikan WHERE users.user_id=%s", (id,))
-    profiles = cur.fetchone()
-
-    return render_template('public/profile/index.html', title=title, profiles=profiles)
-
-@app.route("/profile/edit/<id>", methods=["GET", "POST"])
-def profileedit(id):
-    title = ("EDIT PROFILE")
-    if request.method == 'GET':
+    if 'loggedin' in session:
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
-                    JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id WHERE users.user_id=%s", (id,))
+                    JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id WHERE users.user_id=%s", (name,))
+        profiles = cur.fetchone()
+
+        edu = mysql.connection.cursor()
+        edu.execute("SELECT * FROM users JOIN tbl_pendidikan ON tbl_pendidikan.id_pendidikan=users.id_pendidikan WHERE users.user_id=%s", (name,))
+        edu = edu.fetchone()
+
+        return render_template('public/profile/index.html', title=title, profiles=profiles, edu=edu)
+    return redirect(url_for('login'))
+
+@app.route("/profile/edit/<name>", methods=["GET", "POST"])
+def profileedit(name):
+    title = ("EDIT PROFILE")
+    if request.method == 'GET' and 'loggedin' in session:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
+                    JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id WHERE users.user_id=%s", (name,))
         profile = cur.fetchone()
 
         edu = mysql.connection.cursor()
         edu.execute("SELECT * FROM tbl_pendidikan")
         edu = edu.fetchall()
         return render_template('public/profile/editprofile.html', edu=edu, profile=profile, title=title)
-    else:
+    elif 'loggedin' in session:
         idu = request.form['idu']
         name = request.form['name']
         password = request.form['password'].encode('utf-8')
@@ -42,4 +48,5 @@ def profileedit(id):
         cur.execute("UPDATE users SET nama_user = %s, password = %s, updated_at = %s, id_pendidikan = %s, pengalaman = %s, akun_twitter = %s WHERE user_id = %s",
                     (name, hash_password, update, education, pengalaman, twitter, idu))
         mysql.connection.commit()
-    return redirect(url_for('profileuser', id=id))
+        return redirect(url_for('profileuser', name=name))
+    return redirect(url_for('login'))
