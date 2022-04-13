@@ -6,20 +6,17 @@ from project.config.Database import mysql
 import bcrypt
 from ..auth.auth import session
 
+# Import models
+from project.models.Profile import Profile
+
 @app.route("/profile/<name>")
 def profileuser(name):
     title = ("PROFILE")
     if 'loggedin' in session:
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
-                    JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id WHERE users.user_id=%s", (name,))
-        profiles = cur.fetchone()
-
-        edu = mysql.connection.cursor()
-        edu.execute("SELECT * FROM users JOIN tbl_pendidikan ON tbl_pendidikan.id_pendidikan=users.id_pendidikan WHERE users.user_id=%s", (name,))
-        edu = edu.fetchone()
-
-        return render_template('public/profile/index.html', title=title, profiles=profiles, edu=edu)
+        profiles = Profile.detaiilProfile(name)
+        edu = Profile.eduProfile(name)
+        ahpPartai = Profile.ahpPartai(name)
+        return render_template('public/profile/index.html', title=title, profiles=profiles, edu=edu, ahpPartai=ahpPartai)
     return redirect(url_for('login'))
 
 @app.route("/profile/edit/<name>", methods=["GET", "POST"])
