@@ -7,7 +7,13 @@ import ast
 class Ahp:
     def fetchValue():
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * from tbl_ahp_partai AS a JOIN tbl_partai as b ON a.partai_id = b.partai_id ORDER BY ahp_partai_id ASC")
+        cur.execute("SELECT * from tbl_ahp_partai AS a JOIN tbl_partai as b ON a.partai_id = b.partai_id ORDER BY a.partai_id ASC")
+        data = cur.fetchall()
+        return data
+    
+    def sumValue():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT SUM(komunikator_jumlah) as jml_c1, SUM(komunikator_sentiment) as sentiment_c1, SUM(popularitas_eksistensi) as eksi_c2, SUM(popularitas_citra) as citra_c2, SUM(laporan_jumlah) as jml_c3, SUM(laporan_sentiment) as sentiment_c3, SUM(integritas_jumlah) as jml_c4, SUM(integritas_sentiment) as sentiment_c4 from tbl_ahp_partai")
         data = cur.fetchall()
         return data
     

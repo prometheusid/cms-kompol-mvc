@@ -18,7 +18,7 @@
         </ol>
       </div>
     </div>
-  </div><!-- /.container-fluid -->
+  </div>
 </section>
 
 <!-- Main content -->
@@ -68,11 +68,11 @@
                       <tr role="row" class="odd">
                         <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
                         <td tabindex="0" class="sorting_1">{{row['nama_partai']}}</td>
-                        <td>{{row['komunikator_jumlah_partai']}}</td>
-                        <td>{{row['popularitas_partai']}}</td>
-                        <td>{{row['laporan_jumlah_partai']}}</td>
-                        <td>{{row['integritas_jumlah_partai']}}</td>
-                        <td>{{row['score']}}</td>
+                        <td>{{row['value'][0]}}</td>
+                        <td>{{row['value'][1]}}</td>
+                        <td>{{row['value'][2]}}</td>
+                        <td>{{row['value'][3]}}</td>
+                        <td>{{row['value'][4]}}</td>
                       </tr>
                       {% endfor %}
                     </tbody>
@@ -81,14 +81,9 @@
               </div>
             </div>
           </div>
-          <!-- /.card-body -->
         </div>
-        <!-- /.card -->
       </div>
-      <!-- /.col -->
     </div>
-    <!-- /.row -->
   </div>
-  <!-- /.container-fluid -->
 </section>
 {% endblock %}

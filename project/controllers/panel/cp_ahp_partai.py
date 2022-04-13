@@ -5,10 +5,8 @@ from datetime import datetime
 
 # Import models
 from project.models.Ahp import Ahp
+from project.models.Calculate import Calculate
 from project.models.Criteria import Criteria
-
-
-# #route index
 
 # 1. index untuk menampilkan data keseluruhan
 # 2. create untuk tombol memlih create/or function dll.
@@ -21,18 +19,13 @@ from project.models.Criteria import Criteria
 @app.route("/dashboard/ahp/partai")
 def cp_ahp_partai():
     title = ("Ahp Partai")
-    # fetch data from model
-    # TODO : tampilkan semua data dan bisa melakukan perhitungan lagi.
-    # untuk Score mending lakukakn dengan ulang agar score bisa diambil dari data yg paling baru
-    data = Ahp.fetchValue()
+    criteria = Ahp.fetchCriteriaPartai()
+    value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c23'], criteria['c24'], criteria['c34']], 4)
+    dataAhpPartai = Ahp.fetchValue()
+    sumDataAhpPartai = Ahp.sumValue()
+    data = Calculate.eigen_partai(dataAhpPartai, sumDataAhpPartai, value['rata_eigen'])
+    # return str(data)
     return render_template('panel/cp_ahp_partai/index.html', data=data, title=title)
-
-@app.route("/dashboard/ahp/bobot/partai")
-def cp_bobot_partai():
-    # memanggil hasil data dari tabel tbl_criteria_partai
-    # simpan kedalam sebuah tabel untuk menampilkan tabel tersebut.
-    data = Ahp.fetchCriteriaPartai()
-    return data
 
 @app.route("/dashboard/ahp/bobot", methods=["GET", "POST"])
 def cp_ahp_partai_bobot():
@@ -57,7 +50,6 @@ def cp_ahp_partai_bobot_save():
     ahp = Ahp.fetchCriteriaPartai()
     value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c23'], ahp['c24'], ahp['c34']], 4)
     criteria = ""
-
     return render_template('panel/cp_ahp_partai/bobot.html', criteria=criteria, title=title, value=value)
 
 @app.route("/dashboard/ahp/partai/test", methods=["GET", "POST"]) 
