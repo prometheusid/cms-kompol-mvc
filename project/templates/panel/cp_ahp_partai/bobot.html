@@ -115,7 +115,7 @@
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
               <div class="row">
                 <div class="col-sm-12">
-                  <form action="/dashboard/ahp/bobot" method="POST">
+                  <form action="/dashboard/ahp/bobot/partai" method="POST">
                     <div class="row">
                       <div class="col-sm-4">
                         <div class="form-group">
@@ -297,7 +297,7 @@
           </tbody>
         </table>
       </div>
-      <form action="/dashboard/ahp/bobot/save" method="POST">
+      <form action="/dashboard/ahp/bobot/partai/save" method="POST">
         <input type="hidden" id="criteria" name="criteria"
           value="{{criteria['criteria'] if criteria['criteria'] != '' else null}}">
         <!-- TODO : Bantuin gua munculin ini if Consistency Index dibawah 10% -->

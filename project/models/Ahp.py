@@ -28,6 +28,12 @@ class Ahp:
         cur.execute("SELECT * from tbl_criteria_partai WHERE id = 1 ")
         data = cur.fetchone()
         return data
+
+    def fetchCriteriaDewan():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from tbl_criteria_dprd WHERE id = 1 ")
+        data = cur.fetchone()
+        return data
     
     def updateDataCriteriaPartai():
         criteria = request.form['criteria']
