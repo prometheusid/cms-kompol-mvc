@@ -28,15 +28,12 @@
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
               <div class="row">
                 <div class="col-sm-12">
-                  <!-- Tabel hanya untuk partai -->
                   <table class="table table-bordered table-striped dataTable dtr-inline"
                     aria-describedby="example1_info">
-
                     <thead>
                       <tr role="row">
                         <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending"
                           aria-label="Rendering engine: activate to sort column descending">
-
                         </th>
                         <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending"
                           aria-label="Rendering engine: activate to sort column descending">
@@ -65,10 +62,10 @@
                     <tfoot>
                       <tr>
                         <th scope="row">Rata-rata nilai eigen</th>
-                        <td>{{value['rata_eigen'][0]}}</td>
-                        <td>{{value['rata_eigen'][1]}}</td>
-                        <td>{{value['rata_eigen'][2]}}</td>
-                        <td>{{value['rata_eigen'][3]}}</td>
+                        <td>{{value['new_rata_eigen'][0]}}</td>
+                        <td>{{value['new_rata_eigen'][1]}}</td>
+                        <td>{{value['new_rata_eigen'][2]}}</td>
+                        <td>{{value['new_rata_eigen'][3]}}</td>
                       </tr>
                     </tfoot>
                   </table>
@@ -88,7 +85,7 @@
                       </tr>
                     </tbody>
                   </table>
-                  
+
                 </div>
               </div>
             </div>
@@ -117,30 +114,27 @@
           <div class="card-body">
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
               <div class="row">
-
-              </div>
-              <div class="row">
                 <div class="col-sm-12">
                   <form action="/dashboard/ahp/bobot" method="POST">
                     <div class="row">
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label for="question"><span style="color: red">*</span> C1 - C2</label>
-                          <input type="number" class="form-control" id="question" name="c12"
+                          <label for="criteria"><span style="color: red">*</span> C1 - C2</label>
+                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c12"
                             placeholder="Perbandingan C1 - C2" required>
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label for="question"><span style="color: red">*</span> C1 - C3</label>
-                          <input type="number" class="form-control" id="question" name="c13"
+                          <label for="criteria"><span style="color: red">*</span> C1 - C3</label>
+                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c13"
                             placeholder="Perbandingan C1 - C3" required>
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label for="question"><span style="color: red">*</span> C1 - C4</label>
-                          <input type="number" class="form-control" id="question" name="c14"
+                          <label for="criteria"><span style="color: red">*</span> C1 - C4</label>
+                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c14"
                             placeholder="Perbandingan C1 - C4" required>
                         </div>
                       </div>
@@ -149,28 +143,28 @@
                     <div class="row">
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label for="question"><span style="color: red">*</span> C2 - C3</label>
-                          <input type="number" class="form-control" id="question" name="c23"
+                          <label for="criteria"><span style="color: red">*</span> C2 - C3</label>
+                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c23"
                             placeholder="Perbandingan C2 - C3" required>
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label for="question"><span style="color: red">*</span> C2 - C4</label>
-                          <input type="number" class="form-control" id="question" name="c24"
+                          <label for="criteria"><span style="color: red">*</span> C2 - C4</label>
+                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c24"
                             placeholder="Perbandingan C2 - C4" required>
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label for="question"><span style="color: red">*</span> C3 - C4</label>
-                          <input type="number" class="form-control" id="question" name="c34"
+                          <label for="criteria"><span style="color: red">*</span> C3 - C4</label>
+                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c34"
                             placeholder="Perbandingan C3 - C4" required>
                         </div>
                       </div>
                     </div>
                     <div class="text-right">
-                      <button class="btn btn-success">Hitung</button>
+                      <button class="btn btn-primary">Hitung</button>
                     </div>
                   </form>
                 </div>
@@ -188,43 +182,93 @@
   <!-- /.container-fluid -->
 </section>
 
+<!-- Memunculkan data baru ketika mencoba perhitungan -->
 {% if(criteria != "") %}
 <section class="content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Hitung Bobot Kriteria</h3>
+            <h3 class="card-title">Hasil Perhitungan Kriteria (Baru)</h3>
           </div>
-          <!-- /.card-header -->
           <div class="card-body">
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
               <div class="row">
-                {{criteria}}
+                <div class="col-sm-12">
+                  <table class="table table-bordered table-striped dataTable dtr-inline"
+                    aria-describedby="example1_info">
+                    <thead>
+                      <tr role="row">
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending"
+                          aria-label="Rendering engine: activate to sort column descending">
+                        </th>
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending"
+                          aria-label="Rendering engine: activate to sort column descending">
+                          Komunikator Politik</th>
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-label="Platform(s): activate to sort column ascending">Popularitas</th>
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-label="Platform(s): activate to sort column ascending">Akuntabilitas</th>
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                          aria-label="Platform(s): activate to sort column ascending">Integritas</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {% for i in range(0,4) %}
+                      <tr role="row" class="odd">
+                        <th scope="row">{{criteria['name_criteria'][i]}}</th>
+                        <td>{{criteria['criteria'][i][0]}}</td>
+                        <td>{{criteria['criteria'][i][1]}}</td>
+                        <td>{{criteria['criteria'][i][2]}}</td>
+                        <td>{{criteria['criteria'][i][3]}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+
+                    <tfoot>
+                      <tr>
+                        <th scope="row">Rata-rata nilai eigen</th>
+                        <td>{{criteria['new_rata_eigen'][0]}}</td>
+                        <td>{{criteria['new_rata_eigen'][1]}}</td>
+                        <td>{{criteria['new_rata_eigen'][2]}}</td>
+                        <td>{{criteria['new_rata_eigen'][3]}}</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+
+                  <br>
+
+                  <table class="table table-bordered table-striped dataTable dtr-inline"
+                    aria-describedby="example1_info">
+                    <tbody>
+                      <tr role="row" class="odd">
+                        <th scope="row">Consistency Index</th>
+                        <td>{{criteria['ci']}}</td>
+                      </tr>
+                      <tr role="row" class="odd">
+                        <th scope="row">Consistency Ratio</th>
+                        <td>{{criteria['cr']}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
               <div class="row">
                 <div class="col-sm-12">
-                  <form action="/dashboard/ahp/bobot" method="POST">
-
-                    <div class="text-right">
-                      <button class="btn btn-success">Hitung</button>
-                    </div>
-                  </form>
+                  <div class="text-right">
+                    <button class="btn btn-success" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                      data-target="#modal_add">Simpan</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- /.card-body -->
         </div>
-        <!-- /.card -->
       </div>
-      <!-- /.col -->
     </div>
-    <!-- /.row -->
   </div>
-  <!-- /.container-fluid -->
 </section>
 {% endif %}
 
@@ -234,55 +278,32 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Perbandingan Bobot</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Simpan Pembobotan Terbaru</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="/dashboard/ahp/partai/test" method="POST">
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C1 - C2</label>
-                <input type="number" class="form-control" id="question" name="c12" placeholder="Perbandingan C1 - C2"
-                  required>
-              </div>
-
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C1 - C3</label>
-                <input type="number" class="form-control" id="question" name="c13" placeholder="Perbandingan C1 - C3"
-                  required>
-              </div>
-
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C1 - C4</label>
-                <input type="number" class="form-control" id="question" name="c14" placeholder="Perbandingan C1 - C4"
-                  required>
-              </div>
-
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C2 - C3</label>
-                <input type="number" class="form-control" id="question" name="c23" placeholder="Perbandingan C2 - C3"
-                  required>
-              </div>
-
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C2 - C4</label>
-                <input type="number" class="form-control" id="question" name="c24" placeholder="Perbandingan C2 - C4"
-                  required>
-              </div>
-
-              <div class="form-group">
-                <label for="question"><span style="color: red">*</span> C3 - C4</label>
-                <input type="number" class="form-control" id="question" name="c34" placeholder="Perbandingan C3 - C4"
-                  required>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="col-sm-12">
+        <table class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
+          <tbody>
+            <tr role="row" class="odd">
+              <th scope="row">Consistency Index</th>
+              <td>{{criteria['ci']}}</td>
+            </tr>
+            <tr role="row" class="odd">
+              <th scope="row">Consistency Ratio</th>
+              <td>{{criteria['cr']}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <form action="/dashboard/ahp/bobot/save" method="POST">
+        <input type="hidden" id="criteria" name="criteria"
+          value="{{criteria['criteria'] if criteria['criteria'] != '' else null}}">
+        <!-- TODO : Bantuin gua munculin ini if Consistency Index dibawah 10% -->
         <div class="modal-footer">
           <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+          <!-- TODO : Jika dibawah 10% tidak boleh di save -->
           <button class="btn btn-success">Tambah</button>
         </div>
       </form>
@@ -290,30 +311,5 @@
   </div>
 </div>
 <!-- END Modal add -->
-
-<!-- Modal Delete -->
-<!-- Modal -->
-{% for row in data %}
-<div class="modal fade" id="modal_delete{{row['id_survey_question']}}">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modal_delete{{row['id_survey_question']}}">Anda Akan Menghapus Pertanyaan</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Yakin akan menghapus data?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
-        <a href="/survey/delete/{{row['id_survey_question']}}"><button class="btn btn-sm btn-danger">Ya,
-            Hapus</button></a>
-      </div>
-    </div>
-  </div>
-</div>
-{% endfor %}
 
 {% endblock %}
