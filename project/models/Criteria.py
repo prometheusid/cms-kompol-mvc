@@ -51,29 +51,45 @@ class Criteria():
                 else:
                     row.append(aksen(criteria[j][i]))
             criteria.append(row)
+
         # Total criteria per row
         total_criteria = [sum(x) for x in zip(*criteria)]
+
         # Matrix Eigen
         for i in range(n):
             temp = []
             for j in range(n):
                 temp.append(nilai_eigen(criteria[i][j], total_criteria[j]))
             eigen.append(temp)
+
         # Row Eigen
         jumlah_eigen = list(map(sum, eigen))
+
         # Row Rata-rata Eigen
         for i in range(n):
             rata_eigen.append(sum_avg_eigen(jumlah_eigen[i], n))
+
         # Cek eigen apakah 1 jika sesuai berarti benar
         cek_eigen = sum(map(lambda x: x, rata_eigen))
+
         # Menghitung lambda
         lambda_max = sum(map(lambda x, y: x * y, total_criteria, rata_eigen))
+
         # Menghitunf consistensi index
         ci = (lambda_max - n) / (n-1)
-        # TODO : cari jika n = 4 atau n = 5 bisa disesuaikan dengan menggunakan (IF Statement)
-        ri = 0.9
+
+        if n == 4:
+            ri = 0.9
+        elif n == 5:
+            ri = 1.12
+
         # Menghitung Rasio Index
         cr = ci / ri
+
+        # mengubah rata_eigen menjadi round
+        new_rata_eigen = []
+        for i in rata_eigen:
+            new_rata_eigen.append(round(i , 3))
 
         data['name_criteria'] = name_criteria
         data['criteria'] = criteria
@@ -81,9 +97,10 @@ class Criteria():
         data['eigen'] = eigen
         data['jumlah_eigen'] = jumlah_eigen
         data['rata_eigen'] = rata_eigen
+        data['new_rata_eigen'] = new_rata_eigen
         data['cek_eigen'] = cek_eigen
         data['lambda_max'] = lambda_max
-        data['ci'] = ci
-        data['cr'] = cr
+        data['ci'] = round(ci, 3)
+        data['cr'] = round(cr, 3)
 
         return data
