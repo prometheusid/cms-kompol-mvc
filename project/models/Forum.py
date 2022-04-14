@@ -36,8 +36,7 @@ class Forum:
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO tbl_forum (forum_judul, forum_isi, user_id, author, created_at) VALUES (%s,%s,%s,%s,%s)",
                     (judulForum, isi, ts, author, waktu))
-        # mysql.connection.commit()
-
+              
         if session['role'] == 2:
             curl_users = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             curl_users.execute("SELECT * FROM users WHERE user_id = %s", (ts,))
@@ -57,6 +56,28 @@ class Forum:
             update = mysql.connection.cursor()
             sql_update = "UPDATE tbl_ahp_partai SET popularitas_eksistensi = %s WHERE partai_id = %s"
             value_ahp = (ahp_eksistensi, id_partai)
+            update.execute(sql_update, value_ahp)
+
+        if session['role'] == 3:
+            user_id = session['id']
+
+            curl_ahp_dprd = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            curl_ahp_dprd.execute("SELECT * FROM tbl_ahp_dprd WHERE user_id = %s", (user_id,))
+            ahp_dprd = curl_ahp_dprd.fetchone()
+            curl_ahp_dprd.close()
+
+            ahp_eksistensi_before = ahp_dprd['popularitas_eksistensi']
+            ahp_eksistensi = int(ahp_eksistensi_before) + 15
+
+            ahp_forum_jumlah_before = ahp_dprd['forum_jumlah']
+            ahp_forum_jumlah = int(ahp_forum_jumlah_before) + 10
+
+            ahp_forum_sentiment_before = ahp_dprd['forum_sentiment']
+            ahp_forum_sentiment = int(ahp_forum_sentiment_before) + 10
+
+            update = mysql.connection.cursor()
+            sql_update = "UPDATE tbl_ahp_dprd SET popularitas_eksistensi = %s, forum_jumlah = %s, forum_sentiment = %s WHERE user_id = %s"
+            value_ahp = (ahp_eksistensi, ahp_forum_jumlah, ahp_forum_sentiment, user_id)
             update.execute(sql_update, value_ahp)
         
         mysql.connection.commit()
@@ -89,6 +110,28 @@ class Forum:
             update = mysql.connection.cursor()
             sql_update = "UPDATE tbl_ahp_partai SET popularitas_citra = %s WHERE partai_id = %s"
             value_ahp = (ahp_citra, id_partai)
+            update.execute(sql_update, value_ahp)
+
+        if session['role'] == 3:
+            user_id = session['id']
+
+            curl_ahp_dewan = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            curl_ahp_dewan.execute("SELECT * FROM tbl_ahp_dprd WHERE user_id = %s", (user_id,))
+            ahp_dewan = curl_ahp_dewan.fetchone()
+            curl_ahp_dewan.close()
+
+            ahp_citra_before = ahp_dewan['popularitas_citra']
+            ahp_citra = int(ahp_citra_before) + 10
+
+            ahp_forum_jumlah_before = ahp_dewan['forum_jumlah']
+            ahp_forum_jumlah = int(ahp_forum_jumlah_before) + 5
+
+            ahp_forum_sentiment_before = ahp_dewan['forum_sentiment']
+            ahp_forum_sentiment = int(ahp_forum_sentiment_before) + 10
+
+            update = mysql.connection.cursor()
+            sql_update = "UPDATE tbl_ahp_dprd SET popularitas_citra = %s, forum_jumlah = %s, forum_sentiment = %s WHERE user_id = %s"
+            value_ahp = (ahp_citra, ahp_forum_jumlah, ahp_forum_sentiment, user_id)
             update.execute(sql_update, value_ahp)
         mysql.connection.commit()
 

@@ -183,5 +183,31 @@ class Survey:
         value_ahp = (ahp_citra, ahp_eksistensi, id_partai)
         update.execute(sql_update, value_ahp)
         mysql.connection.commit()
+    
+    def saveAHPDewan():
+        
+        user_id = request.form['id_dprd']
+        post_score_eksistensi = request.form['row3']
+        post_score_citra = request.form['row2']
+        post_score_integritas = request.form['row10']
+
+        curl = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        curl.execute("SELECT * FROM tbl_ahp_dprd WHERE user_id = %s", (user_id,))
+        ahp_dprd = curl.fetchone()
+        curl.close()
+
+        ahp_citra_before = ahp_dprd['popularitas_citra']
+        ahp_eksistensi_before = ahp_dprd['popularitas_eksistensi']
+        ahp_integritas_before = ahp_dprd['integritas_jumlah']
+
+        ahp_citra = (int(post_score_citra)*20) + int(ahp_citra_before) + 10
+        ahp_eksistensi = (int(post_score_eksistensi)*20) + int(ahp_eksistensi_before) + 15
+        ahp_integritas = (int(post_score_integritas)*20) + int(ahp_integritas_before) + 10
+
+        update = mysql.connection.cursor()
+        sql_update = "UPDATE tbl_ahp_dprd SET popularitas_citra = %s,  popularitas_eksistensi = %s, integritas_jumlah = %s WHERE user_id = %s"
+        value_ahp = (ahp_citra, ahp_eksistensi, ahp_integritas, user_id)
+        update.execute(sql_update, value_ahp)
+        mysql.connection.commit()
 
         

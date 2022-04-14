@@ -68,6 +68,25 @@ class LaporanKunjungan:
             value_ahp = (ahp_eksistensi, id_partai)
             update.execute(sql_update, value_ahp)
         
+        if session['role'] == 3:
+            user_id = session['id']
+
+            curl_ahp_dprd = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            curl_ahp_dprd.execute("SELECT * FROM tbl_ahp_dprd WHERE user_id = %s", (user_id,))
+            ahp_dprd = curl_ahp_dprd.fetchone()
+            curl_ahp_dprd.close()
+
+            ahp_laporan_jumlah_before = ahp_dprd['laporan_jumlah']
+            ahp_laporan_jumlah = int(ahp_laporan_jumlah_before) + 10
+
+            ahp_laporan_sentiment_before = ahp_dprd['laporan_sentiment']
+            ahp_laporan_sentiment = int(ahp_laporan_sentiment_before) + 15
+
+            update = mysql.connection.cursor()
+            sql_update = "UPDATE tbl_ahp_dprd SET laporan_jumlah = %s, laporan_sentiment = %s WHERE user_id = %s"
+            value_ahp = (ahp_laporan_jumlah, ahp_laporan_sentiment, user_id)
+            update.execute(sql_update, value_ahp)
+        
         mysql.connection.commit()
 
     def fetchLapkun():

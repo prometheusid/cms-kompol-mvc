@@ -32,6 +32,7 @@ def surveyPartai():
 def saveSurveyDpr():
     title = ("Survey DPRD")
     data = Survey.saveDPRDSurvey()
+    ahp = Survey.saveAHPDewan()
     return redirect(url_for('surveys', title=title))
 
 @app.route('/surveys/partai/save', methods = ['POST'])
