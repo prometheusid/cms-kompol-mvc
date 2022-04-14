@@ -18,8 +18,8 @@ def cp_ahp_partai():
     data = Calculate.eigen_partai(dataAhpPartai, sumDataAhpPartai, value['rata_eigen'])
     return render_template('panel/cp_ahp_partai/index.html', data=data, title=title)
 
-@app.route("/dashboard/ahp/bobot", methods=["GET", "POST"])
-def cp_ahp_partai_bobot():
+@app.route("/dashboard/ahp/bobot/partai", methods=["GET", "POST"])
+def cp_ahp_bobot_partai():
     title = ("Ahp bobot")
     ahp = Ahp.fetchCriteriaPartai()
     value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c23'], ahp['c24'], ahp['c34']], 4)
@@ -34,8 +34,8 @@ def cp_ahp_partai_bobot():
         criteria = Criteria.perbandingan([c12, c13, c14, c23, c24, c34], 4)
     return render_template('panel/cp_ahp_partai/bobot.html', criteria=criteria, title=title, value=value)
 
-@app.route("/dashboard/ahp/bobot/save", methods=["POST"])
-def cp_ahp_partai_bobot_save():
+@app.route("/dashboard/ahp/bobot/partai/save", methods=["POST"])
+def cp_ahp_bobot_partai_save():
     title = ("Ahp bobot")
     save = Ahp.updateDataCriteriaPartai()
     ahp = Ahp.fetchCriteriaPartai()

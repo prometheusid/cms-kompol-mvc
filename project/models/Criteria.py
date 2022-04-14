@@ -35,8 +35,8 @@ class Criteria():
 
         # Untuk AHP Dewan
         if n == 5:
-            name_criteria = ['Komunikator Politik',
-                             'Popularitas', 'Akuntabilitas', 'Integritas']
+            name_criteria = ['Kompetensi',
+                             'Popularitas', 'Content', 'Akuntabilitas', 'Integritas']
 
         # Masukan criteria ke dalam matrix perbadingan
         temp = 0
