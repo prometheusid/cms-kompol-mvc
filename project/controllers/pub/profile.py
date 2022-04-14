@@ -9,14 +9,27 @@ from ..auth.auth import session
 # Import models
 from project.models.Profile import Profile
 
+from project.models.Ahp import Ahp
+from project.models.Calculate import Calculate
+from project.models.Criteria import Criteria
+
 @app.route("/profile/<name>")
 def profileuser(name):
     title = ("PROFILE")
     if 'loggedin' in session:
         profiles = Profile.detaiilProfile(name)
         edu = Profile.eduProfile(name)
-        ahpPartai = Profile.ahpPartai(name)
-        return render_template('public/profile/index.html', title=title, profiles=profiles, edu=edu, ahpPartai=ahpPartai)
+        # ahpPartai = Profile.ahpPartai(name)
+
+        criteria = Ahp.fetchCriteriaPartai()
+        value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c23'], criteria['c24'], criteria['c34']], 4)
+        dataAhpPartai = Ahp.fetchValue()
+        sumDataAhpPartai = Ahp.sumValue()
+        ahpPartai = Calculate.eigen_partai(dataAhpPartai, sumDataAhpPartai, value['rata_eigen'])
+        dataPartai = Ahp.fetchValueId(name)
+        # return str(ahpPartai)
+        # return str(ahpPartai[2]['partai_id'])
+        return render_template('public/profile/index.html', title=title, profiles=profiles, edu=edu, ahpPartai=ahpPartai, dataPartai=dataPartai)
     return redirect(url_for('login'))
 
 @app.route("/profile/edit/<name>", methods=["GET", "POST"])
