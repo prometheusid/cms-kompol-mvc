@@ -6,20 +6,30 @@ from project.config.Database import mysql
 import bcrypt
 from ..auth.auth import session
 
+# Import models
+from project.models.Profile import Profile
+
+from project.models.Ahp import Ahp
+from project.models.Calculate import Calculate
+from project.models.Criteria import Criteria
+
 @app.route("/profile/<name>")
 def profileuser(name):
     title = ("PROFILE")
     if 'loggedin' in session:
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
-                    JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id WHERE users.user_id=%s", (name,))
-        profiles = cur.fetchone()
+        profiles = Profile.detaiilProfile(name)
+        edu = Profile.eduProfile(name)
+        # ahpPartai = Profile.ahpPartai(name)
 
-        edu = mysql.connection.cursor()
-        edu.execute("SELECT * FROM users JOIN tbl_pendidikan ON tbl_pendidikan.id_pendidikan=users.id_pendidikan WHERE users.user_id=%s", (name,))
-        edu = edu.fetchone()
-
-        return render_template('public/profile/index.html', title=title, profiles=profiles, edu=edu)
+        criteria = Ahp.fetchCriteriaPartai()
+        value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c23'], criteria['c24'], criteria['c34']], 4)
+        dataAhpPartai = Ahp.fetchValue()
+        sumDataAhpPartai = Ahp.sumValue()
+        ahpPartai = Calculate.eigen_partai(dataAhpPartai, sumDataAhpPartai, value['rata_eigen'])
+        dataPartai = Ahp.fetchValueId(name)
+        # return str(ahpPartai)
+        # return str(ahpPartai[2]['partai_id'])
+        return render_template('public/profile/index.html', title=title, profiles=profiles, edu=edu, ahpPartai=ahpPartai, dataPartai=dataPartai)
     return redirect(url_for('login'))
 
 @app.route("/profile/edit/<name>", methods=["GET", "POST"])

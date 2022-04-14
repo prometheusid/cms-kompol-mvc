@@ -51,11 +51,11 @@ class Forum:
             ahp_partai = curl_ahp_partai.fetchone()
             curl_ahp_partai.close()
 
-            ahp_eksistensi_before = ahp_partai['popularitas_eksistensi_partai']
+            ahp_eksistensi_before = ahp_partai['popularitas_eksistensi']
             ahp_eksistensi = int(ahp_eksistensi_before) + 15
 
             update = mysql.connection.cursor()
-            sql_update = "UPDATE tbl_ahp_partai SET popularitas_eksistensi_partai = %s WHERE partai_id = %s"
+            sql_update = "UPDATE tbl_ahp_partai SET popularitas_eksistensi = %s WHERE partai_id = %s"
             value_ahp = (ahp_eksistensi, id_partai)
             update.execute(sql_update, value_ahp)
         
@@ -83,11 +83,11 @@ class Forum:
             ahp_partai = curl_ahp_partai.fetchone()
             curl_ahp_partai.close()
 
-            ahp_citra_before = ahp_partai['popularitas_eksistensi_partai']
+            ahp_citra_before = ahp_partai['popularitas_citra']
             ahp_citra = int(ahp_citra_before) + 10
 
             update = mysql.connection.cursor()
-            sql_update = "UPDATE tbl_ahp_partai SET popularitas_citra_partai = %s WHERE partai_id = %s"
+            sql_update = "UPDATE tbl_ahp_partai SET popularitas_citra = %s WHERE partai_id = %s"
             value_ahp = (ahp_citra, id_partai)
             update.execute(sql_update, value_ahp)
         mysql.connection.commit()

@@ -14,22 +14,14 @@ from project.models.LaporanKunjungan import LaporanKunjungan
 @app.route("/kunjungan/")
 def lapkun():
     title = ('LAPORAN KUNJUNGAN')
-    cur = mysql.connection.cursor()
-    cur.execute(
-        "SELECT * FROM tbl_lapkun as a LEFT JOIN users as b ON a.user_id = b.user_id ORDER BY a.created_at DESC")
-    data = cur.fetchall()
+    data = LaporanKunjungan.fetchLapkun()
     return render_template("/public/lapkun/index.html", data=data, title=title)
 
 
 @app.route("/kunjungan/thread/<int:id>")
 def lapkun_thread(id):
     title = ('LAPORAN KUNJUNGAN')
-    cur = mysql.connection.cursor()
-    cur.execute(
-        "SELECT * FROM tbl_lapkun as a \
-        LEFT JOIN users as b ON a.user_id = b.user_id \
-        WHERE a.lapkun_id=%s", (id,))
-    data = cur.fetchone()
+    data = LaporanKunjungan.detailLapkun(id)
 
     # Get Count commentar
     # count = mysql.connection.cursor()
