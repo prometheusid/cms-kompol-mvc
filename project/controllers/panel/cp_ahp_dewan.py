@@ -5,16 +5,19 @@ from datetime import datetime
 
 # Import models
 from project.models.Ahp import Ahp
-from project.models.Calculate import Calculate
+from project.models.CalculateDewan import CalculateDewan
 from project.models.Criteria import Criteria
 
 
 @app.route("/dashboard/ahp/dewan")
 def cp_ahp_dewan():
-    # TODO : get konstatnta from table criteria ahp
-    # 2. menmpilkan contoh perhitungan yang akan dipakai
-    # 3. bisa menampilkan data yang digunakan
-    return render_template('panel/cp_ahp_dewan/index.html')
+    title = ("Ahp Dewan")
+    criteria = Ahp.fetchCriteriaDewan()
+    value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c15'], criteria['c23'], criteria['c24'], criteria['c25'], criteria['c34'], criteria['c35'], criteria['c45']], 5)
+    dataAhpDewan = Ahp.fetchValueDewan()
+    sumDataAhpDewan = Ahp.sumValueDewan()
+    data = CalculateDewan.eigen_partai(dataAhpDewan, sumDataAhpDewan, value['rata_eigen'])
+    return render_template('panel/cp_ahp_dewan/index.html', data=data, title=title)
 
 @app.route("/dashboard/ahp/bobot/dewan", methods=["GET", "POST"])
 def cp_ahp_bobot_dewan():

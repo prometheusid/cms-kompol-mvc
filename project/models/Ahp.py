@@ -11,9 +11,21 @@ class Ahp:
         data = cur.fetchall()
         return data
     
+    def fetchValueDewan():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from tbl_ahp_dprd AS a JOIN users as b ON a.user_id = b.user_id ORDER BY a.user_id ASC")
+        data = cur.fetchall()
+        return data
+    
     def sumValue():
         cur = mysql.connection.cursor()
         cur.execute("SELECT SUM(komunikator_jumlah) as jml_c1, SUM(komunikator_sentiment) as sentiment_c1, SUM(popularitas_eksistensi) as eksi_c2, SUM(popularitas_citra) as citra_c2, SUM(laporan_jumlah) as jml_c3, SUM(laporan_sentiment) as sentiment_c3, SUM(integritas_jumlah) as jml_c4, SUM(integritas_sentiment) as sentiment_c4 from tbl_ahp_partai")
+        data = cur.fetchall()
+        return data
+    
+    def sumValueDewan():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT SUM(kompetensi_akademik) as kompetensi_c1, SUM(kompetensi_experience) as experience_c1, SUM(popularitas_eksistensi) as eksi_c2, SUM(popularitas_citra) as citra_c2, SUM(forum_jumlah) as jml_c3, SUM(forum_sentiment) as sentiment_c3, SUM(laporan_jumlah) as jml_c4, SUM(laporan_sentiment) as sentiment_c4, SUM(integritas_jumlah) as jml_c5, SUM(integritas_sentiment) as sentiment_c5 from tbl_ahp_dprd")
         data = cur.fetchall()
         return data
     

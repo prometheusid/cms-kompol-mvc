@@ -32,7 +32,7 @@ class Calculate():
         konsJmlC3 = 0.8753283713
         konsSentimentC3 = 0.1246716287
         konsJmlC4 = 0.7509398496
-        konsSentimentC4 = 0.2377819549
+        konsSentimentC4 = 0.2490601504
 
         eigenJmlC1 = []
         eigenSentimentC1 = []
