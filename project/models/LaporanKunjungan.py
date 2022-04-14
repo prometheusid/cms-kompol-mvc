@@ -3,6 +3,7 @@ from project.config.Database import mysql
 from datetime import datetime
 from flask import render_template, redirect, url_for, request, session, flash
 from os.path import join, dirname, realpath
+from flask_mysqldb import MySQLdb
 from werkzeug.utils import secure_filename
 import os
 
@@ -45,6 +46,28 @@ class LaporanKunjungan:
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO tbl_lapkun (user_id, lapkun_judul, lapkun_isi, document, created_at) VALUES (%s,%s,%s,%s,%s)",
                     (author, judul, isi, filename, waktu))
+        
+        if session['role'] == 2:
+            curl_users = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            curl_users.execute("SELECT * FROM users WHERE user_id = %s", (author,))
+            data_users= curl_users.fetchone()
+            curl_users.close()
+
+            id_partai = data_users['partai_id']
+
+            curl_ahp_partai = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            curl_ahp_partai.execute("SELECT * FROM tbl_ahp_partai WHERE partai_id = %s", (id_partai,))
+            ahp_partai = curl_ahp_partai.fetchone()
+            curl_ahp_partai.close()
+
+            ahp_eksistensi_before = ahp_partai['laporan_jumlah']
+            ahp_eksistensi = int(ahp_eksistensi_before) + 10
+
+            update = mysql.connection.cursor()
+            sql_update = "UPDATE tbl_ahp_partai SET laporan_jumlah = %s WHERE partai_id = %s"
+            value_ahp = (ahp_eksistensi, id_partai)
+            update.execute(sql_update, value_ahp)
+        
         mysql.connection.commit()
 
     def fetchLapkun():
