@@ -169,6 +169,7 @@
         <div class="col-sm-12">
           <div class="card-block">
             <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Hasil SPK</h6>
+
             {% if profiles.role_id == 1 %}
             <div class="row">
               <div class="col-sm-6">
@@ -195,7 +196,7 @@
             <div class="row">
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">SKOR AHP</p>
-                <h6 class="text-muted f-w-400">500</h6>
+                <h6 class="text-muted f-w-400">0.37</h6>
               </div>
             </div>
             <div class="row">
@@ -219,6 +220,18 @@
               </div>
             </div>
             {% endif %} {% if profiles.role_id == 2 %}
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">SKOR AHP</p>
+                {% for row in ahpPartai %}
+                  {% if row['partai_id'] == dataPartai['partai_id'] %}
+                <h6 class="text-muted f-w-400">
+                   {{row['value'][4]}}</h6>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Identitas</h6>
             <div class="row">
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Email</p>

@@ -85,3 +85,14 @@ class Ahp:
         update.execute(sql_update, value)
         mysql.connection.commit()
 
+    def fetchValueId(name):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from tbl_ahp_partai AS a JOIN tbl_partai as b ON a.partai_id = b.partai_id JOIN users as C ON a.partai_id = C.partai_id WHERE C.user_id=%s", (name,))
+        data = cur.fetchone()
+        return data
+    
+    def sumValueId(name):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT SUM(komunikator_jumlah) as jml_c1, SUM(komunikator_sentiment) as sentiment_c1, SUM(popularitas_eksistensi) as eksi_c2, SUM(popularitas_citra) as citra_c2, SUM(laporan_jumlah) as jml_c3, SUM(laporan_sentiment) as sentiment_c3, SUM(integritas_jumlah) as jml_c4, SUM(integritas_sentiment) as sentiment_c4 from tbl_ahp_partai as A JOIN users as B ON A.partai_id = B.partai_id WHERE B.user_id=%s", (name,))
+        data = cur.fetchone()
+        return data
