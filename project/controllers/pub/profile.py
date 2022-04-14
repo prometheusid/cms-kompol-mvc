@@ -12,6 +12,7 @@ from project.models.Profile import Profile
 from project.models.Ahp import Ahp
 from project.models.Calculate import Calculate
 from project.models.Criteria import Criteria
+from project.models.CalculateDewan import CalculateDewan
 
 @app.route("/profile/<name>")
 def profileuser(name):
@@ -19,17 +20,23 @@ def profileuser(name):
     if 'loggedin' in session:
         profiles = Profile.detaiilProfile(name)
         edu = Profile.eduProfile(name)
-        # ahpPartai = Profile.ahpPartai(name)
 
+        # AHP PARTAI
         criteria = Ahp.fetchCriteriaPartai()
         value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c23'], criteria['c24'], criteria['c34']], 4)
         dataAhpPartai = Ahp.fetchValue()
         sumDataAhpPartai = Ahp.sumValue()
         ahpPartai = Calculate.eigen_partai(dataAhpPartai, sumDataAhpPartai, value['rata_eigen'])
+        
+        # AHP DEWAN
+        criteriaDewan = Ahp.fetchCriteriaDewan()
+        valueDewan = Criteria.perbandingan([criteriaDewan['c12'], criteriaDewan['c13'], criteriaDewan['c14'], criteriaDewan['c15'], criteriaDewan['c23'], criteriaDewan['c24'], criteriaDewan['c25'], criteriaDewan['c34'], criteriaDewan['c35'], criteriaDewan['c45']], 5)
+        dataAhpDewan = Ahp.fetchValueDewan()
+        sumDataAhpDewan = Ahp.sumValueDewan()
+        ahpDewan = CalculateDewan.eigen_partai(dataAhpDewan, sumDataAhpDewan, valueDewan['rata_eigen'])
         dataPartai = Ahp.fetchValueId(name)
-        # return str(ahpPartai)
-        # return str(ahpPartai[2]['partai_id'])
-        return render_template('public/profile/index.html', title=title, profiles=profiles, edu=edu, ahpPartai=ahpPartai, dataPartai=dataPartai)
+        dataDewan = Ahp.fetchDewanId(name)
+        return render_template('public/profile/index.html', title=title, profiles=profiles, edu=edu, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan)
     return redirect(url_for('login'))
 
 @app.route("/profile/edit/<name>", methods=["GET", "POST"])

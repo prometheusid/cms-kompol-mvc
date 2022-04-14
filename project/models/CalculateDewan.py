@@ -53,6 +53,6 @@ class CalculateDewan():
             eigenSentimentC5.append(nilai_eigen(data[i]['integritas_sentiment'], countData[0]['sentiment_c5']) * sentimentC5)
         
         for i in range(len(data)):
-            nilaiEigenCriteria.append({'id' : data[i]['id'], 'name_user' : data[i]['nama_user'],'value' : eigen_criteria( eigenAkademikC1[i], eigenExperienceC1[i], eigenEksiC2[i], eigenCitraC2[i], eigenJmlC3[i], eigenSentimentC3[i], eigenJmlC4[i], eigenSentimentC4[i], eigenJmlC5[i], eigenSentimentC5[i], rataEigenCriteria)})
+            nilaiEigenCriteria.append({'id' : data[i]['id'], 'user_id' : data[i]['user_id'], 'name_user' : data[i]['nama_user'],'value' : eigen_criteria( eigenAkademikC1[i], eigenExperienceC1[i], eigenEksiC2[i], eigenCitraC2[i], eigenJmlC3[i], eigenSentimentC3[i], eigenJmlC4[i], eigenSentimentC4[i], eigenJmlC5[i], eigenSentimentC5[i], rataEigenCriteria)})
 
         return nilaiEigenCriteria
