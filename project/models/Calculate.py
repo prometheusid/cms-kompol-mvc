@@ -56,6 +56,7 @@ class Calculate():
             eigenSentimentC4.append(nilai_eigen(data[i]['integritas_sentiment'], countData[0]['sentiment_c4']) * konsSentimentC4)
         
         for i in range(len(data)):
-            nilaiEigenCriteria.append({'nama_partai' : data[i]['nama_partai'], 'value' : eigen_criteria(eigenJmlC1[i], eigenSentimentC1[i], eigenEksiC2[i], eigenCitraC2[i], eigenJmlC3[i], eigenSentimentC3[i], eigenJmlC4[i], eigenSentimentC4[i], rataEigenCriteria)})
+            nilaiEigenCriteria.append({'partai_id' : data[i]['partai_id'], 'nama_partai' : data[i]['nama_partai'], 'value' : eigen_criteria(eigenJmlC1[i], eigenSentimentC1[i], eigenEksiC2[i], eigenCitraC2[i], eigenJmlC3[i], eigenSentimentC3[i], eigenJmlC4[i], eigenSentimentC4[i], rataEigenCriteria)})
 
         return nilaiEigenCriteria
+        
