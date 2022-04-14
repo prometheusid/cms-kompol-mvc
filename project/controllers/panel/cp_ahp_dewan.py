@@ -3,32 +3,47 @@ from flask import render_template, redirect, url_for, request, session
 from project.config.Database import mysql
 from datetime import datetime
 
-# generate random integer values
-from random import seed
-from random import randint
-
 # Import models
-from project.models.Survey import Survey
+from project.models.Ahp import Ahp
+from project.models.CalculateDewan import CalculateDewan
+from project.models.Criteria import Criteria
 
-
-# #route index
-
-# 1. index untuk menampilkan data keseluruhan
-# 2. create untuk tombol memlih create/or function dll.
-# 3. store create/add from database(menyimpan)
-# 4. show (menampilkan satu bagian)
-# 5. edit (untuk redirect tombol edit)
-# 6. update (untuk update data yg baru)
-# 7. destroy (hapus)
 
 @app.route("/dashboard/ahp/dewan")
 def cp_ahp_dewan():
-    # TODO : get konstatnta from table criteria ahp
-    # 2. menmpilkan contoh perhitungan yang akan dipakai
-    # 3. bisa menampilkan data yang digunakan
-    return render_template('panel/cp_ahp_dewan/index.html')
+    title = ("Ahp Dewan")
+    criteria = Ahp.fetchCriteriaDewan()
+    value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c15'], criteria['c23'], criteria['c24'], criteria['c25'], criteria['c34'], criteria['c35'], criteria['c45']], 5)
+    dataAhpDewan = Ahp.fetchValueDewan()
+    sumDataAhpDewan = Ahp.sumValueDewan()
+    data = CalculateDewan.eigen_partai(dataAhpDewan, sumDataAhpDewan, value['rata_eigen'])
+    return render_template('panel/cp_ahp_dewan/index.html', data=data, title=title)
 
-# @app.route("/survey/tambah-question", methods=["GET", "POST"])
-# def cp_survey_question():
-#     data = Survey.addDataQuestion()
-#     return redirect(url_for('cp_survey'))
+@app.route("/dashboard/ahp/bobot/dewan", methods=["GET", "POST"])
+def cp_ahp_bobot_dewan():
+    title = ("Ahp bobot")
+    ahp = Ahp.fetchCriteriaDewan()
+    value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c15'], ahp['c23'], ahp['c24'], ahp['c25'], ahp['c34'], ahp['c35'], ahp['c45']], 5)
+    criteria = ""
+    if (request.form) :
+        c12 = request.form['c12']
+        c13 = request.form['c13']
+        c14 = request.form['c14']
+        c15 = request.form['c15']
+        c23 = request.form['c23']
+        c24 = request.form['c24']
+        c25 = request.form['c25']
+        c34 = request.form['c34']
+        c35 = request.form['c35']
+        c45 = request.form['c45']
+        criteria = Criteria.perbandingan([c12, c13, c14, c15, c23, c24, c25, c34, c35, c45], 5)
+    return render_template('panel/cp_ahp_dewan/bobot.html', criteria=criteria, title=title, value=value)
+
+@app.route("/dashboard/ahp/bobot/dewan/save", methods=["POST"])
+def cp_ahp_bobot_dewan_save():
+    title = ("Ahp bobot")
+    save = Ahp.updateDataCriteriaDewan()
+    ahp = Ahp.fetchCriteriaDewan()
+    value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c15'], ahp['c23'], ahp['c24'], ahp['c25'], ahp['c34'], ahp['c35'], ahp['c45']], 5)
+    criteria = ""
+    return render_template('panel/cp_ahp_dewan/bobot.html', criteria=criteria, title=title, value=value)

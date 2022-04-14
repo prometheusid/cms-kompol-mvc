@@ -7,7 +7,7 @@
     <div class="row mb-2">
       <div class="col-sm-6">
         <h1>{{title}}</h1>
-        <h3 class="card-title">Bobot Kriteria Partai / <a href="#">Bobot Kriteria DPRD</a></h3>
+        <h3 class="card-title">Bobot Kriteria Partai / <a href="/dashboard/ahp/bobot/dewan">Bobot Kriteria DPRD</a></h3>
       </div>
     </div>
   </div><!-- /.container-fluid -->
@@ -21,7 +21,7 @@
 
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Matrix Perbandingan Antar Kriteria</h3>
+            <h3 class="card-title">Matrix Perbandingan Antar Kriteria (Partai)</h3>
           </div>
 
           <div class="card-body">
@@ -108,33 +108,33 @@
 
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Hitung Bobot Kriteria</h3>
+            <h3 class="card-title">Hitung Bobot Kriteria (Partai)</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
               <div class="row">
                 <div class="col-sm-12">
-                  <form action="/dashboard/ahp/bobot" method="POST">
+                  <form action="/dashboard/ahp/bobot/partai" method="POST">
                     <div class="row">
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label for="criteria"><span style="color: red">*</span> C1 - C2</label>
-                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c12"
+                          <input type="number" min="0.001" step="0.001" class="form-control" id="criteria" name="c12"
                             placeholder="Perbandingan C1 - C2" required>
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label for="criteria"><span style="color: red">*</span> C1 - C3</label>
-                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c13"
+                          <input type="number" min="0.001" step="0.001" class="form-control" id="criteria" name="c13"
                             placeholder="Perbandingan C1 - C3" required>
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label for="criteria"><span style="color: red">*</span> C1 - C4</label>
-                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c14"
+                          <input type="number" min="0.001" step="0.001" class="form-control" id="criteria" name="c14"
                             placeholder="Perbandingan C1 - C4" required>
                         </div>
                       </div>
@@ -144,21 +144,21 @@
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label for="criteria"><span style="color: red">*</span> C2 - C3</label>
-                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c23"
+                          <input type="number" min="0.001" step="0.001" class="form-control" id="criteria" name="c23"
                             placeholder="Perbandingan C2 - C3" required>
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label for="criteria"><span style="color: red">*</span> C2 - C4</label>
-                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c24"
+                          <input type="number" min="0.001" step="0.001" class="form-control" id="criteria" name="c24"
                             placeholder="Perbandingan C2 - C4" required>
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label for="criteria"><span style="color: red">*</span> C3 - C4</label>
-                          <input type="number" min="0.01" step="0.01" class="form-control" id="criteria" name="c34"
+                          <input type="number" min="0.001" step="0.001" class="form-control" id="criteria" name="c34"
                             placeholder="Perbandingan C3 - C4" required>
                         </div>
                       </div>
@@ -297,7 +297,7 @@
           </tbody>
         </table>
       </div>
-      <form action="/dashboard/ahp/bobot/save" method="POST">
+      <form action="/dashboard/ahp/bobot/partai/save" method="POST">
         <input type="hidden" id="criteria" name="criteria"
           value="{{criteria['criteria'] if criteria['criteria'] != '' else null}}">
         <!-- TODO : Bantuin gua munculin ini if Consistency Index dibawah 10% -->
