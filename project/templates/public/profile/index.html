@@ -196,7 +196,12 @@
             <div class="row">
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">SKOR AHP</p>
-                <h6 class="text-muted f-w-400">0.37</h6>
+                {% for row in ahpDewan %}
+                  {% if row['user_id'] == dataDewan['user_id'] %}
+                <h6 class="text-muted f-w-400">
+                   {{row['value'][5]}}</h6>
+                  {% endif %}
+                {% endfor %}
               </div>
             </div>
             <div class="row">

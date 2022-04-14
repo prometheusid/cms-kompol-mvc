@@ -13,7 +13,7 @@ class Ahp:
     
     def fetchValueDewan():
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * from tbl_ahp_dprd AS a JOIN users as b ON a.user_id = b.user_id ORDER BY a.user_id ASC")
+        cur.execute("SELECT * from tbl_ahp_dprd AS a JOIN users as b ON a.user_id = b.user_id WHERE b.role_id = 3 ORDER BY a.user_id ASC")
         data = cur.fetchall()
         return data
     
@@ -88,6 +88,12 @@ class Ahp:
     def fetchValueId(name):
         cur = mysql.connection.cursor()
         cur.execute("SELECT * from tbl_ahp_partai AS a JOIN tbl_partai as b ON a.partai_id = b.partai_id JOIN users as C ON a.partai_id = C.partai_id WHERE C.user_id=%s", (name,))
+        data = cur.fetchone()
+        return data
+
+    def fetchDewanId(name):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from tbl_ahp_dprd AS a JOIN users as b ON a.user_id = b.user_id WHERE b.user_id=%s", (name,))
         data = cur.fetchone()
         return data
     
