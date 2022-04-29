@@ -15,5 +15,6 @@ def cp_crawling():
 
     # 1. angota punya dataset twntang diri dia
     # insert into sentiment_dprd
-    # id, user_id, tweet
+    # id, user_id, tweet, created_at, updated_at
+    
     return str(Tweets_df['tweet'])
