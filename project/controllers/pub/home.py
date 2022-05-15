@@ -42,7 +42,25 @@ def pub_home():
         dataPartai = Ahp.fetchValueId(sess)
         dataDewan = Ahp.fetchDewanId(sess)
 
-        key = 'Sentiment Masyarakat'
+        key = ''
+        if session['role'] == 3:
+            for row in ahpDewan:
+                sentimentRek = row['value'][2]
+                popularitasRek = row['value'][1]
+                akuntabilitasRek = row['value'][3]
+                integritasRek = row['value'][4]
+
+                if row['user_id'] == dataDewan['user_id']:
+                    if popularitasRek < sentimentRek and popularitasRek < integritasRek:
+                        key = 'Menaikan Popularitas'
+                    if akuntabilitasRek <integritasRek and akuntabilitasRek < sentimentRek:
+                        key = 'Memperbaiki akuntabilitas'
+                    if integritasRek < sentimentRek and integritasRek < popularitasRek:
+                        key ='Menjaga Integritas'
+                    if sentimentRek < popularitasRek and sentimentRek < akuntabilitasRek:
+                        key = 'Menaikan Kinerja'
+                
+        # return key
         rekomendasi = Knn.knn(key)
         return render_template('public/homepage/index.html', title=title, profiles=profiles, laporan=laporan, info=info, forum=forum, count = count, rekomendasi = rekomendasi, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan)
     return render_template('public/homepage/index.html', title=title, laporan=laporan, info=info, forum=forum, count = count)

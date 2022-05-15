@@ -37,3 +37,17 @@ def cp_survey_question():
 def hapus_survey(id):
     data = Survey.deleteDataQuestion(id)
     return redirect(url_for('cp_survey'))
+
+@app.route("/dashboard/survey/result/dewan")
+def cp_result_dewan():
+    title = ("Data Survey Dewan")
+    # fetch data from model
+    data = Survey.countSurveyDPRD()
+    return render_template('panel/cp_survey/result.html', data=data, title=title)
+
+@app.route("/dashboard/survey/result/partai")
+def cp_result_partai():
+    title = ("Data Survey Partai")
+    # fetch data from model
+    data = Survey.countSurveyPartai()
+    return render_template('panel/cp_survey/result2.html', data=data, title=title)
