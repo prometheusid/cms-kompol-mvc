@@ -50,7 +50,20 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-
+  {% if profiles.role_id == 3 %}
+  <div>
+    <p class="m-b-10 f-w-600">SKOR AHP ANDA </p>
+                {% for row in ahpDewan %}
+                  {% if row['user_id'] == dataDewan['user_id'] %}
+                <h6 class="text-muted f-w-400">
+                   {{row['value'][5]}}</h6>
+                  {% endif %}
+                {% endfor %}
+  </div>
+  <div>
+    <iframe width="853" height="480" src="{{rekomendasi}}" title="Rekomendasi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  {% endif %}
 <!-- ##### Top News Area Start ##### -->
 <div class="top-news-area">
   <div class="container">
