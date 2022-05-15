@@ -50,7 +50,7 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-  {% if profiles.role_id == 3 %}
+  {% if session['role'] == 3 %}
   <div>
     <p class="m-b-10 f-w-600">SKOR AHP ANDA </p>
                 {% for row in ahpDewan %}
