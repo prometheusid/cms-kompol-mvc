@@ -1,73 +1,86 @@
-{% extends '/public/pub_base.html' %}
-{% block content %}
-<div class="container">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
-        <h1 class="h3 mb-0 text-white-800"></h1>
-        {% if session['id'] ==  data.user_id %}
-        <!-- <a href="/forum/update/{{data.forum_id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+{% extends '/public/index.html' %} {% block content %}
+<section class="home">
+  <div class="container">
+    <div
+      class="d-sm-flex align-items-center justify-content-between mb-4"
+      style="margin-top: 2rem"
+    >
+      <h1 class="h3 mb-0 text-white-800"></h1>
+      {% if session['id'] == data.user_id %}
+      <!-- <a href="/forum/update/{{data.forum_id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-plus"></i>&nbsp; Edit
             Forum</a> -->
-        {% endif %}
+      {% endif %}
     </div>
     <div class="card shadow mb-4 bg-c-lite-green">
-        <div class="card-body">
-            <p>
-                <h4 style="color: white;">{{data.lapkun_judul}}</h4>
-            </p>
+      <div class="card-body">
+        <h2 class="section-title-center send__title" style="color: white">
+          {{data.lapkun_judul}}
+        </h2>
 
-            <div class="bottom">
-                <p style="margin-right: 1.5em; color: white;">{{data.nama_user}}</p>
+        <div class="bottom">
+          <p style="margin-right: 1.5em; color: white">{{data.nama_user}}</p>
 
-                <p style="margin-right: 1.5em; color: white;">{{data.created_at.strftime('%d %B %Y - %H:%M')}}</p>
-
-            </div>
+          <p style="margin-right: 1.5em; color: white">
+            {{data.created_at.strftime('%d %B %Y - %H:%M')}}
+          </p>
         </div>
+      </div>
     </div>
     {% if data.document%}
     <div class="card shadow mb-4">
-        <div class="card-body">
-            <!-- <div class="comment">
+      <div class="card-body">
+        <!-- <div class="comment">
                     <p class="comment text-light badge bg-secondary">
                         <i
                         class="fas fa-download"
                         style="color: white"
                         aria-hidden="true">&nbsp;&nbsp;</i>Unduh Laporan</p>
                 </div> -->
-            <p style="color: white;">
-                <h7 style="color: white;">{{data.lapkun_isi|safe}}</h7>
-            </p> <br>
-            <p>Klik tombol dibawah untuk melihat atau mengunduh laporan</p>
-            <div class="comment">
-                <a href="{{ url_for('uploadedFiles', filename=data.document) }}" target="_blank">
-                    <p class="comment text-light badge bg-secondary">
-                        <i class="fas fa-download" style="color: white" aria-hidden="true">&nbsp;&nbsp;</i>Klik untuk
-                        Unduh Laporan </p>
-                </a>
-            </div><br>
+        <p style="color: white">
+          <h7 style="color: white">{{data.lapkun_isi|safe}}</h7>
+        </p>
+        <br />
+        <p>Klik tombol dibawah untuk melihat atau mengunduh laporan</p>
+        <div class="comment">
+          <a
+            href="{{ url_for('uploadedFiles', filename=data.document) }}"
+            target="_blank"
+          >
+            <span class="accessory__category badge bg-primary">
+              <i class="fas fa-download" style="color: white" aria-hidden="true"
+                >&nbsp;&nbsp;</i
+              >Klik untuk Unduh Laporan
+            </span>
+          </a>
         </div>
+        <br />
+      </div>
     </div>
-    {% endif %}
-    {% for column in comment %}
+    {% endif %} {% for column in comment %}
     <div class="card user-card-full">
-        <div class="row m-l-0 m-r-0">
-            <div class="col-sm-2 bg-c-lite-green" style="height: 15%; border-radius: 10px;">
-                <div class="card-block text-center text-white">
-                    <h5 class="f-w-700">{{column['nama_user']}}</h5>
-                    <br />
-                    <p>{{column.created_at.strftime('%d %B %Y - %H:%M')}}</p>
-                </div>
-            </div>
-
-            <div class="col-lg-10">
-                <div class="card-block">
-                    <h6 style="font-weight: normal;">{{column['komentar']|safe}}</h6>
-                </div>
-            </div>
+      <div class="row m-l-0 m-r-0">
+        <div
+          class="col-sm-2 bg-c-lite-green"
+          style="height: 15%; border-radius: 10px"
+        >
+          <div class="card-block text-center text-white">
+            <h5 class="f-w-700">{{column['nama_user']}}</h5>
+            <br />
+            <p>{{column.created_at.strftime('%d %B %Y - %H:%M')}}</p>
+          </div>
         </div>
+
+        <div class="col-lg-10">
+          <div class="card-block">
+            <h6 style="font-weight: normal">{{column['komentar']|safe}}</h6>
+          </div>
+        </div>
+      </div>
     </div>
     {% endfor %}
-    {% if session['id'] %}
-    <!-- <div class="card shadow mb-4">
+    <!--{% if session['id'] %}
+     <div class="card shadow mb-4">
         <div class="card-body">
             <form action="{{url_for('komentarlapkun', id=id)}}" method="POST">
                 <div class="mb-3">
@@ -81,22 +94,23 @@
                 </button>
             </form>
         </div>
-    </div> -->
-    {% endif %}
-</div>
+    </div> 
+    {% endif %} -->
+  </div>
+</section>
 <script>
-    $('#summernote').summernote({
-        tabsize: 2,
-        height: 200,
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            //['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-    });
+  $("#summernote").summernote({
+    tabsize: 2,
+    height: 350,
+    toolbar: [
+      ["style", ["style"]],
+      ["font", ["bold", "underline", "clear"]],
+      ["color", ["color"]],
+      ["para", ["ul", "ol", "paragraph"]],
+      ["table", ["table"]],
+      //['insert', ['link', 'picture', 'video']],
+      ["view", ["fullscreen", "codeview", "help"]],
+    ],
+  });
 </script>
 {% endblock %}

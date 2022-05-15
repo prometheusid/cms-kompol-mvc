@@ -1,5 +1,6 @@
-{% extends '/public/pub_base.html' %} {% block content %}
-  <div class="container">
+{% extends '/public/index.html' %} {% block content %}
+<section class="home" style="margin-top: 5px">
+  <div class="bd-container">
     <div
       class="d-sm-flex align-items-center justify-content-between mb-4"
       style="margin-top: 2rem"
@@ -18,10 +19,7 @@
       <div class="card-body">
         <ol>
           <li class="row">
-            <a
-              class="thread-link"
-              href="/forum/thread/{{column['forum_id']}}"
-            >
+            <a class="thread-link" href="/forum/thread/{{column['forum_id']}}">
               <p style="margin-right: 1.5em">{{column['nama_user']}}</p>
               <h4 class="forum-title">{{column['forum_judul']}}</h4>
               <br />
@@ -35,7 +33,6 @@
                   {{column.created_at.strftime('%d %B %Y - %H:%M')}}
                 </p>
                 {% endif %}
-                <p class="comment-count">{{counting}} comments</p>
               </div>
             </a>
           </li>
@@ -44,4 +41,5 @@
     </div>
     {% endfor %}
   </div>
+</section>
 {% endblock %}
