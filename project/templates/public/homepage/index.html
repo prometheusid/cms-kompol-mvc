@@ -119,7 +119,11 @@
   </div>
 </section>
 {% if session['role'] == 3 %}
-<section class="share section bd-container" id="share">
+<section
+  class="share section bd-container"
+  id="share"
+  style="margin-top: -5rem"
+>
   <div class="share__container bd-grid">
     <div class="share__data">
       <h6 class="section-title-center">SKOR AHP ANDA</h6>
@@ -147,6 +151,11 @@
 <!-- ##### Top News Area Start ##### -->
 <section class="decoration section bd-container">
   <div class="top-news-area">
+    <div class="intro-news-filter d-flex justify-content-between">
+      <a href="/kunjungan">
+        <h6>Info Kunjungan</h6>
+      </a>
+    </div>
     <div class="container">
       <div class="row">
         {% for laporans in laporan%}
@@ -191,7 +200,7 @@
 </section>
 <!-- ##### Top News Area End ##### -->
 <!-- ##### Intro News Area Start ##### -->
-<section class="section bd-container accessory">
+<section class="section bd-container accessory" style="margin-top: -5rem">
   <div class="container">
     <div class="row justify-content-center">
       <!-- Intro News Tabs Area -->
@@ -199,7 +208,7 @@
         <!-- Intro News Filter -->
         <div class="intro-news-filter d-flex justify-content-between">
           <a href="/info">
-            <h6>Info Public</h6>
+            <h6>Info Publik</h6>
           </a>
         </div>
 
@@ -256,7 +265,12 @@
     </h2>
     <p class="send__description">Berikan Pendapat Anda Disini</p>
     <form action="#" method="post">
-      <a href="/surveys" class="btn newsbox-btn w-100" style="border-radius: 10px">Mulai Survey</a>
+      <a
+        href="/surveys"
+        class="btn newsbox-btn w-100"
+        style="border-radius: 10px"
+        >Mulai Survey</a
+      >
     </form>
   </div>
 </section>
@@ -264,6 +278,11 @@
 <!-- ##### Video Area Start ##### -->
 <section class="accessory section bd-container">
   <!-- Featured Video Area -->
+  <div class="intro-news-filter d-flex justify-content-between">
+    <a href="/forum">
+      <h6>Forum</h6>
+    </a>
+  </div>
   <div class="container">
     <div class="row">
       <div class="col-12">
