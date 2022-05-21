@@ -1,25 +1,40 @@
 from project import app
-import nest_asyncio
-from flask import url_for, send_from_directory
 import pickle
-# nest_asyncio.apply()
+
+from project.models.Crawling import Crawling
 import twint
 
-@app.route("/dashboard/crawling")
-def cp_crawling():
-    c = twint.Config()
-    c.Search = 'fadli zon'
-    c.Pandas = True
-    c.Limit = 100
-    twint.run.Search(c)
-    Tweets_df = twint.storage.panda.Tweets_df
-    Tweets_df.head()
+@app.route("/dashboard/crawling/partai/integritas")
+def cp_crawling_partai_integritas():
+    partais = Crawling.fetchPartai()
+    for items in partais:
+        c = twint.Config()
+        c.Search = items['nama_partai']
+        c.Pandas = True
+        # diatur berdasarkan jumlah kebutuhan data
+        c.Limit = 1000
+        twint.run.Search(c)
+        Tweets_df = twint.storage.panda.Tweets_d
+        save = Crawling.integritasPartai(Tweets_df['tweet'], items['partai_id'])
 
-    # 1. angota punya dataset twntang diri dia
-    # insert into sentiment_dprd
-    # id, user_id, tweet, created_at, updated_at
-    
-    return str(Tweets_df['tweet'])
+    # return sesuai data yang dibutuhkan apa
+    return "data berhasil disimpan"
+
+@app.route("/dashboard/crawling/partai/komunikator")
+def cp_crawling_partai_komunikator():
+    partais = Crawling.fetchPartai()
+    for items in partais:
+        c = twint.Config()
+        c.Search = items['account_head_leader']
+        c.Pandas = True
+        # diatur berdasarkan jumlah kebutuhan data
+        c.Limit = 10
+        twint.run.Followers(c)
+        Tweets_df = twint.storage.panda.Tweets_df
+        save = Crawling.komunikatorPartai(Tweets_df['tweet'], items['partai_id'])
+    # return sesuai data yang dibutuhkan apa
+    return "data berhasil disimpan"
+
 
 @app.route("/dashboard/predict")
 def cp_predict():
