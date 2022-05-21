@@ -15,6 +15,12 @@ class Crawling():
         cur.execute("SELECT * from tbl_partai")
         data = cur.fetchall()
         return data
+    
+    def fetchDprd():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from users WHERE role_id = 3")
+        data = cur.fetchall()
+        return data
 
     def integritasPartai(tweet, partaiId):
         cleanTweet = Crawling.cleanTweet(tweet)
@@ -33,6 +39,16 @@ class Crawling():
         for items in cleanTweet:
             cur.execute("INSERT INTO `tbl_crawling_komunikator_partai` (`partai_id`, `tweet`, `created_at`, `updated_at`) VALUES (%s,%s,%s,%s)",
                     (partaiId, items, createdAt, createdAt))
+        mysql.connection.commit()
+        return len(cleanTweet)
+
+    def integritasDprd(tweet, userId):
+        cleanTweet = Crawling.cleanTweet(tweet)
+        createdAt = datetime.now()
+        cur = mysql.connection.cursor()
+        for items in cleanTweet:
+            cur.execute("INSERT INTO `tbl_crawling_komunikator_partai` (`user_id`, `tweet`, `created_at`, `updated_at`) VALUES (%s,%s,%s,%s)",
+                    (userId, items, createdAt, createdAt))
         mysql.connection.commit()
         return len(cleanTweet)
     

@@ -14,7 +14,7 @@ def cp_crawling_partai_integritas():
         # diatur berdasarkan jumlah kebutuhan data
         c.Limit = 1000
         twint.run.Search(c)
-        Tweets_df = twint.storage.panda.Tweets_d
+        Tweets_df = twint.storage.panda.Tweets_df
         save = Crawling.integritasPartai(Tweets_df['tweet'], items['partai_id'])
 
     # return sesuai data yang dibutuhkan apa
@@ -28,10 +28,25 @@ def cp_crawling_partai_komunikator():
         c.Search = items['account_head_leader']
         c.Pandas = True
         # diatur berdasarkan jumlah kebutuhan data
-        c.Limit = 10
-        twint.run.Followers(c)
+        c.Limit = 1000
+        twint.run.Search(c)
         Tweets_df = twint.storage.panda.Tweets_df
         save = Crawling.komunikatorPartai(Tweets_df['tweet'], items['partai_id'])
+    # return sesuai data yang dibutuhkan apa
+    return "data berhasil disimpan"
+
+@app.route("/dashboard/crawling/dprd/integritas")
+def cp_crawling_dprd_integritas():
+    dprds = Crawling.fetchDprd()
+    for items in dprds:
+        c = twint.Config()
+        c.Search = items['akun_twitter']
+        c.Pandas = True
+        # diatur berdasarkan jumlah kebutuhan data
+        c.Limit = 1000
+        twint.run.Search(c)
+        Tweets_df = twint.storage.panda.Tweets_df
+        save = Crawling.integritasDprd(Tweets_df['tweet'], items['user_id'])
     # return sesuai data yang dibutuhkan apa
     return "data berhasil disimpan"
 
