@@ -3,7 +3,6 @@ from flask import render_template, redirect, url_for, request, session
 from project.config.Database import mysql
 from datetime import datetime
 
-# Import models
 from project.models.Ahp import Ahp
 from project.models.Calculate import Calculate
 from project.models.Criteria import Criteria
