@@ -47,7 +47,7 @@ class Crawling():
         createdAt = datetime.now()
         cur = mysql.connection.cursor()
         for items in cleanTweet:
-            cur.execute("INSERT INTO `tbl_crawling_komunikator_partai` (`user_id`, `tweet`, `created_at`, `updated_at`) VALUES (%s,%s,%s,%s)",
+            cur.execute("INSERT INTO `tbl_crawling_integritas_dprd` (`user_id`, `tweet`, `created_at`, `updated_at`) VALUES (%s,%s,%s,%s)",
                     (userId, items, createdAt, createdAt))
         mysql.connection.commit()
         return len(cleanTweet)
