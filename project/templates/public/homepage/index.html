@@ -148,6 +148,24 @@
   </div>
 </section>
 {% endif %}
+{% if session['role'] == 2 %}
+<section
+  class="share section bd-container"
+  id="share"
+  style="margin-top: -5rem"
+>
+  <div class="share__container bd-grid">
+    <div class="share__data">
+      <h6 class="section-title-center">SKOR AHP ANDA</h6>
+      {% for row in ahpPartai %} {% if row['partai_id'] == dataPartai['partai_id'] %}
+      <h6 class="section-title-center">
+        {{session['name']}} : {{row['value'][4]}}
+      </h6>
+      {% endif %} {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
 <!-- ##### Top News Area Start ##### -->
 <section class="decoration section bd-container">
   <div class="top-news-area">
