@@ -2,7 +2,7 @@ import pickle
 import twint
 
 from project import app
-from flask import render_template
+from flask import render_template, redirect, url_for
 from project.models.Crawling import Crawling
 from project.models.Sentiment import Sentiment
 from project.models.Sentiment import Sentiment
@@ -28,7 +28,7 @@ def cp_crawling_dprd():
     title = ("Data Twitter")
     return render_template('panel/cp_crawling_dprd/index.html',title=title)
 
-@app.route("/dashboard/crawling/partai/integritas")
+@app.route("/dashboard/crawling/partai/integritas", methods=["POST"])
 def cp_crawling_partai_integritas():
     partais = Crawling.fetchPartai()
     for items in partais:
@@ -36,15 +36,15 @@ def cp_crawling_partai_integritas():
         c.Search = items['nama_partai']
         c.Pandas = True
         # diatur berdasarkan jumlah kebutuhan data
-        c.Limit = 100
+        c.Limit = 10
         twint.run.Search(c)
         Tweets_df = twint.storage.panda.Tweets_df
         save = Crawling.integritasPartai(Tweets_df['tweet'], items['partai_id'])
 
     # return sesuai data yang dibutuhkan apa
-    return "data berhasil disimpan"
+    return redirect(url_for('cp_crawling_partai'))
 
-@app.route("/dashboard/crawling/partai/komunikator")
+@app.route("/dashboard/crawling/partai/komunikator", methods=["POST"])
 def cp_crawling_partai_komunikator():
     partais = Crawling.fetchPartai()
     for items in partais:
@@ -52,14 +52,14 @@ def cp_crawling_partai_komunikator():
         c.Search = items['account_head_leader']
         c.Pandas = True
         # diatur berdasarkan jumlah kebutuhan data
-        c.Limit = 100
+        c.Limit = 10
         twint.run.Search(c)
         Tweets_df = twint.storage.panda.Tweets_df
         save = Crawling.komunikatorPartai(Tweets_df['tweet'], items['partai_id'])
     # return sesuai data yang dibutuhkan apa
-    return "data berhasil disimpan"
+    return redirect(url_for('cp_crawling_partai'))
 
-@app.route("/dashboard/crawling/dprd/integritas")
+@app.route("/dashboard/crawling/dprd/integritas", methods=["POST"])
 def cp_crawling_dprd_integritas():
     dprds = Crawling.fetchDprd()
     for items in dprds:
@@ -67,7 +67,7 @@ def cp_crawling_dprd_integritas():
         c.Search = items['akun_twitter']
         c.Pandas = True
         # diatur berdasarkan jumlah kebutuhan data
-        c.Limit = 100
+        c.Limit = 10
         twint.run.Search(c)
         Tweets_df = twint.storage.panda.Tweets_df
         save = Crawling.integritasDprd(Tweets_df['tweet'], items['user_id'])
@@ -75,15 +75,15 @@ def cp_crawling_dprd_integritas():
     return "data berhasil disimpan"
 
 
-@app.route("/dashboard/predict")
-def cp_predict():
-    text = ['kata iwan fals anggota dewan jangan tidur kalau sidang soal rakyat']
-    with open(f'{app.root_path}/static/model-nb/model.pkl', 'rb') as f:
-        model = pickle.load(f)
-    with open(f'{app.root_path}/static/model-nb/tf_new.pkl', 'rb') as f:
-        tf_new = pickle.load(f)
+# @app.route("/dashboard/predict")
+# def cp_predict():
+#     text = ['kata iwan fals anggota dewan jangan tidur kalau sidang soal rakyat']
+#     with open(f'{app.root_path}/static/model-nb/model.pkl', 'rb') as f:
+#         model = pickle.load(f)
+#     with open(f'{app.root_path}/static/model-nb/tf_new.pkl', 'rb') as f:
+#         tf_new = pickle.load(f)
     
-    textTf = tf_new.transform(text)
-    prediction = model.predict(textTf)
+#     textTf = tf_new.transform(text)
+#     prediction = model.predict(textTf)
 
-    return str(prediction)
+#     return str(prediction)

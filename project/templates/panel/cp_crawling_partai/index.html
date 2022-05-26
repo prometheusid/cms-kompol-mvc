@@ -20,6 +20,13 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Integritas Partai</h3>
+
+            <form action="/dashboard/crawling/partai/integritas" method="POST">
+              <ol class="float-sm-right">
+                <button type="submit" class="btn btn-success">Crawling Integritas</button>
+              </ol>
+            </form>
+
           </div>
           <div class="card-body">
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -50,14 +57,14 @@
                       </tr>
                     </thead>
                     {% for row in integritas %}
-                      <tr role="row" class="odd">
-                        <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
-                        <td tabindex="0" class="sorting_1">{{row['nama_partai']}}</td>
-                        <td>{{row['account_twitter']}}</td>
-                        <td>{{row['jumlah_tweet']}}</td>
-                        <td>{{row['total_positive']}}</td>
-                        <td>{{row['total_negative']}}</td>
-                      </tr>
+                    <tr role="row" class="odd">
+                      <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
+                      <td tabindex="0" class="sorting_1">{{row['nama_partai']}}</td>
+                      <td>{{row['account_twitter']}}</td>
+                      <td>{{row['jumlah_tweet']}}</td>
+                      <td>{{row['total_positive']}}</td>
+                      <td>{{row['total_negative']}}</td>
+                    </tr>
                     {% endfor %}
                   </table>
                 </div>
@@ -79,6 +86,13 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Komunikator Partai</h3>
+
+            <form action="/dashboard/crawling/partai/komunikator" method="POST">
+              <ol class="float-sm-right">
+                <button type="submit" class="btn btn-success">Crawling Komunikator</button>
+              </ol>
+            </form>
+            
           </div>
           <div class="card-body">
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -112,15 +126,15 @@
                       </tr>
                     </thead>
                     {% for row in komunikator %}
-                      <tr role="row" class="odd">
-                        <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
-                        <td tabindex="0" class="sorting_1">{{row['nama_partai']}}</td>
-                        <td>{{row['head_leader']}}</td>
-                        <td>{{row['account_head_leader']}}</td>
-                        <td>{{row['jumlah_tweet']}}</td>
-                        <td>{{row['total_positive']}}</td>
-                        <td>{{row['total_negative']}}</td>
-                      </tr>
+                    <tr role="row" class="odd">
+                      <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
+                      <td tabindex="0" class="sorting_1">{{row['nama_partai']}}</td>
+                      <td>{{row['head_leader']}}</td>
+                      <td>{{row['account_head_leader']}}</td>
+                      <td>{{row['jumlah_tweet']}}</td>
+                      <td>{{row['total_positive']}}</td>
+                      <td>{{row['total_negative']}}</td>
+                    </tr>
                     {% endfor %}
                   </table>
                 </div>
