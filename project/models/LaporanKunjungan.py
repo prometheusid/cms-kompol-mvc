@@ -15,8 +15,6 @@ class LaporanKunjungan:
 
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-    
-
     def fetchKunjungan3():
         cur = mysql.connection.cursor()
         cur.execute(
@@ -60,6 +58,7 @@ class LaporanKunjungan:
             ahp_partai = curl_ahp_partai.fetchone()
             curl_ahp_partai.close()
 
+            # ini juga sama kasusnya
             ahp_eksistensi_before = ahp_partai['laporan_jumlah']
             ahp_eksistensi = int(ahp_eksistensi_before) + 10
 
@@ -75,6 +74,9 @@ class LaporanKunjungan:
             curl_ahp_dprd.execute("SELECT * FROM tbl_ahp_dprd WHERE user_id = %s", (user_id,))
             ahp_dprd = curl_ahp_dprd.fetchone()
             curl_ahp_dprd.close()
+
+            # gua mau buat satu tombol, yang semua bisa update semua.
+            # angka ini raka dummy parah
 
             ahp_laporan_jumlah_before = ahp_dprd['laporan_jumlah']
             ahp_laporan_jumlah = int(ahp_laporan_jumlah_before) + 10

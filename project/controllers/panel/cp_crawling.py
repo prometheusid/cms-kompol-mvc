@@ -28,7 +28,7 @@ def cp_crawling_partai_komunikator():
         c.Search = items['account_head_leader']
         c.Pandas = True
         # diatur berdasarkan jumlah kebutuhan data
-        c.Limit = 1000
+        c.Limit = 100
         twint.run.Search(c)
         Tweets_df = twint.storage.panda.Tweets_df
         save = Crawling.komunikatorPartai(Tweets_df['tweet'], items['partai_id'])
