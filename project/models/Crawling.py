@@ -1,15 +1,25 @@
 import re
 
-from sqlalchemy import true
 from project import app
 from project.config.Database import mysql
 from datetime import datetime
-from flask_mysqldb import MySQLdb
 from functools import partial
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 class Crawling():
+    def getKomunikatorPartai():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT a.partai_id, a.nama_partai, a.head_leader, a.account_head_leader, COUNT('b.partai_id') as jumlah_tweet from tbl_partai as a JOIN tbl_crawling_komunikator_partai as b ON a.partai_id = b.partai_id GROUP BY b.partai_id ORDER BY a.partai_id ASC")
+        data = cur.fetchall()
+        return data
+    
+    def getTweetKomunikatorPartai():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from tbl_crawling_komunikator_partai ORDER BY partai_id ASC")
+        data = cur.fetchall()
+        return data
+
     def fetchPartai():
         cur = mysql.connection.cursor()
         cur.execute("SELECT * from tbl_partai")
