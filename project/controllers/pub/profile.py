@@ -39,13 +39,13 @@ def profileuser(name):
         return render_template('public/profile/index.html', title=title, profiles=profiles, edu=edu, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan)
     return redirect(url_for('login'))
 
-@app.route("/profile/edit/<name>", methods=["GET", "POST"])
-def profileedit(name):
+@app.route("/profile/edit/<id>", methods=["GET", "POST"])
+def profileedit(id):
     title = ("EDIT PROFILE")
     if request.method == 'GET' and 'loggedin' in session:
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
-                    JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id WHERE users.user_id=%s", (name,))
+                    JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id WHERE users.user_id=%s", (id,))
         profile = cur.fetchone()
 
         edu = mysql.connection.cursor()
@@ -55,15 +55,15 @@ def profileedit(name):
     elif 'loggedin' in session:
         idu = request.form['idu']
         name = request.form['name']
-        password = request.form['password'].encode('utf-8')
-        hash_password = bcrypt.hashpw(password, bcrypt.gensalt())
+        """ password = request.form['password'].encode('utf-8')
+        hash_password = bcrypt.hashpw(password, bcrypt.gensalt()) """
         update = datetime.now()
         education = request.form['education']
         pengalaman = request.form['pengalaman']
         twitter = request.form['twitter']
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE users SET nama_user = %s, password = %s, updated_at = %s, id_pendidikan = %s, pengalaman = %s, akun_twitter = %s WHERE user_id = %s",
-                    (name, hash_password, update, education, pengalaman, twitter, idu))
+        cur.execute("UPDATE users SET nama_user = %s, updated_at = %s, id_pendidikan = %s, pengalaman = %s, akun_twitter = %s WHERE user_id = %s",
+                    (name, update, education, pengalaman, twitter, idu))
         mysql.connection.commit()
-        return redirect(url_for('profileuser', name=name))
+        return redirect(url_for('profileuser', id=id))
     return redirect(url_for('login'))

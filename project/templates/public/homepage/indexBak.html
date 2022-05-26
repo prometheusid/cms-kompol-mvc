@@ -1,0 +1,211 @@
+{% extends 'public/index.html' %} 
+{% block content %}
+
+  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+        <img src="/static/img/19.jpg" class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/> />
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1 style="color:crimson; font-weight: bold;">MEDIA SOSIAL</h1>
+            <p class="btn btn-lg btn-danger" style="font-weight: bold;">Media Sosial Sebagai Sarana Kampanye</p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+        <img src="/static/img/17.jpg" class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/> />
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Media Sosial</h1>
+            <p>Komunikasi Politik Di Media Sosial</p>
+            <!-- <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p> -->
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+        <img src="/static/img/20.jpg" class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/> />
+        <div class="container">
+          <div class="carousel-caption text-end">
+            <h1 style="color:antiquewhite; font-weight: bold;">Komunikasi Politik</h1>
+            <p class="btn btn-lg btn-primary">Komunikasi dalam berpolitik</p>
+            <!-- <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  {% if session['role'] == 3 %}
+  <div>
+    <p class="m-b-10 f-w-600">SKOR AHP ANDA </p>
+                {% for row in ahpDewan %}
+                  {% if row['user_id'] == dataDewan['user_id'] %}
+                <h6 class="text-muted f-w-400">
+                   {{row['value'][5]}}</h6>
+                  {% endif %}
+                {% endfor %}
+  </div>
+  <div>
+    <iframe width="853" height="480" src="{{rekomendasi}}" title="Rekomendasi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  {% endif %}
+<!-- ##### Top News Area Start ##### -->
+<div class="top-news-area">
+  <div class="container">
+    <div class="row">
+      {% for laporans in laporan%}
+      <!-- Single News Area -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="single-blog-post style-2 mb-5">
+            <!-- Blog Thumbnail -->
+            <div class="blog-thumbnail">
+              <a href="/kunjungan/thread/{{laporans['lapkun_id']}}"><img src="/static/assets/front/img/lapkun/thumbnail.jpg" alt=""></a>
+            </div>
+
+            <!-- Blog Content -->
+          <div class="blog-content">
+            <span class="post-date">{{laporans['created_at']}}</span>
+            <a href="/kunjungan/thread/{{laporans['lapkun_id']}}" class="post-title">{{laporans['lapkun_judul']}}</a>
+            <a href="/kunjungan/thread/{{laporans['lapkun_id']}}" class="post-author">Oleh {{laporans['nama_user']}}</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+<!-- 
+      <div class="col-12">
+        <div class="load-more-button text-center">
+          <a href="#" class="btn newsbox-btn"> Laporan Lainnya</a>
+        </div>
+      </div> -->
+
+    </div>
+  </div>
+</div>
+<!-- ##### Top News Area End ##### -->
+
+<!-- ##### Intro News Area Start ##### -->
+<section class="intro-news-area section mb-70">
+  <div class="container">
+    <div class="row justify-content-center">
+      <!-- Intro News Tabs Area -->
+      <div class="col-12 col-lg-8">
+        <div class="intro-news-tab">
+
+          <!-- Intro News Filter -->
+          <div class="intro-news-filter d-flex justify-content-between">
+              <h6>Info Public</h6>
+              <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <a class="nav-item nav-link active" id="nav1" data-toggle="tab" href="#nav-1" role="tab" aria-controls="nav-1" aria-selected="true">Terbaru</a>
+                      <a class="nav-item nav-link" id="nav2" data-toggle="tab" href="/info" role="tab" aria-controls="nav-2" aria-selected="false">Berita Lainnya</a>
+                  </div>
+              </nav>
+          </div>
+
+          <div class="tab-content" id="nav-tabContent">
+
+              <div class="tab-pane fade show active" id="nav-1" role="tabpanel" aria-labelledby="nav1">
+                  <div class="row">
+
+                    {% for infos in info%}
+                      <!-- Single News Area -->
+                      <div class="col-12 col-sm-6">
+                          <div class="single-blog-post d-flex style-4 mb-30">
+                              <!-- Blog Thumbnail -->
+                              <div class="blog-thumbnail">
+                                  <a href="info/detail/{{infos['info_id']}}"><img src="{{ url_for('uploadedFiles', filename=infos['thumb']) }}" alt=""></a>
+                              </div>
+
+                              <!-- Blog Content -->
+                              <div class="blog-content">
+                                  <span class="post-date">{{infos.created_at.strftime('%d %b %Y')}}</span>
+                                  <span class="post-date"> - {{infos['nama_user']}}</span>
+                                  <a href="info/detail/{{infos['info_id']}}" class="post-title">{{infos['judul_info']}}</a>
+                              </div>
+                          </div>
+                      </div>
+                    
+                    {% endfor %}
+
+                  </div>
+              </div>
+
+            </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Widget -->
+      <div class="col-12 col-sm-9 col-md-6 col-lg-4">
+        <div class="sidebar-area">
+
+          <!-- Newsletter Widget -->
+          <div class="single-widget-area newsletter-widget mb-30">
+            <h4>Survey DPRD dan Partai Pilihan Anda</h4>
+            <form action="#" method="post">
+              <!-- <textarea></textarea> -->
+              <!-- <input type="text" name="nl-email" id="nlemail" placeholder="Masukan Pendapat Anda"> -->
+              <a href="/surveys" class="btn newsbox-btn w-100">Mulai Survey</a>
+            </form>
+            <p class="mt-30">Berikan Pendapat Anda Disini</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ##### Intro News Area End ##### -->
+<!-- ##### Video Area Start ##### -->
+<section class="video-area bg-img bg-overlay bg-fixed" style="background-image: url(/static/assets/front/img/lapkun/thumbnail.jpg);">
+  <!-- Featured Video Area -->
+  <div class="video-slideshow py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- Video Slides -->
+          <div class="video-slides owl-carousel">
+            {% for forums in forum %}
+            <!-- Single News Area -->
+            <div class="single-blog-post style-3">
+              <!-- Blog Thumbnail -->
+              <div class="blog-thumbnail">
+                <a href="/forum/thread/{{forums['forum_id']}}"><img src="/static/assets/front/img/lapkun/forums.jpg" alt=""></a>  
+              </div>
+
+              <!-- Blog Content -->
+              <div class="blog-content">
+                {% if forum.updated_at %}
+                <span class="post-date">{{forums.updated_at.strftime('%d %B %Y - %H:%M')}}</span>
+                {% else %}
+                <span class="post-date">{{forums.created_at.strftime('%d %B %Y - %H:%M')}}</span>
+                {% endif %}
+                <p class="post-title">{{forums['forum_judul']}}</p>
+                <a href="/forum/thread/{{forums['forum_id']}}" class="post-author">{{forums['nama_user']}} - <i class="fas fa-comment"></i> comments</a>
+              </div>
+            </div>
+            {% endfor %}
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ##### Video Area End ##### -->
+
+{% endblock %}
