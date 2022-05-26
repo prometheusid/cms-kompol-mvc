@@ -1,21 +1,27 @@
-from project import app
 import pickle
-from flask import render_template, redirect, url_for, request, session
-
-from project.models.Crawling import Crawling
-from project.models.Sentiment import Sentiment
 import twint
 
+from project import app
+from flask import render_template
+from project.models.Crawling import Crawling
+from project.models.Sentiment import Sentiment
 from project.models.Sentiment import Sentiment
 
 @app.route("/dashboard/crawling/partai")
 def cp_crawling_partai():
     title = ("Data Twitter")
-    partai = Crawling.getKomunikatorPartai()
-    tweet = Crawling.getTweetKomunikatorPartai()
-    sentiment = Sentiment.predictPartai(tweet)
-    data = Sentiment.mergedPartaiKomunikator(partai, sentiment)
-    return render_template('panel/cp_crawling_partai/index.html', data=data, title=title)
+
+    partaiKomunikator = Crawling.getKomunikatorPartai()
+    tweetKomunikator = Crawling.getTweetKomunikatorPartai()
+    sentimentKomunikator = Sentiment.predictPartai(tweetKomunikator)
+    dataKomunikator = Sentiment.mergedPartaiKomunikator(partaiKomunikator, sentimentKomunikator)
+
+    partaiIntegritas = Crawling.getIntegritasPartai()
+    tweetIntegritas = Crawling.getTweetIntegritasPartai()
+    sentimentIntegritas = Sentiment.predictPartai(tweetIntegritas)
+    dataIntegritas = Sentiment.mergedPartaiIntegritas(partaiIntegritas, sentimentIntegritas)
+
+    return render_template('panel/cp_crawling_partai/index.html', integritas=dataIntegritas, komunikator=dataKomunikator, title=title)
 
 @app.route("/dashboard/crawling/dprd")
 def cp_crawling_dprd():
