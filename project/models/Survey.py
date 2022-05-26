@@ -175,6 +175,7 @@ class Survey:
         ahp_citra_before = ahp_partai['popularitas_citra']
         ahp_eksistensi_before = ahp_partai['popularitas_eksistensi']
 
+        # TODO : range cuman sampai 100, jadi ga ada data update sebelumnya
         ahp_citra = (int(post_score_citra)*20) + int(ahp_citra_before) + 10
         ahp_eksistensi = (int(post_score_eksistensi)*20) + int(ahp_eksistensi_before) + 15
 
