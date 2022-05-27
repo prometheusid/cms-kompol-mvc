@@ -65,5 +65,5 @@ def profileedit(id):
         cur.execute("UPDATE users SET nama_user = %s, updated_at = %s, id_pendidikan = %s, pengalaman = %s, akun_twitter = %s WHERE user_id = %s",
                     (name, update, education, pengalaman, twitter, idu))
         mysql.connection.commit()
-        return redirect(url_for('profileuser', id=id))
+        return redirect(url_for('profileuser', name=idu))
     return redirect(url_for('login'))
