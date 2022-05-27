@@ -6,6 +6,7 @@ from datetime import datetime
 from project.models.Ahp import Ahp
 from project.models.Calculate import Calculate
 from project.models.Criteria import Criteria
+from project.models.GenerateAhpPartai import GenerateAhpPartai
 
 @app.route("/dashboard/ahp/partai")
 def cp_ahp_partai():
@@ -41,3 +42,8 @@ def cp_ahp_bobot_partai_save():
     value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c23'], ahp['c24'], ahp['c34']], 4)
     criteria = ""
     return render_template('panel/cp_ahp_partai/bobot.html', criteria=criteria, title=title, value=value)
+
+@app.route("/dashboard/ahp/partai/generate")
+def cp_ahp_partai_generate():
+    data = GenerateAhpPartai.updateKomunikator()
+    return str(data)

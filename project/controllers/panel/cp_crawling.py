@@ -73,17 +73,3 @@ def cp_crawling_dprd_integritas():
         save = Crawling.integritasDprd(Tweets_df['tweet'], items['user_id'])
     # return sesuai data yang dibutuhkan apa
     return "data berhasil disimpan"
-
-
-# @app.route("/dashboard/predict")
-# def cp_predict():
-#     text = ['kata iwan fals anggota dewan jangan tidur kalau sidang soal rakyat']
-#     with open(f'{app.root_path}/static/model-nb/model.pkl', 'rb') as f:
-#         model = pickle.load(f)
-#     with open(f'{app.root_path}/static/model-nb/tf_new.pkl', 'rb') as f:
-#         tf_new = pickle.load(f)
-    
-#     textTf = tf_new.transform(text)
-#     prediction = model.predict(textTf)
-
-#     return str(prediction)
