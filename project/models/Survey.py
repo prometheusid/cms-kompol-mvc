@@ -12,7 +12,7 @@ class Survey:
     
     def countSurveyDPRD():
         cur = mysql.connection.cursor()
-        cur.execute("SELECT A.nama_user, COUNT('B.user_id_dprd') as jumlah FROM users as A LEFT JOIN tbl_survey_dprd as B ON A.user_id = B.user_id_dprd WHERE A.role_id = 3 GROUP BY B.user_id_dprd")
+        cur.execute("SELECT A.nama_user, COUNT('B.user_id_dprd') as jumlah FROM users as A LEFT JOIN tbl_survey_dprd as B ON A.user_id = B.user_id_dprd WHERE A.role_id = 3 GROUP BY B.user_id_dprd, A.nama_user")
         data = cur.fetchall()
         return data 
     
