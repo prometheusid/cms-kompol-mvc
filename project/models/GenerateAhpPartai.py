@@ -63,3 +63,9 @@ class GenerateAhpPartai:
             value = (integritasJumlah, pointIntegritasSentiment ,updatedAt, item['partai_id'])
             update.execute(sql_update, value)
         mysql.connection.commit()
+    
+    def updateLapkun():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT b.partai_id, count(b.partai_id) as jumlah from tbl_lapkun as a Join users as b on a.user_id = b.user_id GROUP BY b.partai_id")
+        data = cur.fetchall()
+        return data
