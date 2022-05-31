@@ -3,10 +3,15 @@
 ## Cara Running
 
 masuk ke folder cms-kompol-mvc : "cd cms-kompol-mvc"
+
 Aktifkan environment : "env\scripts\activate"
+
 install requirements.txt : "pip install -r requirements.txt"
+
 running server : "set flask_app=server.py"
+
 development mode : "set flask_env=development"
+
 running flask : "flask run"
 
 ## Flask
