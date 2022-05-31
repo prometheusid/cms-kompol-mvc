@@ -12,16 +12,6 @@ def eigen_criteria(eigenJmlC1, eigenSentimentC1, eigenEksiC2, eigenCitraC2, eige
     total = c1 + c2 + c3 + c4
     return [round(c1, 3), round(c2, 3), round(c3, 3), round(c4, 3), round(total, 3)]
 
-    # rata-rata nilai eigen yang sudah ditentukan sebelumnya
-    # jml_c1 = 0,8333333333
-    # sentiment_c1 = 0,1666666667
-    # eksi_c2 = 0,7509398496
-    # citra_c2 = 0,2490601504
-    # jml_c3 = 0,8753283713
-    # sentiment_c3 = 0,1246716287
-    # jml_c4 = 0,7509398496
-    # sentiment_c4 = 0,2377819549
-
 class Calculate():
     def eigen_partai(data, countData, rataEigenCriteria):
 

@@ -36,10 +36,10 @@ def profileuser(id):
         valueDewan = Criteria.perbandingan([criteriaDewan['c12'], criteriaDewan['c13'], criteriaDewan['c14'], criteriaDewan['c15'], criteriaDewan['c23'], criteriaDewan['c24'], criteriaDewan['c25'], criteriaDewan['c34'], criteriaDewan['c35'], criteriaDewan['c45']], 5)
         dataAhpDewan = Ahp.fetchValueDewan()
         sumDataAhpDewan = Ahp.sumValueDewan()
-        ahpDewan = CalculateDewan.eigen_partai(dataAhpDewan, sumDataAhpDewan, valueDewan['rata_eigen'])
+        ahpDewan = CalculateDewan.eigen_dewan(dataAhpDewan, sumDataAhpDewan, valueDewan['rata_eigen'])
         dataPartai = Ahp.fetchValueId(id)
         dataDewan = Ahp.fetchDewanId(id)
-        return render_template('public/profile/index.html', title=title, profile=profile, profiles=profiles, profileu=profileu, edu=edu, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan)
+        return render_template('public/profile/index.html', title=title, profileu=profileu, profile=profile, profiles=profiles, edu=edu, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan)
     return redirect(url_for('login'))
 
 @app.route("/profile/edit/<id>", methods=["GET", "POST"])
