@@ -38,13 +38,16 @@
     <div class="card shadow mb-4">
       <div class="card-body">
         <div class="comment">
-          <p class="comment text-light badge bg-secondary" style="font-size: 14px;">
+          <p
+            class="comment text-light badge bg-secondary"
+            style="font-size: 14px"
+          >
             <i class="far fa-comment" style="color: white" aria-hidden="true"
               >&nbsp;&nbsp;</i
             >{{counting}} Komentar
           </p>
         </div>
-        <p style="color: black; font-size: 16px" >{{data.forum_isi|safe}}</p>
+        <p style="color: black; font-size: 16px">{{data.forum_isi|safe}}</p>
         <br />
       </div>
     </div>
@@ -56,21 +59,42 @@
           style="height: 15%; border-radius: 10px"
         >
           <div class="card-block text-center text-white">
-            <h3 class="accessory__title text-center" style="color: white;">{{column['nama_user']}}</h3>
+            <h3 class="accessory__title text-center" style="color: white">
+              {{column['nama_user']}}
+            </h3>
             <br />
-            <p class="accessory__category" style="color: white;">{{column.created_at.strftime('%d %B %Y - %H:%M')}}</p>
+            <p class="accessory__category" style="color: white">
+              {{column.created_at.strftime('%d %B %Y - %H:%M')}}
+            </p>
           </div>
         </div>
 
         <div class="col-lg-10">
+          <!-- <div class="comment">
+            <a
+              href="#"
+              class="comment badge badge-light reply"
+              style="font-size: 12px; color: rgb(160, 160, 160)"
+            >
+              <i
+                class="fa fa-reply"
+                style="color: rgb(160, 160, 160)"
+                aria-hidden="true"
+                >&nbsp;&nbsp;</i
+              >Reply {{column.id_detail_forum}}
+            </a>
+            
+          </div> -->
           <div class="card-block">
-            <h3 class="accessory__title" style="color: black; font-size: 16px;">{{column['komentar']|safe}}</h3>
+            <h3 class="accessory__title" style="color: black; font-size: 16px">
+              {{column['komentar']|safe}}
+            </h3>
           </div>
         </div>
       </div>
     </div>
     {% endfor %} {% if session['id'] %}
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4" id="komentar">
       <div class="card-body">
         <form action="{{url_for('komentar', id=id)}}" method="POST">
           <div class="mb-3">
@@ -106,6 +130,50 @@
         </form>
       </div>
     </div>
+    <!-- reply 
+    <div class="card shadow mb-4" id="reply">
+      <div class="card-body">
+        <form action="{{url_for('replykomen', id=id)}}" method="POST">
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="idReply"
+              name="idReply"
+              hidden
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="idKomen"
+              name="idKomen"
+              value="{{data['id_detail_forum']}}"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="idForum"
+              name="idForum"
+              value="{{data['forum_id']}}"
+              hidden
+            />
+            <textarea
+              class="form-control"
+              id="replykomen"
+              rows="3"
+              name="komen"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            name="submit"
+            class="btn text-light btn-primary"
+          >
+            Reply
+          </button>
+        </form>
+      </div>
+    </div> -->
     {% endif %}
   </div>
 </section>
@@ -123,5 +191,31 @@
       ["view", ["fullscreen", "codeview", "help"]],
     ],
   });
+  /* $("#replykomen").summernote({
+    tabsize: 2,
+    height: 200,
+    toolbar: [
+      ["style", ["style"]],
+      ["font", ["bold", "underline", "clear"]],
+      ["color", ["color"]],
+      ["para", ["ul", "ol", "paragraph"]],
+      ["table", ["table"]],
+      ["insert", ["link", "picture", "video"]],
+      ["view", ["fullscreen", "codeview", "help"]],
+    ],
+  }); */
+
+  /* $(document).ready(function () {
+    $("#komentar").show();
+    $("#reply").hide();
+    $(".reply").click(function () {
+      $("#reply").show();
+      $("#komentar").hide();
+    });
+    $(".batal").click(function () {
+      $("#komentar").show();
+      $("#reply").hide();
+    });
+  }); */
 </script>
 {% endblock %}

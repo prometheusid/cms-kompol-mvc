@@ -135,6 +135,17 @@ class Forum:
             update.execute(sql_update, value_ahp)
         mysql.connection.commit()
 
+    def replyKomentar():
+        idForum = request.form['idForum']
+        idKomen = request.form['idKomen']
+        idReply = request.form['idReply']
+        replyUser = session['id']
+        replykomen = request.form['replykomen']
+        waktu = datetime.now()
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO tbl_reply_komen (reply_id, forum_id, id_detail_forum, user_id, reply_komen, created_at) VALUES (%s,%s,%s,%s,%s,%s)",
+                    (idForum, idKomen, idReply, replyUser, replykomen, waktu))
+
 
         
    

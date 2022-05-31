@@ -1,5 +1,5 @@
-{% extends '/public/pub_base.html' %} {% block content %}
-<section class="py-5" style="margin-top: 40px;">
+{% extends '/public/index.html' %} {% block content %}
+<section class="py-5" style="margin-top: 40px">
   <div class="container">
     <div
       class="d-sm-flex align-items-center justify-content-between mb-4"
@@ -14,13 +14,7 @@
         <div class="col-sm-4 bg-c-lite-green user-profile">
           <div class="card-block text-center text-white">
             <div
-              class="m-b-25"
-              style="
-                justify-content: center;
-                align-items: center;
-                margin-top: 3.5em;
-              "
-            >
+              class="m-b-25">
               <img
                 src="https://img.icons8.com/bubbles/100/000000/user.png"
                 class="img-radius"
@@ -32,10 +26,13 @@
             <a
               href="https://twitter.com/{{profile.akun_twitter}}"
               class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: white; font-weight: 600;"
             >
               <i
                 class="fab fa-twitter"
-                style="color: black"
+                style="color: #1D9BF0"
                 aria-hidden="true"
               ></i
               >&nbsp; @{{profile.akun_twitter}}
@@ -66,6 +63,9 @@
                     hidden
                   />
                 </div>
+              </div>
+              {% if profile.role_id == 1 %}
+              <div class="row">
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Name</p>
                   <div class="form-group">
@@ -92,49 +92,142 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="row">
+              <div class="row">
                 <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Password</p>
+                  <p class="m-b-10 f-w-600">Twitter Account</p>
                   <div class="form-group">
                     <input
-                      type="password"
+                      type="text"
                       class="form-control form-control-user"
-                      name="password"
-                      value="{{profile.password}}"
-                      placeholder="Ubah Password"
-                      id="txtPassword"
+                      name="twitter"
+                      id="twitter"
+                      value="{{profile.akun_twitter}}"
                     />
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Confirm Password</p>
                   <div class="form-group">
                     <input
-                      type="password"
+                      type="text"
                       class="form-control form-control-user"
-                      name="password"
-                      value="{{profile.password}}"
-                      placeholder="Ubah Password"
-                      id="txtConfirmPassword"
+                      name="education"
+                      id="education"
+                      value="{{profile.id_pendidikan}}"
+                      hidden
                     />
                   </div>
-                </div>
-              </div> -->
-              {% if profile.role_id == 2 %}
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Twitter Account</p>
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control form-control-user"
-                    name="twitter"
-                    id="twitter"
-                    value="{{profile.akun_twitter}}"
-                  />
                 </div>
               </div>
-              {% endif %}
-              {% if profile.role_id == 3 %}
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-user"
+                      name="pengalaman"
+                      id="pengalaman"
+                      value="{{profile.pengalaman}}"
+                      hidden
+                    />
+                  </div>
+                </div>
+              </div>
+              {% endif %} {% if profile.role_id == 2 %}
+              <div class="row">
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Name</p>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-user"
+                      name="name"
+                      id="name"
+                      value="{{profile.nama_user}}"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Email</p>
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      class="form-control form-control-user"
+                      name="emailAnggota"
+                      id="emailAnggota"
+                      value="{{profile.email_user}}"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Twitter Account</p>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-user"
+                      name="twitter"
+                      id="twitter"
+                      value="{{profile.akun_twitter}}"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-user"
+                      name="education"
+                      id="education"
+                      value="{{profile.id_pendidikan}}"
+                      hidden
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-user"
+                      name="pengalaman"
+                      id="pengalaman"
+                      value="{{profile.pengalaman}}"
+                      hidden
+                    />
+                  </div>
+                </div>
+              </div>
+              {% endif %} {% if profile.role_id == 3 %}
+              <div class="row">
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Name</p>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-user"
+                      name="name"
+                      id="name"
+                      value="{{profile.nama_user}}"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Email</p>
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      class="form-control form-control-user"
+                      name="emailAnggota"
+                      id="emailAnggota"
+                      value="{{profile.email_user}}"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Last Education</p>
@@ -170,24 +263,79 @@
                       class="form-control form-control-user"
                       name="pengalaman"
                       id="pengalaman"
-                    >{{profile.pengalaman}}</textarea>
+                    >
+{{profile.pengalaman}}</textarea
+                    >
                   </div>
                 </div>
               </div>
-              {% endif %}
-              {% if profile.role_id == 4 %}
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Twitter Account</p>
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control form-control-user"
-                    name="twitter"
-                    id="twitter"
-                    value="{{profile.akun_twitter}}"
-                  />
+              {% endif %} {% if profile.role_id == 4 %}
+              <div class="row">
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Name</p>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-user"
+                      name="name"
+                      id="name"
+                      value="{{profile.nama_user}}"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Email</p>
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      class="form-control form-control-user"
+                      name="emailAnggota"
+                      id="emailAnggota"
+                      value="{{profile.email_user}}"
+                      disabled
+                    />
+                  </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Twitter Account</p>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-user"
+                      name="twitter"
+                      id="twitter"
+                      value="{{profile.akun_twitter}}"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-user"
+                      name="education"
+                      id="education"
+                      value="{{profile.id_pendidikan}}"
+                      hidden
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-user"
+                      name="pengalaman"
+                      id="pengalaman"
+                      value="{{profile.pengalaman}}"
+                      hidden
+                    />
+                  </div>
+                </div>
               {% endif %}
               <h6 class="m-b-20 p-b-5 b-b-default f-w-600"></h6>
               <button

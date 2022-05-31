@@ -52,12 +52,26 @@ def thread(id):
     com.execute(
         "SELECT * FROM tbl_detail_forum as a JOIN users as b ON a.user_id = b.user_id WHERE a.forum_id=%s", (id,))
     comment = com.fetchall()
-    return render_template('/public/forum/thread.html', data=data, comment=comment, counting=num_of_items,  title=title, id=id)
+
+    # Reply data
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM tbl_detail_forum as a \
+                 LEFT JOIN tbl_reply_komen as b ON a.id_detail_forum = b.id_detail_forum \
+                 LEFT JOIN tbl_forum as c ON a.forum_id = c.forum_id WHERE a.forum_id=%s", (id,))
+    rep = cur.fetchone()
+    return render_template('/public/forum/thread.html', data=data, comment=comment, counting=num_of_items,  title=title, id=id, rep=rep)
 
 
 @app.route("/forum/thread/<id>", methods=["POST"])
 def komentar(id):
     komentar = Forum.komentarForum()
+    return redirect(url_for('thread', id=id))
+
+
+@app.route("/forum/thread/<id>", methods=["POST"])
+def replykomen(id):
+    replykomentar = Forum.replyKomentar()
+
     return redirect(url_for('thread', id=id))
 
 
