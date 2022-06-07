@@ -234,7 +234,7 @@
                   <div class="form-group">
                     <select class="form-control" name="education" method="GET">
                       {% for column in edu %}
-                      <option value="{{column['id_pendidikan']}}" selected>
+                      <option value="{{column['id_pendidikan']}}" selected="{{edus['pendidikan']}}">
                         {{column['pendidikan']}}
                       </option>
                       {% endfor %}

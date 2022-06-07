@@ -38,9 +38,9 @@ def tambahanggota():
         mysql.connection.commit()
     return redirect(url_for('cp_anggota'))
 
-@app.route("/dashboard/anggota")
-def hapus_anggota():
+@app.route("/dashboard/anggota/<id>")
+def hapus_anggota(id):
     cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM users WHERE user_id")
+    cur.execute("DELETE FROM users WHERE user_id=%s" % (id))
     mysql.connection.commit()
     return redirect(url_for('cp_anggota'))

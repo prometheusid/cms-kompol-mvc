@@ -49,9 +49,13 @@ def profileedit(id):
         profile = Profile.editProfiles(id)
 
         edu = mysql.connection.cursor()
-        edu.execute("SELECT * FROM tbl_pendidikan ")
+        edu.execute("SELECT * FROM tbl_pendidikan")
         edu = edu.fetchall()
-        return render_template('public/profile/editprofile.html', edu=edu, profile=profile, title=title)
+
+        edus = mysql.connection.cursor()
+        edus.execute("SELECT * FROM tbl_pendidikan LEFT JOIN users ON tbl_pendidikan.id_pendidikan=users.id_pendidikan WHERE users.user_id=%s", [id])
+        edus = edus.fetchall()
+        return render_template('public/profile/editprofile.html', edus=edus, edu=edu, profile=profile, title=title)
     elif 'loggedin' in session:
         idu = request.form['idu']
         name = request.form['name']
