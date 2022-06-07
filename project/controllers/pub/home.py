@@ -38,7 +38,7 @@ def pub_home():
         valueDewan = Criteria.perbandingan([criteriaDewan['c12'], criteriaDewan['c13'], criteriaDewan['c14'], criteriaDewan['c15'], criteriaDewan['c23'], criteriaDewan['c24'], criteriaDewan['c25'], criteriaDewan['c34'], criteriaDewan['c35'], criteriaDewan['c45']], 5)
         dataAhpDewan = Ahp.fetchValueDewan()
         sumDataAhpDewan = Ahp.sumValueDewan()
-        ahpDewan = CalculateDewan.eigen_partai(dataAhpDewan, sumDataAhpDewan, valueDewan['rata_eigen'])
+        ahpDewan = CalculateDewan.eigen_dewan(dataAhpDewan, sumDataAhpDewan, valueDewan['rata_eigen'])
         dataPartai = Ahp.fetchValueId(sess)
         dataDewan = Ahp.fetchDewanId(sess)
 

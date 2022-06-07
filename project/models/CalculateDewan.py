@@ -14,7 +14,7 @@ def eigen_criteria(eigenAkademikC1, eigenExperienceC1, eigenEksiC2, eigenCitraC2
     return [round(c1, 3), round(c2, 3), round(c3, 3), round(c4, 3), round(c5, 3), round(total, 3)]
 
 class CalculateDewan():
-    def eigen_partai(data, countData, rataEigenCriteria):
+    def eigen_dewan(data, countData, rataEigenCriteria):
 
         akademikC1 = 0.1666666667
         experienceC1 = 0.8333333333

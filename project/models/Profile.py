@@ -10,21 +10,36 @@ from random import randint
 
 class Profile:
 
-    def detaiilProfile(name):
+    def detaiilProfile(id):
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
-                    JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id WHERE users.user_id=%s", (name,))
+                    JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id WHERE users.user_id=%s", (id,))
         profiles = cur.fetchone()
         return profiles
+
+    def detailProfile(id):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
+                    WHERE users.user_id=%s", (id,))
+        profileu = cur.fetchone()
+        return profileu
+
+    def editProfiles(id):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM users JOIN role_users ON role_users.role_id=users.role_id \
+                    LEFT JOIN tbl_partai ON tbl_partai.partai_id=users.partai_id \
+                    WHERE users.user_id=%s", (id,))
+        profile = cur.fetchone()
+        return profile
     
-    def eduProfile(name):
+    def eduProfile(id):
         edu = mysql.connection.cursor()
-        edu.execute("SELECT * FROM users JOIN tbl_pendidikan ON tbl_pendidikan.id_pendidikan=users.id_pendidikan WHERE users.user_id=%s", (name,))
+        edu.execute("SELECT * FROM users JOIN tbl_pendidikan ON tbl_pendidikan.id_pendidikan=users.id_pendidikan WHERE users.user_id=%s", (id,))
         edu = edu.fetchone()
         return edu
 
-    def ahpPartai(name):
+    def ahpPartai(id):
         ahp = mysql.connection.cursor()
-        ahp.execute("SELECT * FROM users as A JOIN tbl_ahp_partai as B ON a.partai_id = B.partai_id WHERE a.user_id=%s", (name,))
+        ahp.execute("SELECT * FROM users as A JOIN tbl_ahp_partai as B ON a.partai_id = B.partai_id WHERE a.user_id=%s", (id,))
         ahp = ahp.fetchone()
         return ahp
