@@ -19,18 +19,21 @@
                 class="img-radius"
                 alt="User-Profile-Image"
               />
-              <h3 class="f-w-700" style="color: white">{{session['name']}}</h3>
-
+              <!-- <h3 class="f-w-700" style="color: white">{{session['name']}}</h3> -->
+              <h3 class="f-w-700" style="color: white">{{profile.nama_user}}</h3>
               <a
                 href="https://twitter.com/{{profiles.akun_twitter}}"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
+                style="color: white; font-weight: 600"
               >
                 <i
                   class="fab fa-twitter"
-                  style="color: black"
+                  style="color: #1d9bf0"
                   aria-hidden="true"
                 ></i
-                >&nbsp; @{{profiles.akun_twitter}}
+                >&nbsp; @{{profile.akun_twitter}}
               </a>
             </div>
 
@@ -55,7 +58,7 @@
         <div class="col-sm-8">
           <div class="card-block">
             <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-            {% if profiles.role_id == 1 %}
+            {% if profileu.role_id == 1 %}
             <div class="row">
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Email</p>
@@ -63,19 +66,19 @@
               </div>
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Role</p>
-                <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
+                <h6 class="text-muted f-w-400">{{profileu.role_user}}</h6>
               </div>
             </div>
-            {% endif %} {% if profiles.role_id == 4 %}
+            {% endif %} {% if profileu.role_id == 4 %}
             <div class="row">
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Email</p>
                 <h6 class="text-muted f-w-400">{{session['email']}}</h6>
               </div>
-              <div class="col-sm-6">
+              <!-- <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Role</p>
-                <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
-              </div>
+                <h6 class="text-muted f-w-400">{{profileu.role_user}}</h6>
+              </div> -->
             </div>
             {% endif %} {% if profiles.role_id == 3 %}
             <div class="row">
@@ -147,22 +150,28 @@
             </div>
             {% endif %}
             <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Timeline</h6>
-            {% if profiles.created_at %}
+
             <div class="row">
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Joined</p>
-                <h6 class="text-muted f-w-400">
-                  {{profiles.created_at.strftime('%d %B %Y - %H:%M')}}
-                </h6>
+                <h6 class="text-muted f-w-400">{{profileu.created_at.strftime('%d %B %Y - %H:%M')}}</h6>
               </div>
+              {% if profiles.updated_at == null %}
               <div class="col-sm-6">
                 <p class="m-b-10 f-w-600">Last Update</p>
                 <h6 class="text-muted f-w-400">
-                  {{profiles.updated_at.strftime('%d %B %Y - %H:%M')}}
+                  -
                 </h6>
               </div>
+              {% else %}
+              <div class="col-sm-6">
+                <p class="m-b-10 f-w-600">Last Update</p>
+                <h6 class="text-muted f-w-400">
+                  {{profileu.updated_at.strftime('%d %B %Y - %H:%M')}}
+                </h6>
+              </div>
+              {% endif %}
             </div>
-            {% endif %}
             <!-- {% if profiles.updated_at %}
             <div class="row">
               <div class="col-sm-6">
