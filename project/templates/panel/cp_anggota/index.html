@@ -113,7 +113,7 @@
                             type="button"
                             class="btn btn-danger"
                             data-toggle="modal"
-                            data-target="#modal_delete{{row['info_id']}}"
+                            data-target="#modal_delete{{row['user_id']}}"
                           >
                             Hapus
                           </button>
@@ -275,7 +275,7 @@
         >
           Cancel
         </button>
-        <a href="{{url_for('hapus_anggota', id=id)}}"
+        <a href="/dashboard/anggota/delete/{{row['user_id']}}"
           ><button class="btn btn-sm btn-danger">Ya, Hapus</button></a
         >
       </div>

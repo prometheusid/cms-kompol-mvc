@@ -10,7 +10,7 @@ def cp_anggota():
     title = ("TAMBAH ANGGOTA")
     if 'loggedin' in session and session['role'] == 1:
         par = mysql.connection.cursor()
-        par.execute("SELECT users.nama_user, users.email_user, tbl_partai.nama_partai FROM users JOIN tbl_partai \
+        par.execute("SELECT users.user_id, users.nama_user, users.email_user, tbl_partai.nama_partai FROM users JOIN tbl_partai \
                      WHERE users.partai_id = tbl_partai.partai_id ORDER BY users.created_at DESC")
         data = par.fetchall()
         return render_template('panel/cp_anggota/index.html', data=data, title=title)
@@ -38,7 +38,7 @@ def tambahanggota():
         mysql.connection.commit()
     return redirect(url_for('cp_anggota'))
 
-@app.route("/dashboard/anggota/<id>")
+@app.route("/dashboard/anggota/delete/<int:id>")
 def hapus_anggota(id):
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM users WHERE user_id=%s" % (id))
