@@ -12,9 +12,9 @@ class Sentiment():
         merged = []
         total = []
 
-        with open(f'{app.root_path}/static/model-nb/model.pkl', 'rb') as f:
+        with open(f'{app.root_path}/static/model-nb/model80.pkl', 'rb') as f:
             model = pickle.load(f)
-        with open(f'{app.root_path}/static/model-nb/tf_new.pkl', 'rb') as f:
+        with open(f'{app.root_path}/static/model-nb/tfidf80.pkl', 'rb') as f:
             tf_new = pickle.load(f)
 
         # memasukan data ke dalam array
