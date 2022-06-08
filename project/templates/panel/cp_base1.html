@@ -268,6 +268,36 @@
                 </ul>
               </li>
               <!-- End menu AHP -->
+              <!-- Start menu crawling -->
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class='nav-icon fab fa-twitter'></i>
+                    <p>
+                        Data Twitter
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+
+                <ul class="nav nav-treeview">
+                    <!-- Sub Menu - Data Survey -->
+                    <li class="nav-item">
+                        <a href="/dashboard/crawling/partai" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Partai</p>
+                        </a>
+                    </li>
+
+                    <!-- Sub Menu - Hasil Survey -->
+                    <li class="nav-item">
+                        <a href="/dashboard/crawling/dprd" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Dewan</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- End menu crawling -->
+
             </ul>
           </nav>
           {% if session['role'] <= 2 %}

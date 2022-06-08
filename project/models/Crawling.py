@@ -8,6 +8,18 @@ from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFacto
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 class Crawling():
+    def getIntegritasDprd():
+        cur = mysql.connection.cursor() 
+        cur.execute("SELECT a.user_id, a.nama_user, a.akun_twitter, c.nama_partai, COUNT('b.user_id') as jumlah_tweet from users as a JOIN tbl_crawling_integritas_dprd as b ON a.user_id = b.user_id JOIN tbl_partai as c ON a.partai_id = c.partai_id GROUP BY b.user_id ORDER BY a.user_id ASC")
+        data = cur.fetchall()
+        return data
+
+    def getTweetIntegritasDprd():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from tbl_crawling_integritas_dprd ORDER BY user_id ASC")
+        data = cur.fetchall()
+        return data
+
     def getIntegritasPartai():
         cur = mysql.connection.cursor()
         cur.execute("SELECT a.partai_id, a.nama_partai, a.head_leader, a.account_twitter, COUNT('b.partai_id') as jumlah_tweet from tbl_partai as a JOIN tbl_crawling_integritas_partai as b ON a.partai_id = b.partai_id GROUP BY b.partai_id ORDER BY a.partai_id ASC")
@@ -153,6 +165,3 @@ class Crawling():
         stemmer = factory.create_stemmer()
         stream = stemmer.stem(text)
         return stream
-
-
-    

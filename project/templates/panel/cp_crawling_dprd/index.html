@@ -2,7 +2,7 @@
 
 {% block body %}
 <!-- Content Header (Page header) -->
-<!-- <section class="content-header">
+<section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -10,10 +10,78 @@
             </div>
         </div>
     </div>
-</section> -->
-<section>
-    <div class="col-md-12 text-center">
-        <h1>Comming Soon</h1>
+</section>
+
+<!-- Start Integritas -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Integritas Dprd</h3>
+
+                        <form action="/dashboard/crawling/dprd/integritas" method="POST">
+                            <ol class="float-sm-right">
+                                <button type="submit" class="btn btn-success">Crawling Integritas</button>
+                            </ol>
+                        </form>
+
+                    </div>
+                    <div class="card-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example1" class="table table-bordered table-striped dataTable dtr-inline"
+                                        role="grid" aria-describedby="example1_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example1"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Rendering engine: activate to sort column descending">No
+                                                </th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example1"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Rendering engine: activate to sort column descending">
+                                                    Nama</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example1"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Rendering engine: activate to sort column descending">
+                                                    Partai</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Browser: activate to sort column ascending">
+                                                    Akun Twitter</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Browser: activate to sort column ascending">
+                                                    Jumlah Tweet</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Browser: activate to sort column ascending">
+                                                    Sentiment Positive</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Browser: activate to sort column ascending">
+                                                    Sentiment Negative</th>
+                                            </tr>
+                                        </thead>
+                                        {% for row in integritas %}
+                                        <tr role="row" class="odd">
+                                            <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
+                                            <td tabindex="0" class="sorting_1">{{row['nama']}}</td>
+                                            <td>{{row['partai']}}</td>
+                                            <td>{{row['akun_twitter']}}</td>
+                                            <td>{{row['jumlah_tweet']}}</td>
+                                            <td>{{row['total_positive']}}</td>
+                                            <td>{{row['total_negative']}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+<!-- End Integritas -->
 {% endblock %}
