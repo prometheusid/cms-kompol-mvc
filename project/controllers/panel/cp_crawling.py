@@ -23,11 +23,6 @@ def cp_crawling_partai():
 
     return render_template('panel/cp_crawling_partai/index.html', integritas=dataIntegritas, komunikator=dataKomunikator, title=title)
 
-@app.route("/dashboard/crawling/dprd")
-def cp_crawling_dprd():
-    title = ("Data Twitter")
-    return render_template('panel/cp_crawling_dprd/index.html',title=title)
-
 @app.route("/dashboard/crawling/partai/integritas", methods=["POST"])
 def cp_crawling_partai_integritas():
     partais = Crawling.fetchPartai()
@@ -35,13 +30,10 @@ def cp_crawling_partai_integritas():
         c = twint.Config()
         c.Search = items['nama_partai']
         c.Pandas = True
-        # diatur berdasarkan jumlah kebutuhan data
         c.Limit = 10
         twint.run.Search(c)
         Tweets_df = twint.storage.panda.Tweets_df
         save = Crawling.integritasPartai(Tweets_df['tweet'], items['partai_id'])
-
-    # return sesuai data yang dibutuhkan apa
     return redirect(url_for('cp_crawling_partai'))
 
 @app.route("/dashboard/crawling/partai/komunikator", methods=["POST"])
@@ -51,14 +43,17 @@ def cp_crawling_partai_komunikator():
         c = twint.Config()
         c.Search = items['account_head_leader']
         c.Pandas = True
-        # diatur berdasarkan jumlah kebutuhan data
         c.Limit = 10
         twint.run.Search(c)
         Tweets_df = twint.storage.panda.Tweets_df
         save = Crawling.komunikatorPartai(Tweets_df['tweet'], items['partai_id'])
-    # return sesuai data yang dibutuhkan apa
     return redirect(url_for('cp_crawling_partai'))
 
+@app.route("/dashboard/crawling/dprd")
+def cp_crawling_dprd():
+    title = ("Data Twitter")
+    return render_template('panel/cp_crawling_dprd/index.html',title=title)
+    
 @app.route("/dashboard/crawling/dprd/integritas", methods=["POST"])
 def cp_crawling_dprd_integritas():
     dprds = Crawling.fetchDprd()

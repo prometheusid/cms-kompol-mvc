@@ -153,6 +153,3 @@ class Crawling():
         stemmer = factory.create_stemmer()
         stream = stemmer.stem(text)
         return stream
-
-
-    
