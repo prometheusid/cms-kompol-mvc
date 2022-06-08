@@ -6,10 +6,19 @@ from datetime import datetime
     Import MOdels
 from project.models.Hello import Hello
 """
+
+# Import Model
+from project.models.Dashboard import Dashboard
+from project.models.Survey import Survey
+
 # dashboard / cpanel admin
 @app.route("/dashboard/<id>")
 def dashboard(id):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM users WHERE user_id=%s", (id,))
-    user = cur.fetchone()
-    return render_template('panel/cp_dashboard/index.html', user=user)
+    user = Dashboard.getUsers(id)
+    countDprd = Dashboard.countDprd()
+    countPartai = Dashboard.countPartai()
+    countWarga = Dashboard.countWarga()
+    countInfo = Dashboard.countInfo()
+    countSurveyPartai = Survey.countSurveyPartai()
+    countSurveyDprd = Survey.countSurveyDPRD()
+    return render_template('panel/cp_dashboard/index.html', user=user, countSurveyPartai=countSurveyPartai, countSurveyDprd=countSurveyDprd, countDprd=countDprd, countInfo=countInfo, countPartai=countPartai, countWarga=countWarga)
