@@ -38,14 +38,14 @@ def lapkun_thread(id):
 
 @app.route("/kunjungan/thread/<id>", methods=["POST"])
 def komentarlapkun(id):
-    idKomen = request.form['idKomen']
+    # idKomen = request.form['idKomen']
     idLapkun = request.form['idLapkun']
     komen = request.form['komen']
     komenUser = session['id']
     waktu = datetime.now()
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO tbl_detail_lapkun (id_detail, lapkun_id, komentar, user_id, created_at) VALUES (%s,%s,%s,%s,%s)",
-                (idKomen, idLapkun, komen, komenUser, waktu))
+    cur.execute("INSERT INTO tbl_detail_lapkun (lapkun_id, komentar, user_id, created_at) VALUES (%s,%s,%s,%s)",
+                (idLapkun, komen, komenUser, waktu))
     mysql.connection.commit()
     return redirect(url_for('lapkun_thread', id=id))
 
