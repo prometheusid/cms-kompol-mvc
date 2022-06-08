@@ -43,7 +43,7 @@ def cp_ahp_bobot_partai_save():
     criteria = ""
     return render_template('panel/cp_ahp_partai/bobot.html', criteria=criteria, title=title, value=value)
 
-@app.route("/dashboard/ahp/partai/generate")
+@app.route("/dashboard/ahp/partai/generate", methods=["POST"])
 def cp_ahp_partai_generate():
-    data = GenerateAhpPartai.updateLapkun()
-    return str(data)
+    GenerateAhpPartai.updateAhpPartai()
+    return redirect(url_for('cp_ahp_partai'))

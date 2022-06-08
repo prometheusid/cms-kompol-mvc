@@ -5,6 +5,12 @@ from project.models.Crawling import Crawling
 from project.models.Sentiment import Sentiment
 # TODO : Tinggal update laporan karan survei sudah beres sama raka
 class GenerateAhpPartai:
+    def updateAhpPartai():
+        GenerateAhpPartai.updateIntegritas
+        GenerateAhpPartai.updateKomunikator
+        GenerateAhpPartai.updateLapkun
+        return "berhasil"
+        
     def valueSentiment(value):
         if (value >= 90):
             point = 100
