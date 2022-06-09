@@ -24,18 +24,18 @@ class Dashboard:
     
     def countPartai():
         cur = mysql.connection.cursor()
-        cur.execute("SELECT nama_partai, COUNT('partai_id') as jumlah_partai FROM tbl_partai")
+        cur.execute("SELECT COUNT('partai_id') as jumlah_partai FROM tbl_partai")
         data = cur.fetchone()
         return data
 
     def countWarga():
         cur = mysql.connection.cursor()
-        cur.execute("SELECT role_id, COUNT('role_id') as jumlah_warga FROM users WHERE role_id = 4")
+        cur.execute("SELECT COUNT('role_id') as jumlah_warga FROM users WHERE role_id = 4")
         data = cur.fetchone()
         return data
 
     def countInfo():
         cur = mysql.connection.cursor()
-        cur.execute("SELECT info_id, COUNT('info_id') as jumlah_info FROM info")
+        cur.execute("SELECT COUNT('info_id') as jumlah_info FROM info")
         data = cur.fetchone()
         return data

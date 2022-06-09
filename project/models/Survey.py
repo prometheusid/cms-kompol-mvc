@@ -12,13 +12,13 @@ class Survey:
     
     def countSurveyDPRD():
         cur = mysql.connection.cursor()
-        cur.execute("SELECT A.nama_user, COUNT('B.user_id_dprd') as jumlah FROM users as A LEFT JOIN tbl_survey_dprd as B ON A.user_id = B.user_id_dprd WHERE A.role_id = 3 GROUP BY B.user_id_dprd, A.nama_user")
+        cur.execute("SELECT A.nama_user, COUNT('B.user_id_dprd') as jumlah FROM users as A JOIN tbl_survey_dprd as B ON A.user_id = B.user_id_dprd WHERE A.role_id = 3 GROUP BY B.user_id_dprd, A.nama_user")
         data = cur.fetchall()
         return data 
     
     def countSurveyPartai():
         cur = mysql.connection.cursor()
-        cur.execute("SELECT A.nama_partai, COUNT('B.id_partai') as jumlah FROM tbl_partai as A LEFT JOIN tbl_survey_partai as B ON A.partai_id = B.id_partai GROUP BY B.id_partai")
+        cur.execute("SELECT A.nama_partai, COUNT('B.id_partai') as jumlah FROM tbl_partai as A JOIN tbl_survey_partai as B ON A.partai_id = B.id_partai GROUP BY B.id_partai")
         data = cur.fetchall()
         return data 
         

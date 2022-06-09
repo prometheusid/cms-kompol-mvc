@@ -17,6 +17,7 @@ def dashboard(id):
     user = Dashboard.getUsers(id)
     countDprd = Dashboard.countDprd()
     countPartai = Dashboard.countPartai()
+    # return str(countPartai)
     countWarga = Dashboard.countWarga()
     countInfo = Dashboard.countInfo()
     countSurveyPartai = Survey.countSurveyPartai()
