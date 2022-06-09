@@ -7,6 +7,7 @@ from datetime import datetime
 from project.models.Ahp import Ahp
 from project.models.CalculateDewan import CalculateDewan
 from project.models.Criteria import Criteria
+from project.models.GenerateAhpDewan import GenerateAhpDewan
 
 
 @app.route("/dashboard/ahp/dewan")
@@ -47,3 +48,10 @@ def cp_ahp_bobot_dewan_save():
     value = Criteria.perbandingan([ahp['c12'], ahp['c13'], ahp['c14'], ahp['c15'], ahp['c23'], ahp['c24'], ahp['c25'], ahp['c34'], ahp['c35'], ahp['c45']], 5)
     criteria = ""
     return render_template('panel/cp_ahp_dewan/bobot.html', criteria=criteria, title=title, value=value)
+
+@app.route("/dashboard/ahp/dewan/generate", methods=["POST"])
+def cp_ahp_dewan_generate():
+    GenerateAhpDewan.updateIntegritas()
+    GenerateAhpDewan.updateLapkun()
+    GenerateAhpDewan.updateForum()
+    return redirect(url_for('cp_ahp_dewan'))

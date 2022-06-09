@@ -6,12 +6,6 @@ from project.models.Crawling import Crawling
 from project.models.Sentiment import Sentiment
 
 class GenerateAhpPartai:
-    # def updateAhpPartai():
-    #     GenerateAhpPartai.updateIntegritas()
-    #     GenerateAhpPartai.updateKomunikator()
-    #     GenerateAhpPartai.updateLapkun()
-    #     return "berhasil"
-        
     def valueSentiment(value):
         if (value >= 90):
             point = 100
@@ -51,14 +45,14 @@ class GenerateAhpPartai:
             pointKomunikatorSentiment = GenerateAhpPartai.valueSentiment(komunikatorSentiment)
 
             sql_update = "UPDATE tbl_ahp_partai SET komunikator_jumlah = %s, komunikator_sentiment = %s, updated_at = %s WHERE partai_id = %s"
-            value = (komunikatorJumlah, pointKomunikatorSentiment,updatedAt, item['partai_id'])
+            value = (komunikatorJumlah, pointKomunikatorSentiment, updatedAt, item['partai_id'])
             update.execute(sql_update, value)
         mysql.connection.commit()
 
         return "berhasil"
     
     def updateIntegritas():
-        tweetIntegritas = Crawling.getTweetKomunikatorPartai()
+        tweetIntegritas = Crawling.getTweetIntegritasPartai()
         sentimentIntegritas = Sentiment.predictPartai(tweetIntegritas)
        
         updatedAt = datetime.now()
