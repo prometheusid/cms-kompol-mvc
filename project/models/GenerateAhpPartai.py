@@ -1,15 +1,16 @@
+import re
 from project.config.Database import mysql
 from datetime import datetime
 
 from project.models.Crawling import Crawling
 from project.models.Sentiment import Sentiment
-# TODO : Tinggal update laporan karan survei sudah beres sama raka
+
 class GenerateAhpPartai:
-    def updateAhpPartai():
-        GenerateAhpPartai.updateIntegritas
-        GenerateAhpPartai.updateKomunikator
-        GenerateAhpPartai.updateLapkun
-        return "berhasil"
+    # def updateAhpPartai():
+    #     GenerateAhpPartai.updateIntegritas()
+    #     GenerateAhpPartai.updateKomunikator()
+    #     GenerateAhpPartai.updateLapkun()
+    #     return "berhasil"
         
     def valueSentiment(value):
         if (value >= 90):
@@ -53,6 +54,8 @@ class GenerateAhpPartai:
             value = (komunikatorJumlah, pointKomunikatorSentiment,updatedAt, item['partai_id'])
             update.execute(sql_update, value)
         mysql.connection.commit()
+
+        return "berhasil"
     
     def updateIntegritas():
         tweetIntegritas = Crawling.getTweetKomunikatorPartai()
@@ -69,9 +72,26 @@ class GenerateAhpPartai:
             value = (integritasJumlah, pointIntegritasSentiment ,updatedAt, item['partai_id'])
             update.execute(sql_update, value)
         mysql.connection.commit()
+
+        return "berhasil"
     
     def updateLapkun():
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT b.partai_id, count(b.partai_id) as jumlah from tbl_lapkun as a Join users as b on a.user_id = b.user_id GROUP BY b.partai_id")
-        data = cur.fetchall()
-        return data
+        connect = mysql.connection.cursor()
+        connect.execute("SELECT A.lapkun_id, A.user_id, B.komentar as tweet, C.partai_id FROM tbl_lapkun as A JOIN tbl_detail_lapkun as B ON A.lapkun_id = B.lapkun_id JOIN users as C ON A.user_id = C.user_id")
+        lapkun = connect.fetchall()
+      
+        data = Sentiment.predictLapkun(lapkun)
+
+        updatedAt = datetime.now()
+        update = mysql.connection.cursor()
+        for item in data:
+            laporanJumlah = item['total_positive'] + item['total_negative']
+            laporanSentiment = (item['total_positive'] / (item['total_positive'] + item['total_negative'])) * 100
+            pointLaporanSentiment = GenerateAhpPartai.valueSentiment(laporanSentiment)
+
+            sql_update = "UPDATE tbl_ahp_partai SET laporan_jumlah = %s, laporan_sentiment = %s, updated_at = %s WHERE partai_id = %s"
+            value = (laporanJumlah, pointLaporanSentiment, updatedAt, item['partai_id'])
+            update.execute(sql_update, value)
+        mysql.connection.commit()
+
+        return "berhasil"
