@@ -153,7 +153,6 @@
         </ul>
       </nav>
       <!-- /.navbar -->
-
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
@@ -180,6 +179,17 @@
               role="menu"
               data-accordion="false"
             >
+              {% if session['role'] == 2 %}
+              <li class="nav-item">
+                <a
+                  href="/dashboard/anggota/partai/{{session['partai']}}"
+                  class="nav-link"
+                >
+                  <i class="nav-icon fas fa-newspaper"></i>
+                  <p>Anggota Partai</p>
+                </a>
+              </li>
+              {% endif %} {% if session['role'] == 1 %}
               <li class="nav-item">
                 <a href="{{ url_for('cp_anggota')}}" class="nav-link">
                   <i class="nav-icon fas fa-newspaper"></i>
@@ -266,6 +276,7 @@
                   </li>
                 </ul>
               </li>
+              {% endif %}
               <!-- End menu AHP -->
             </ul>
           </nav>

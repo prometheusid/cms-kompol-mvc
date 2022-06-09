@@ -96,6 +96,11 @@
             <li class="nav__item">
               <a class="nav__link" href="/profile/{{session['id']}}">Profile</a>
             </li>
+            <li class="nav__item">
+              <a class="nav__link" href="/dashboard/anggota/partai/{{session['partai']}}"
+                >Dashboard</a
+              >
+            </li>
             {% endif %} {% if session['role'] == 3 %}
             <li class="nav__item">
               <a class="nav__link" href="/profile/{{session['id']}}">Profile</a>

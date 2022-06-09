@@ -1,11 +1,12 @@
 
 from project import app
-from flask import render_template, redirect, url_for, request, session, flash
+from flask import abort, render_template, redirect, url_for, request, session, flash
 from datetime import datetime
 from project.config.Database import mysql
 from flask_mysqldb import MySQLdb
 import bcrypt
 from bcrypt import hashpw
+import re
 #from flask_login import LoginManager, login_user, login_required, logout_user
 
 #from project.models.auth import User
@@ -27,7 +28,7 @@ def load_user(user_id):
 def registrasi():
     if request.method == 'GET':
         return render_template('auth/registrasi.html')
-    else:
+    elif request.method == 'POST' and 'email' in request.form and 'password' in request.form and 'name' in request.form:
         name = request.form['name']
         email = request.form['email']
         password = request.form['password'].encode('utf-8')
@@ -36,13 +37,26 @@ def registrasi():
         partai = 0
         created = datetime.now()
 
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO users (nama_user, email_user, password, role_id, partai_id, created_at) VALUES (%s,%s,%s,%s,%s,%s)",
-                    (name, email, hash_password, role_id, partai, created))
-        mysql.connection.commit()
-        cur.close()
-        flash('You are now registered and can log in', 'success')
-        return redirect(url_for('login'))
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM users WHERE email_user = %s', (email,))
+        account = cursor.fetchone()
+        if account:
+            msg = 'Account already exists!'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            msg = 'Invalid email address!'
+        elif not re.match(r'[A-Za-z0-9]+', name):
+            msg = 'Name must contain only characters!'
+        elif not name or not password or not email:
+            msg = 'Please fill out the form!'
+        else:
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO users (nama_user, email_user, password, role_id, partai_id, created_at) VALUES (%s,%s,%s,%s,%s,%s)",
+                        (name, email, hash_password, role_id, partai, created))
+            mysql.connection.commit()
+            cur.close()
+            msg = 'You can now login using your account'
+            return redirect(url_for('login', msg=msg))
+        return render_template('auth/registrasi.html', msg=msg)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -55,17 +69,17 @@ def login():
         curl.execute("SELECT * FROM users WHERE email_user = %s", (email,))
         user = curl.fetchone()
         curl.close()
-
         if user:
             session['loggedin'] = True
             session['id'] = user['user_id']
             session['name'] = user['nama_user']
             session['email'] = user['email_user']
             session['role'] = user['role_id']
+            session['partai'] = user['partai_id']
                 #login_user(user)
             return redirect(url_for('pub_home'))
         else:
-            msg = 'Incorrect username / password !'
+            msg = 'Incorrect username/password!'
     return render_template("auth/login.html", msg=msg)
 
 

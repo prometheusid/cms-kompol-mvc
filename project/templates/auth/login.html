@@ -45,14 +45,15 @@
                                             <input type="password" class="form-control form-control-user"
                                                 name="password" placeholder="Password" />
                                         </div>
+                                        <div class="form-group" style="color: red;">{{ msg }}</div>
                                         <button class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
                                     </form>
                                     <hr />
-                                    <div class="text-center">
+                                    <!-- <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
+                                    </div> -->
                                     <div class="text-center">
                                         <a class="small" href="{{ url_for('registrasi')}}">Create an Account!</a>
                                     </div>
