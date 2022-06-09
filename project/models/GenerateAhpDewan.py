@@ -4,7 +4,7 @@ from datetime import datetime
 
 from project.models.Crawling import Crawling
 from project.models.Sentiment import Sentiment
-
+# TODO : kompetensi belum beres karena field db masih salah
 class GenerateAhpDewan:
     def valueSentiment(value):
         if (value >= 90):
