@@ -32,6 +32,21 @@ class GenerateAhpDewan:
         if (value >= 0 and value <= 9):
             point = 30
         return point
+    
+    def valueKompetensiAkademik(pendidikanId):
+        if (pendidikanId == 10):
+            point = 100
+        if (pendidikanId == 9):
+            point = 90
+        if (pendidikanId == 8 or pendidikanId == 7):
+            point = 70
+        if (pendidikanId <= 6 and pendidikanId >= 4):
+            point = 60
+        if (pendidikanId == 3 or pendidikanId == 2):
+            point = 50
+        if (pendidikanId == 1):
+            point = 30
+        return point
 
     def updateIntegritas(): 
         tweetIntegritas = Crawling.getTweetIntegritasDprd()
@@ -89,3 +104,22 @@ class GenerateAhpDewan:
             update.execute(sql_update, value)
         mysql.connection.commit()
         return "berhasil"
+    
+    # def updateKompetensi():
+    #     # TODO : untuk pengalaman belum dikarenakan field datanya blm dibenarkan
+    #     connect = mysql.connection.cursor()
+    #     connect.execute("SELECT * FROM users WHERE role_id = 3")
+    #     kompetensi= connect.fetchall()
+
+    #     updatedAt = datetime.now()
+    #     update = mysql.connection.cursor()
+    #     for item in kompetensi:
+    #         kompetensiAkademik = GenerateAhpDewan.valueKompetensiAkademik(item['id_pendidikan'])
+    #         # TODO : belum diambil terlebih dahulu masih harus dibenarkan
+    #         kompetensiExperience =  2
+    #         sql_update = "UPDATE tbl_ahp_dprd SET kompetensi_akademik = %s, kompetensi_experience = %s, updated_at = %s WHERE user_id = %s"
+    #         value = (kompetensiAkademik, kompetensiExperience, updatedAt, item['user_id'])
+    #         update.execute(sql_update, value)
+    #     mysql.connection.commit()
+    #     return "berhasil"
+
