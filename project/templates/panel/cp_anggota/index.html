@@ -112,14 +112,16 @@ get_flashed_messages(with_categories=True) %}
                         <td>{{row['email_user']}}</td>
                         <td>{{row['nama_partai']}}</td>
                         <td>
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter{{row['info_id']}}">
+                          <button type="button" class="btn btn-primary" data-toggle="modal" 
+                                  data-target="#exampleModalCenter{{row['user_id']}}"
+                          >
                             Detail
                           </button>
                           <button
                             type="button"
                             class="btn btn-danger"
                             data-toggle="modal"
-                            data-target="#modal_delete{{row['info_id']}}"
+                            data-target="#modal_delete{{row['user_id']}}"
                           >
                             Hapus
                           </button>
@@ -155,7 +157,7 @@ get_flashed_messages(with_categories=True) %}
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{ title }}</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">TAMBAH ANGGOTA</h5>
         <button
           type="button"
           class="close"
@@ -256,8 +258,8 @@ get_flashed_messages(with_categories=True) %}
                   >
                   <select
                     class="form-control variabel"
-                    name="twitter"
-                    id="twitter"
+                    name="education"
+                    id="education"
                     required
                   >
                   {% for column in edu %}
@@ -296,15 +298,16 @@ get_flashed_messages(with_categories=True) %}
 <!-- END Modal add -->
 
 <!-- Modal detail -->
+{% for profile in data %} 
 <div
   class="modal fade"
-  id="exampleModalCenter"
+  id="exampleModalCenter{{profile['user_id']}}"
   tabindex="-1"
   role="dialog"
   aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">DETAIL ANGGOTA</h5>
@@ -318,7 +321,7 @@ get_flashed_messages(with_categories=True) %}
         </button>
       </div>
       <form
-        action="/dashboard/anggota/partai/edit/{{profile.user_id}}"
+        action="{{url_for('editAnggota', id=id).user_id}}"
         method="POST"
       >
         <div class="modal-body">
@@ -331,7 +334,7 @@ get_flashed_messages(with_categories=True) %}
                   name="idu"
                   id="idu"
                   value="{{profile.user_id}}"
-                  hidden
+                  
                 />
               </div>
               <div class="form-group">
@@ -367,24 +370,37 @@ get_flashed_messages(with_categories=True) %}
                   {% for column in edu %}
                   <option
                     value="{{column['id_pendidikan']}}"
-                    selected="{{edu['pendidikan']}}"
+                    selected="{{edu['id_pendidikan']}}"
                   >
                     {{column['pendidikan']}}
                   </option>
                   {% endfor %}
                 </select>
               </div>
-              <div class="form-group">
-                <label for="question"
-                  ><span style="color: red">*</span> Akun Twitter</label
-                >
-                <input
+              <div class="row">
+                <div class="form-group col-6">
+                  <label for="variabel"
+                    ><span style="color: red">*</span> Experience</label
+                  >
+                  <textarea 
                   type="text"
                   class="form-control form-control-user"
-                  name="twitter"
-                  id="twitter"
-                  value="{{profile.akun_twitter}}"
-                />
+                  name="pengalaman"
+                  id="pengalaman"
+                  >{{profile.pengalaman}}</textarea>
+                </div>
+                <div class="form-group col-6">
+                  <label for="question"
+                    ><span style="color: red">*</span> Akun Twitter</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-user"
+                    name="twitter"
+                    id="twitter"
+                    value="{{profile.akun_twitter}}"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -399,6 +415,7 @@ get_flashed_messages(with_categories=True) %}
     </div>
   </div>
 </div>
+{% endfor %}
 <!-- END Modal detail -->
 
 <!-- Modal Delete -->
@@ -430,7 +447,7 @@ get_flashed_messages(with_categories=True) %}
         >
           Cancel
         </button>
-        <a href="/dashboard/anggota/del/{{row['user_id']}}"
+        <a href="/dashboard/anggota/hapus/{{row['user_id']}}"
           ><button class="btn btn-sm btn-danger">Ya, Hapus</button></a
         >
       </div>

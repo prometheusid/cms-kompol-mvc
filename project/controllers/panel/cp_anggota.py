@@ -11,27 +11,30 @@ import re
 from project.models.Profile import Profile
 from project.models.Anggota import Anggota
 
-@app.route("/dashboard/anggota")
-def cp_anggota():
-    title = ("TAMBAH ANGGOTA")
+@app.route("/dashboard/anggota/<id>")
+def cp_anggota(id):
+    title = ("ANGGOTA")
     if 'loggedin' in session and session['role'] == 1:
         par = mysql.connection.cursor()
-        par.execute("SELECT * FROM users \
-                     JOIN tbl_partai ON users.partai_id = tbl_partai.partai_id \
-                     WHERE users.partai_id = tbl_partai.partai_id ORDER BY users.created_at DESC")
+        par.execute("SELECT users.user_id, users.nama_user, users.email_user, users.pengalaman, users.akun_twitter, tbl_partai.nama_partai FROM users JOIN tbl_partai \
+                     WHERE users.partai_id=tbl_partai.partai_id ORDER BY users.created_at DESC")
         data = par.fetchall()
 
-        profile = Profile.editProfiles(id)
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM users JOIN tbl_partai \
+                     WHERE users.partai_id = tbl_partai.partai_id ORDER BY users.created_at DESC")
+        profile = cur.fetchone()
 
         edu = mysql.connection.cursor()
         edu.execute("SELECT * FROM tbl_pendidikan")
         edu = edu.fetchall()
         
-        return render_template('panel/cp_anggota/index.html', edu=edu, profile=profile, data=data, title=title)
+        return render_template('panel/cp_anggota/index.html', data=data, edu=edu, profile=profile, title=title)
     else: 
         if 'loggedin' in session :
             return redirect(url_for('pub_home'))
         else:
+            flash('Silahkan login terlebih dahulu!', 'danger')
             return redirect(url_for('login'))
 
 @app.route("/dashboard/anggota", methods=["GET", "POST"])
@@ -43,6 +46,9 @@ def tambahanggota():
         hash_password = bcrypt.hashpw(passwordAnggota, bcrypt.gensalt())
         role_id = request.form['roleAnggota']
         partai = request.form['partaiAnggota']
+        education = request.form['education']
+        pengalaman = request.form['pengalaman']
+        twitter = request.form['twitter']
         created = datetime.now()
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM users WHERE email_user = %s', (emailAnggota,))
@@ -57,35 +63,38 @@ def tambahanggota():
             flash(u'Please fill out the form!', 'danger')
         else:
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO users (nama_user, email_user, password, role_id, partai_id, created_at) VALUES (%s,%s,%s,%s,%s,%s)",
-                        (nameAnggota, emailAnggota, hash_password, role_id, partai, created))
+            cur.execute("INSERT INTO users (nama_user, email_user, password, role_id, partai_id, created_at, id_pendidikan, pengalaman, akun_twitter) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                        (nameAnggota, emailAnggota, hash_password, role_id, partai, created, education, pengalaman, twitter))
             mysql.connection.commit()
             flash('Berhasil ditambahkan!', 'success')
-    return redirect(url_for('cp_anggota'))
+    return redirect(url_for('cp_anggota', id=id))
 
-@app.route("/dashboard/anggota/partai/edit/<id>")           
+@app.route("/dashboard/anggota/<id>", methods=["GET", "POST"])           
 def editAnggota(id):
-    title = ("DETAIL ANGGOTA")
-    if 'loggedin' in session and session['role'] == 2:
+    if 'loggedin' in session and session['role'] == 1:
+        idu = request.form['idu']
         name = request.form['name']
-        update = datetime.now()
         education = request.form['education']
         pengalaman = request.form['pengalaman']
         twitter = request.form['twitter']
-        idu = request.form['idu']
+        update = datetime.now()
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE users SET nama_user = %s, updated_at = %s, id_pendidikan = %s, pengalaman = %s, akun_twitter = %s WHERE user_id = %s",
-                    (name, update, education, pengalaman, twitter, idu))
+        cur.execute("UPDATE users SET nama_user = %s, id_pendidikan = %s, pengalaman = %s, akun_twitter = %s, updated_at = %s WHERE user_id = %s",
+                    (name, education, pengalaman, twitter, update, idu))
         mysql.connection.commit()
-        return render_template('panel/cp_partai/index.html', title=title)
+        flash('Data berhasil diubah!', 'success')
+        #return render_template('panel/cp_partai/index.html', title=title)
+        return redirect(url_for('cp_anggota', id=id))
     else: 
         if 'loggedin' in session :
             return redirect(url_for('pub_home'))
         else:
+            flash('Silahkan login terlebih dahulu!', 'danger')
             return redirect(url_for('login'))
 
-@app.route("/dashboard/anggota/del/<id>")
+@app.route("/dashboard/anggota/hapus/<id>")
 def hapus_anggota(id):
-    data = Anggota.deleteAnggota(id)
-    flash('Data telah dihapus!', 'danger')
-    return redirect(url_for('cp_anggota'))
+    if 'loggedin' in session and session['role'] == 1 and session['id']:
+        data = Anggota.deleteAnggota(id)
+        flash('Data telah dihapus!', 'danger')
+        return redirect(url_for('cp_anggota', id=id))

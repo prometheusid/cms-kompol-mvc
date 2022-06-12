@@ -191,7 +191,7 @@
               </li>
               {% endif %} {% if session['role'] == 1 %}
               <li class="nav-item">
-                <a href="{{ url_for('cp_anggota')}}" class="nav-link">
+                <a href="/dashboard/anggota/{{session['id']}}" class="nav-link">
                   <i class="nav-icon fas fa-newspaper"></i>
                   <p>Anggota Partai</p>
                 </a>
@@ -285,7 +285,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{ url_for('cp_anggota')}}" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <p>
                                     Anggota Partai
                                 </p>
