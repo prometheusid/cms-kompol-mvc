@@ -1,0 +1,283 @@
+{% extends 'panel/cp_base1.html' %} {% block body %} {% for category, message in
+get_flashed_messages(with_categories=True) %}
+<div class="alert alert-{{category}}">{{ message }}</div>
+{% endfor %}
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>{{title}}</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Data Partai</h3>
+            <div class="card-tools">
+              <button
+                class="btn btn-success"
+                data-toggle="modal"
+                data-target="#modal_add"
+              >
+                <i class="fas fa-plus"></i>&nbsp;Tambah Partai
+              </button>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+              <div class="row"></div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <table
+                    id="example1"
+                    class="table table-bordered table-striped dataTable dtr-inline"
+                    role="grid"
+                    aria-describedby="example1_info"
+                  >
+                    <thead>
+                      <tr role="row">
+                        <th
+                          class="sorting_asc"
+                          tabindex="0"
+                          aria-controls="example1"
+                          rowspan="1"
+                          colspan="1"
+                          aria-sort="ascending"
+                          aria-label="Rendering engine: activate to sort column descending"
+                        >
+                          No
+                        </th>
+                        <th
+                          class="sorting_asc"
+                          tabindex="0"
+                          aria-controls="example1"
+                          rowspan="1"
+                          colspan="1"
+                          aria-sort="ascending"
+                          aria-label="Rendering engine: activate to sort column descending"
+                        >
+                          Nama Partai
+                        </th>
+                        <th
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="example1"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Platform(s): activate to sort column ascending"
+                        >
+                          Aksi
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for row in data %}
+
+                      <tr role="row" class="odd">
+                        <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
+                        <td>{{row['nama_partai']}}</td>
+                        <td>
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#exampleModalCenter{{row['partai_id']}}"
+                          >
+                            Detail
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-danger"
+                            data-toggle="modal"
+                            data-target="#modal_delete{{row['partai_id']}}"
+                          >
+                            Hapus
+                          </button>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Modal add -->
+<div
+  class="modal fade"
+  id="modal_add"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">TAMBAH PARTAI</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{url_for('cp_tambahpartai', id=id)}}" method="POST">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="code"
+                  ><span style="color: red">*</span> Nama Partai</label
+                >
+                <input
+                  type="text"
+                  class="form-control variable"
+                  id="namaPartai"
+                  name="namaPartai"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">
+            Tutup
+          </button>
+          <button class="btn btn-success">Tambah</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END Modal add -->
+
+<!-- Modal detail -->
+{% for row in data %}
+<div
+  class="modal fade"
+  id="exampleModalCenter{{row['partai_id']}}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">DETAIL PARTAI</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{url_for('cp_editpartai', id=id).user_id}}" method="POST">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-user"
+                  name="idu"
+                  id="idu"
+                  value="{{row.partai_id}}"
+                  hidden
+                />
+              </div>
+              <div class="form-group">
+                <label for="code"
+                  ><span style="color: red">*</span> Nama Partai</label
+                >
+                <input
+                  type="text"
+                  class="form-control form-control-user"
+                  name="namePartai"
+                  id="namePartai"
+                  value="{{row.nama_partai}}"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">
+            Tutup
+          </button>
+          <button class="btn btn-success">Ubah</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endfor %}
+<!-- END Modal detail -->
+
+<!-- Modal Delete -->
+{% for row in data %}
+<div class="modal fade" id="modal_delete{{row['partai_id']}}">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal_delete{{row['partai_id']}}">
+          Anda Akan Menghapus {{row['nama_partai']}}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Yakin akan menghapus data?</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-sm btn-secondary"
+          data-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <a href="/dashboard/partai/hapus/{{row['partai_id']}}"
+          ><button class="btn btn-sm btn-danger">Ya, Hapus</button></a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %} {% endblock %}
