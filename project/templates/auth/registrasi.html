@@ -22,6 +22,23 @@
 
 <body class="bg-gradient-primary">
     <div class="container">
+        {% for message in get_flashed_messages() %}
+        {% if response == "error" %}
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endif %}
+        {% if response == "success" %}
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    
+    <div class="container">
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
@@ -30,11 +47,11 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account</h1>
                             </div>
                             <form class="user" action="/registrasi" method="POST">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" name="name"
+                                    <input type="text" class="form-control form-control-user form-control-lg" name="name"
                                         placeholder="Nama lengkap anda" />
                                 </div>
                                 <div class="form-group">
@@ -45,16 +62,20 @@
                                     <input type="password" class="form-control form-control-user" name="password"
                                         placeholder="Password" />
                                 </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-user"
+                                        name="validate_password" placeholder="Ulangi Password" />
+                                </div>
                                 <button class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </button>
                             </form>
                             <hr />
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                <a href="{{ url_for('login')}}"><h5>Login</h5></a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="{{ url_for('pub_forget_password')}}"><h6>Forgot Password?</h6></a>
                             </div>
                         </div>
                     </div>

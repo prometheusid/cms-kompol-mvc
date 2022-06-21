@@ -6,6 +6,8 @@ from project.config.Database import mysql
 from flask_mysqldb import MySQLdb
 import bcrypt
 from bcrypt import hashpw
+from project.models.Encryption import Encryption
+import re
 
 #route index
 @app.route("/registrasi", methods=["GET", "POST"])
@@ -15,19 +17,41 @@ def registrasi():
     else:
         name = request.form['name']
         email = request.form['email']
-        password = request.form['password'].encode('utf-8')
-        hash_password = bcrypt.hashpw(password, bcrypt.gensalt())
-        role_id = 4
-        partai = 0
-        created = datetime.now()
+        password = request.form['password']
+        validatePassword = request.form['validate_password']
 
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO users (nama_user, email_user, password, role_id, partai_id, created_at) VALUES (%s,%s,%s,%s,%s,%s)",
-                    (name, email, hash_password, role_id, partai, created))
-        mysql.connection.commit()
-        cur.close()
-        flash('You are now registered and can log in', 'success')
-        return redirect(url_for('login'))
+        if (password != validatePassword):
+            flash('Gagal, Password yang anda masukkan tidak sesuai')
+            return render_template('auth/registrasi.html', response="error")
+
+        checkEmail = Encryption.checkEmail(email)
+        if (checkEmail == True):
+            flash('Gagal, Email sudah dipakai')
+            return render_template('auth/registrasi.html', response="error")
+        
+        if not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            flash('Invalid email address!')
+            return render_template('auth/registrasi.html', response="error")
+        elif not re.match(r'[A-Za-z0-9]+', name):
+            flash('Name must contain only characters!')
+            return render_template('auth/registrasi.html', response="error")
+        elif not name or not password or not email:
+            flash('Please fill out the form!')
+            return render_template('auth/registrasi.html', response="error")
+        else:
+            hash_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+            role_id = 4
+            partai_id = 0
+            created = datetime.now()
+
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO users (nama_user, email_user, password, role_id, partai_id, created_at, updated_at) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+                        (name, email, hash_password, role_id, partai_id, created, created))
+            mysql.connection.commit()
+            cur.close()
+
+            flash('You are now registered and can log in', 'success')
+            return redirect(url_for('login'))
 
 
 @app.route("/login", methods=["GET", "POST"])
