@@ -1,13 +1,3 @@
-# import mysql.connector
-
-# connection = mysql.connector(
-#     host = "localhost",
-#     user = "root",
-#     password = "",
-#     db = "db_kompol"
-# )
-
-# cursor = connection.cursor()
 from flask_mysqldb import MySQL, MySQLdb
 from project import app
 

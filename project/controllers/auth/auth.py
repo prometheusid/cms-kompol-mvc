@@ -6,21 +6,6 @@ from project.config.Database import mysql
 from flask_mysqldb import MySQLdb
 import bcrypt
 from bcrypt import hashpw
-#from flask_login import LoginManager, login_user, login_required, logout_user
-
-#from project.models.auth import User
-
-"""
-    Import MOdels
-from project.models.Hello import Hello
-"""
-
-""" login_mananger = LoginManager()
-login_mananger.init_app(app) """
-
-""" @login_mananger.user_loader
-def load_user(user_id):
-    return User.get(user_id) """
 
 #route index
 @app.route("/registrasi", methods=["GET", "POST"])
@@ -72,6 +57,4 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    #logout_user()
-    # return render_template("/public/index.html")
     return redirect(url_for('pub_home'))
