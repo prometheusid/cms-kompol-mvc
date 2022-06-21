@@ -106,7 +106,7 @@
   </div>
 </section>
 {% endif %}
-<!-- ##### Top News Area Start ##### -->
+<!-- Start Info Kunjungan -->
 <section class="decoration section bd-container">
   <div class="top-news-area">
     <div class="intro-news-filter d-flex justify-content-between">
@@ -146,8 +146,9 @@
     </div>
   </div>
 </section>
-<!-- ##### Top News Area End ##### -->
-<!-- ##### Intro News Area Start ##### -->
+<!-- End Info Kunjungan -->
+
+<!-- Start Info Publik -->
 <section class="section bd-container accessory" style="margin-top: -5rem">
   <div class="container">
     <div class="row justify-content-center">
@@ -190,6 +191,9 @@
     </div>
   </div>
 </section>
+<!-- End Info Publik -->
+<!-- Start Survei -->
+{% if session['role'] == 1 or session['role'] == 2 or session['role'] == 3%}
 <section class="send section">
   <!-- Sidebar Widget -->
   <div class="send__container bd-container text-center">
@@ -203,8 +207,9 @@
     </form>
   </div>
 </section>
-<!-- ##### Intro News Area End ##### -->
-<!-- ##### Video Area Start ##### -->
+{% endif %}
+<!-- End Survei -->
+<!-- Start Forum -->
 <section class="accessory section bd-container">
   <!-- Featured Video Area -->
   <div class="intro-news-filter d-flex justify-content-between">
@@ -247,5 +252,5 @@
     </div>
   </div>
 </section>
-<!-- ##### Video Area End ##### -->
+<!-- End Forum -->
 {% endblock %}
