@@ -30,7 +30,7 @@
 <body>
   <header class="l-header" id="header">
     <nav class="nav bd-container">
-      <a href="#" class="nav__logo">KOMUNIKASI POLITIK</a>
+      <a href="{{ url_for('pub_home') }}" class="nav__logo">KOMUNIKASI POLITIK</a>
       <div class="nav__menu" id="nav-menu">
         <ul class="nav__list">
           <li class="nav__item">
@@ -45,30 +45,44 @@
           <li class="nav__item">
             <a href="{{ url_for('forum')}}" class="nav__link">Forum</a>
           </li>
+          <!-- Jika belum login muncul menu Login -->
           {% if session['id'] == null %}
           <li class="nav__item">
             <a href="{{url_for('login')}}" class="nav__link">Login</a>
           </li>
-          {% endif %} {% if session['role'] == 1 %}
+          {% endif %}
+
+          <!-- Login Role Admin -->
+          {% if session['role'] == 1 %}
           <li class="nav__item">
             <a class="nav__link" href="/profile/{{session['id']}}">Profile</a>
           </li>
           <li class="nav__item">
             <a class="nav__link" href="/dashboard/{{session['id']}}">Dashboard</a>
           </li>
-          {% endif %} {% if session['role'] == 2 %}
+          {% endif %}
+
+          <!-- Login Role Partai -->
+          {% if session['role'] == 2 %}
           <li class="nav__item">
             <a class="nav__link" href="/profile/{{session['id']}}">Profile</a>
           </li>
-          {% endif %} {% if session['role'] == 3 %}
+          {% endif %} 
+
+          <!-- Login Role Dewan -->
+          {% if session['role'] == 3 %}
           <li class="nav__item">
-            <a class="nav__link" href="/profile/{{session['id']}}">Profile</a>
+            <a class="nav__link text-capitalize" href="/profile/{{session['id']}}">Profile</a>
           </li>
-          {% endif %} {% if session['role'] == 4 %}
+          {% endif %} 
+
+          <!-- Login Role Warga Negara -->
+          {% if session['role'] == 4 %}
           <li class="nav__item">
             <a class="nav__link" href="/profile/{{session['id']}}">Profile</a>
           </li>
           {% endif %}
+
         </ul>
       </div>
 
