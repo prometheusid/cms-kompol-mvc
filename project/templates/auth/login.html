@@ -23,6 +23,23 @@
 
 <body class="bg-gradient-primary">
     <div class="container">
+        {% for message in get_flashed_messages() %}
+        {% if response == "error" %}
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endif %}
+        {% if response == "success" %}
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    
+    <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">

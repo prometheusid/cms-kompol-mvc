@@ -22,23 +22,35 @@ def pub_forget_password():
         return render_template('auth/forgetpassword.html')
     else:
         email = request.form['email']
+        checkEmail = Encryption.checkEmail(email)
+        if (checkEmail == False):
+            flash('Gagal, Email tidak ditemukan')
+            return render_template('auth/forgetpassword.html', response="error")
+    
         key = Fernet.generate_key()
         encode = Encryption.encrypt(email.encode(), key)
         link = "http://127.0.0.1:5000/change-password/" + str(key.decode()) + "/email/" + str(encode.decode())
 
-        msg = Message('Komunikasi Publik', sender = 'melektechnology@gmail.com', recipients = ['aditia20.riz@gmail.com'])
+        msg = Message('Komunikasi Publik', sender = 'melektechnology@gmail.com', recipients = [email])
         msg.body = "Silahkan klik account ini untuk ganti paswword " + link
         mail.send(msg)
-        flash('Silahkan cek email anda')
-        return render_template('auth/forgetpassword.html')
+        flash('Berhasil, silahkan cek email anda')
+        return render_template('auth/forgetpassword.html', response="success")
 
 @app.route("/change-password/<token>/email/<email>" , methods=["GET"])
 def pub_change_password(token, email):
-
-    return "hi"
+    getEmail = Encryption.decrypt(token, email)
+    return render_template('auth/changepassword.html', email=getEmail.decode())
 
 @app.route("/change-password/new-password" , methods=["POST"])
 def pub_new_password():
-    return "hi"
-
-
+    email = request.form['email']
+    password = request.form['password']
+    validatePassword = request.form['validate_password']
+    if (password != validatePassword):
+        flash('Gagal, Password yang anda masukkan tidak sesuai')
+        return render_template('auth/changepassword.html', response="error", email=email)
+    
+    changePassword = Encryption.changePassword(email,password)
+    flash('Berhasil, Password telah diubah silahkan login')
+    return render_template('auth/login.html', response="success")
