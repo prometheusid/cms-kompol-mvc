@@ -8,6 +8,30 @@ from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFacto
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 class Crawling():
+    def createIntegritasDprdRiwayat():
+        createdAt = datetime.now()
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO `tbl_crawling_integritas_dprd_riwayat` (`created_at`, `updated_at`) VALUES (%s,%s)",
+                    (createdAt, createdAt))
+        mysql.connection.commit()
+        return cur.lastrowid
+
+    def createKomunikatorPartaiRiwayat():
+        createdAt = datetime.now()
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO `tbl_crawling_komunikator_partai_riwayat` (`created_at`, `updated_at`) VALUES (%s,%s)",
+                    (createdAt, createdAt))
+        mysql.connection.commit()
+        return cur.lastrowid
+
+    def createIntegritasPartaiRiwayat():
+        createdAt = datetime.now()
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO `tbl_crawling_integritas_partai_riwayat` (`created_at`, `updated_at`) VALUES (%s,%s)",
+                    (createdAt, createdAt))
+        mysql.connection.commit()
+        return cur.lastrowid
+
     def getIntegritasDprd():
         cur = mysql.connection.cursor() 
         cur.execute("SELECT a.user_id, a.nama_user, a.akun_twitter, c.nama_partai, COUNT('b.user_id') as jumlah_tweet from users as a JOIN tbl_crawling_integritas_dprd as b ON a.user_id = b.user_id JOIN tbl_partai as c ON a.partai_id = c.partai_id GROUP BY b.user_id ORDER BY a.user_id ASC")
@@ -56,33 +80,33 @@ class Crawling():
         data = cur.fetchall()
         return data
 
-    def integritasPartai(tweet, partaiId):
+    def integritasPartai(tweet, partaiId, riwayatId):
         cleanTweet = Crawling.cleanTweet(tweet)
         createdAt = datetime.now()
         cur = mysql.connection.cursor()
         for items in cleanTweet:
-            cur.execute("INSERT INTO `tbl_crawling_integritas_partai` (`partai_id`, `tweet`, `created_at`, `updated_at`) VALUES (%s,%s,%s,%s)",
-                    (partaiId, items, createdAt, createdAt))
+            cur.execute("INSERT INTO `tbl_crawling_integritas_partai` (`partai_id`, `tweet`, `created_at`, `updated_at`, `integritas_partai_riwayat_id`) VALUES (%s,%s,%s,%s,%s)",
+                    (partaiId, items, createdAt, createdAt, riwayatId))
         mysql.connection.commit()
         return len(cleanTweet)
 
-    def komunikatorPartai(tweet, partaiId):
+    def komunikatorPartai(tweet, partaiId, riwayatId):
         cleanTweet = Crawling.cleanTweet(tweet)
         createdAt = datetime.now()
         cur = mysql.connection.cursor()
         for items in cleanTweet:
-            cur.execute("INSERT INTO `tbl_crawling_komunikator_partai` (`partai_id`, `tweet`, `created_at`, `updated_at`) VALUES (%s,%s,%s,%s)",
-                    (partaiId, items, createdAt, createdAt))
+            cur.execute("INSERT INTO `tbl_crawling_komunikator_partai` (`partai_id`, `tweet`, `created_at`, `updated_at`, `komunikator_partai_riwayat_id`) VALUES (%s,%s,%s,%s,%s)",
+                    (partaiId, items, createdAt, createdAt, riwayatId))
         mysql.connection.commit()
         return len(cleanTweet)
 
-    def integritasDprd(tweet, userId):
+    def integritasDprd(tweet, userId, riwayatId):
         cleanTweet = Crawling.cleanTweet(tweet)
         createdAt = datetime.now()
         cur = mysql.connection.cursor()
         for items in cleanTweet:
-            cur.execute("INSERT INTO `tbl_crawling_integritas_dprd` (`user_id`, `tweet`, `created_at`, `updated_at`) VALUES (%s,%s,%s,%s)",
-                    (userId, items, createdAt, createdAt))
+            cur.execute("INSERT INTO `tbl_crawling_integritas_dprd` (`user_id`, `tweet`, `created_at`, `updated_at`, `integritas_dprd_riwayat_id`) VALUES (%s,%s,%s,%s,%s)",
+                    (userId, items, createdAt, createdAt, riwayatId))
         mysql.connection.commit()
         return len(cleanTweet)
     

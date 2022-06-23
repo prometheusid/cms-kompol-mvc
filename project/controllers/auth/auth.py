@@ -41,12 +41,11 @@ def registrasi():
         else:
             hash_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
             role_id = 4
-            partai_id = 0
             created = datetime.now()
 
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO users (nama_user, email_user, password, role_id, partai_id, created_at, updated_at) VALUES (%s,%s,%s,%s,%s,%s,%s)",
-                        (name, email, hash_password, role_id, partai_id, created, created))
+            cur.execute("INSERT INTO users (nama_user, email_user, password, role_id, created_at, updated_at) VALUES (%s,%s,%s,%s,%s,%s)",
+                        (name, email, hash_password, role_id, created, created))
             mysql.connection.commit()
             cur.close()
 

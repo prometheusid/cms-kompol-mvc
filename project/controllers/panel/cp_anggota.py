@@ -10,8 +10,7 @@ def cp_anggota():
     title = ("TAMBAH ANGGOTA")
     if 'loggedin' in session and session['role'] == 1:
         par = mysql.connection.cursor()
-        par.execute("SELECT users.user_id, users.nama_user, users.email_user, tbl_partai.nama_partai FROM users JOIN tbl_partai \
-                     WHERE users.partai_id = tbl_partai.partai_id ORDER BY users.created_at DESC")
+        par.execute("SELECT a.user_id, a.nama_user, a.email_user, b.nama_partai FROM users as A JOIN tbl_partai as b ON a.partai_id = b.partai_id WHERE a.role_id = 3 ORDER BY a.created_at DESC")
         data = par.fetchall()
         return render_template('panel/cp_anggota/index.html', data=data, title=title)
     else: 

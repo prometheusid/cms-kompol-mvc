@@ -2,7 +2,7 @@ import pickle
 import twint
 
 from project import app
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from project.models.Crawling import Crawling
 from project.models.Sentiment import Sentiment
 
@@ -20,11 +20,12 @@ def cp_crawling_partai():
     sentimentIntegritas = Sentiment.predictPartai(tweetIntegritas)
     dataIntegritas = Sentiment.mergedPartaiIntegritas(partaiIntegritas, sentimentIntegritas)
 
-    return render_template('panel/cp_crawling_partai/index.html', integritas=dataIntegritas, komunikator=dataKomunikator, title=title)
+    return render_template('panel/cp_crawling_partai/index.html', integritas=dataIntegritas, komunikator=dataKomunikator, title=title, response="success")
 
 @app.route("/dashboard/crawling/partai/integritas", methods=["POST"])
 def cp_crawling_partai_integritas():
     partais = Crawling.fetchPartai()
+    riwayatId = Crawling.createIntegritasPartaiRiwayat()
     for items in partais:
         c = twint.Config()
         c.Search = items['nama_partai']
@@ -32,12 +33,14 @@ def cp_crawling_partai_integritas():
         c.Limit = 10
         twint.run.Search(c)
         Tweets_df = twint.storage.panda.Tweets_df
-        save = Crawling.integritasPartai(Tweets_df['tweet'], items['partai_id'])
+        save = Crawling.integritasPartai(Tweets_df['tweet'], items['partai_id'], riwayatId)
+    flash('Berhasil Crawling Integritas Partai')
     return redirect(url_for('cp_crawling_partai'))
 
 @app.route("/dashboard/crawling/partai/komunikator", methods=["POST"])
 def cp_crawling_partai_komunikator():
     partais = Crawling.fetchPartai()
+    riwayatId = Crawling.createKomunikatorPartaiRiwayat()
     for items in partais:
         c = twint.Config()
         c.Search = items['account_head_leader']
@@ -45,7 +48,8 @@ def cp_crawling_partai_komunikator():
         c.Limit = 10
         twint.run.Search(c)
         Tweets_df = twint.storage.panda.Tweets_df
-        save = Crawling.komunikatorPartai(Tweets_df['tweet'], items['partai_id'])
+        save = Crawling.komunikatorPartai(Tweets_df['tweet'], items['partai_id'], riwayatId)
+    flash('Berhasil Crawling Komunikator Partai')
     return redirect(url_for('cp_crawling_partai'))
 
 @app.route("/dashboard/crawling/dprd")
@@ -61,6 +65,7 @@ def cp_crawling_dprd():
 @app.route("/dashboard/crawling/dprd/integritas", methods=["POST"])
 def cp_crawling_dprd_integritas():
     dprds = Crawling.fetchDprd()
+    riwayatId = Crawling.createIntegritasDprdRiwayat()
     for items in dprds:
         c = twint.Config()
         c.Search = items['akun_twitter']
@@ -68,5 +73,9 @@ def cp_crawling_dprd_integritas():
         c.Limit = 10
         twint.run.Search(c)
         Tweets_df = twint.storage.panda.Tweets_df
-        save = Crawling.integritasDprd(Tweets_df['tweet'], items['user_id'])
+        try:
+            save = Crawling.integritasDprd(Tweets_df['tweet'], items['user_id'], riwayatId)
+        except: 
+            return items['akun_twitter']
+    flash('Berhasil Crawling Integritas Dewan')
     return redirect(url_for('cp_crawling_dprd'))
