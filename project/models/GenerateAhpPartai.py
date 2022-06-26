@@ -5,6 +5,10 @@ from datetime import datetime
 from project.models.Crawling import Crawling
 from project.models.Sentiment import Sentiment
 
+from operator import itemgetter
+from itertools import groupby
+from functools import partial
+
 class GenerateAhpPartai:
     def valueSentiment(value):
         if (value >= 90):
@@ -103,3 +107,54 @@ class GenerateAhpPartai:
         mysql.connection.commit()
 
         return "berhasil"
+    
+    def updateSurvey():
+        connect = mysql.connection.cursor()
+        connect.execute("SELECT A.id_partai, A.code_answer, B.id_survey_question, B.answer FROM tbl_survey_partai as A RIGHT JOIN tbl_survey_answer_partai as B ON A.code_answer = B.code_answer")
+        survey = connect.fetchall() 
+
+        groupCodeAnswers = dict(map(lambda k_v: (k_v[0], tuple(map(partial(GenerateAhpPartai.del_ret, key="code_answer"), k_v[1]))),groupby(survey, itemgetter("code_answer"))))
+
+        groups = []
+        for k, v in groupCodeAnswers.items():
+            groups.append({"code_answer" : k, "value" : v})
+        
+        valueCodeAnswer = []
+        for i in range(0, len(groups)):
+            pointCitra = 0
+            pointEksistensi = 0
+            for j in range(0, len(groups[i]['value'])):
+                if ((groups[i]['value'][j]['id_survey_question'] == 20) or (groups[i]['value'][j]['id_survey_question'] == 21) or (groups[i]['value'][j]['id_survey_question'] == 22) or (groups[i]['value'][j]['id_survey_question'] == 23) or (groups[i]['value'][j]['id_survey_question'] == 24)):
+                    pointCitra  += int(groups[i]['value'][j]['answer'])
+                else:
+                    pointEksistensi += int(groups[i]['value'][j]['answer'])
+            valueCodeAnswer.append({"partai_id" : groups[i]['value'][0]['id_partai'], "point_citra" : pointCitra * 4, "point_eksistensi" : pointEksistensi * 4})
+
+        groupPartai = dict(map(lambda k_v: (k_v[0], tuple(map(partial(GenerateAhpPartai.del_ret, key="partai_id"), k_v[1]))),groupby(valueCodeAnswer, itemgetter("partai_id"))))
+       
+        arrayGroupPartai = []
+        for k, v in groupPartai.items():
+           arrayGroupPartai.append({"partai_id" : k, "value" : v})
+        
+        result = []
+        for i in range(0, len(arrayGroupPartai)):
+            finalPointCitra = 0
+            finalPointEksistensi = 0
+            for j in range(0, len(arrayGroupPartai[i]['value'])):
+                finalPointCitra += arrayGroupPartai[i]['value'][j]['point_citra']
+                finalPointEksistensi += arrayGroupPartai[i]['value'][j]['point_eksistensi']
+            result.append({"partai_id" : arrayGroupPartai[i]['partai_id'],"point_citra" : finalPointCitra / len(arrayGroupPartai[i]['value']) , "point_eksistensi" : finalPointEksistensi / len(arrayGroupPartai[i]['value']) })
+        
+        updatedAt = datetime.now()
+        update = mysql.connection.cursor()
+        for item in result:
+            sql_update = "UPDATE tbl_ahp_partai SET popularitas_eksistensi = %s, popularitas_citra = %s, updated_at = %s WHERE partai_id = %s"
+            value = (item['point_eksistensi'], item['point_citra'], updatedAt, item['partai_id'])
+            update.execute(sql_update, value)
+        mysql.connection.commit()
+
+        return "berhasil"
+    
+    def del_ret(d, key):
+        del d[key]
+        return d

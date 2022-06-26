@@ -45,6 +45,7 @@ def cp_ahp_bobot_partai_save():
 
 @app.route("/dashboard/ahp/partai/generate", methods=["POST"])
 def cp_ahp_partai_generate():
+    GenerateAhpPartai.updateSurvey()
     GenerateAhpPartai.updateJumlahLapkun()
     GenerateAhpPartai.updateSentimentLapkun()
     GenerateAhpPartai.updateIntegritas()

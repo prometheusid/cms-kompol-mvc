@@ -39,7 +39,6 @@ def saveSurveyDpr():
         flash('Gagal, Anda sudah mengisi data sebelumnya')
         return redirect(url_for('surveys'))
     data = Survey.saveDPRDSurvey()
-    # ahp = Survey.saveAHPDewan()
     return redirect(url_for('surveys', title=title))
 
 # SAVE partai
@@ -51,5 +50,4 @@ def saveSurveyPartai():
         flash('Gagal, Anda sudah mengisi data sebelumnya')
         return redirect(url_for('surveyPartai'))
     data = Survey.savePartaiSurvey()
-    # ahp = Survey.saveAHPPartai()
     return redirect(url_for('surveys', title=title))
