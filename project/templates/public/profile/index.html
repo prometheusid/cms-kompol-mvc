@@ -61,18 +61,18 @@
             {% if profileu.role_id == 1 %}
             <div class="row">
               <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Email</p>
+                <p class="m-b-10 f-w-600" style="font-weight: bold;">Email</p>
                 <h6 class="text-muted f-w-400">{{session['email']}}</h6>
               </div>
               <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Role</p>
+                <p class="m-b-10 f-w-600" style="font-weight: bold;">Role</p>
                 <h6 class="text-muted f-w-400">{{profileu.role_user}}</h6>
               </div>
             </div>
             {% endif %} {% if profileu.role_id == 4 %}
             <div class="row">
               <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Email</p>
+                <p class="m-b-10 f-w-600" style="font-weight: bold;">Email</p>
                 <h6 class="text-muted f-w-400">{{session['email']}}</h6>
               </div>
               <!-- <div class="col-sm-6">
@@ -83,11 +83,11 @@
             {% endif %} {% if profiles.role_id == 3 %}
             <div class="row">
               <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Email</p>
+                <p class="m-b-10 f-w-600" style="font-weight: bold;">Email</p>
                 <h6 class="text-muted f-w-400">{{session['email']}}</h6>
               </div>
               <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">SKOR AHP</p>
+                <p class="m-b-10 f-w-600" style="font-weight: bold;">SKOR AHP</p>
                 {% for row in ahpDewan %} {% if row['user_id'] ==
                 dataDewan['user_id'] %}
                 <h6 class="text-muted f-w-400">{{row['value'][5]}}</h6>
@@ -96,22 +96,24 @@
             </div>
             <div class="row">
               <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Partai</p>
+                <p class="m-b-10 f-w-600" style="font-weight: bold;">Partai</p>
                 <h6 class="text-muted f-w-400">{{profiles.nama_partai}}</h6>
               </div>
               <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Role</p>
+                <p class="m-b-10 f-w-600" style="font-weight: bold;">Role</p>
                 <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Pendidikan</p>
+                <p class="m-b-10 f-w-600" style="font-weight: bold;">Pendidikan</p>
                 <h6 class="text-muted f-w-400">{{edu.pendidikan}}</h6>
               </div>
               <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Pengalaman</p>
-                <h6 class="text-muted f-w-400">{{profiles.pengalaman}}</h6>
+                <p class="m-b-10 f-w-600" style="font-weight: bold;">Pengalaman</p>
+                {% for pengalaman in experiences %}
+                <h6 class="text-muted f-w-400">{{pengalaman['pengalaman']}}</h6>
+                {% endfor %}
               </div>
             </div>
             {% endif %} {% if profiles.role_id == 2 %}
