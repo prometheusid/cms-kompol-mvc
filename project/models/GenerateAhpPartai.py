@@ -5,6 +5,10 @@ from datetime import datetime
 from project.models.Crawling import Crawling
 from project.models.Sentiment import Sentiment
 
+from operator import itemgetter
+from itertools import groupby
+from functools import partial
+
 class GenerateAhpPartai:
     def valueSentiment(value):
         if (value >= 90):
@@ -103,3 +107,30 @@ class GenerateAhpPartai:
         mysql.connection.commit()
 
         return "berhasil"
+    
+    def updateSurvey():
+        connect = mysql.connection.cursor()
+        connect.execute("SELECT A.id_partai, A.code_answer, B.id_survey_question, B.answer FROM tbl_survey_partai as A RIGHT JOIN tbl_survey_answer_partai as B ON A.code_answer = B.code_answer")
+        survey = connect.fetchall() 
+
+        groupCodeAnswers = dict(map(lambda k_v: (k_v[0], tuple(map(partial(GenerateAhpPartai.del_ret, key="code_answer"), k_v[1]))),groupby(survey, itemgetter("code_answer"))))
+
+        groups = []
+        for k, v in groupCodeAnswers.items():
+            groups.append({"code_answer" : k, "value" : v})
+        
+        test = []
+        for i in range(0, len(groups)):
+            pointCitra = 0
+            pointEksistensi = 0
+            for j in range(0, len(groups[i]['value'])):
+                if (groups[i]['value'][j]['id_survey_question'] == 20 or groups[i]['value'][j]['id_survey_question'] == 20):
+                    pointCitra  += int(groups[i]['value'][j]['answer'])
+            test.append({"partai_id" : groups[i]['value'][0]['id_partai'], "point_citra" : pointCitra })
+
+
+        return test
+    
+    def del_ret(d, key):
+        del d[key]
+        return d
