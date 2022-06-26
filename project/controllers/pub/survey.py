@@ -14,6 +14,7 @@ def surveys():
     data = Survey.fetchQuestionDPRD()
     return render_template('public/survey/index.html', data = data, title = title)
 
+# GET data from DPRD
 @app.route('/survey-dprd', methods = ['GET'])
 def surveyDpr():
     title = ("Survey DPRD")
@@ -21,6 +22,7 @@ def surveyDpr():
     select = Survey.fetchDataDPRD()
     return render_template('public/survey/dprd.html', data = data, title = title, select = select)
 
+# GET data from question
 @app.route('/survey-partai', methods = ['GET'])
 def surveyPartai():
     title = ("Survey Partai")
@@ -28,16 +30,26 @@ def surveyPartai():
     select = Survey.fetchDataPartai()
     return render_template('public/survey/partai.html', data = data, title = title, select = select)
 
+# SAVE DPRD
 @app.route('/surveys/dprd/save', methods = ['POST'])
 def saveSurveyDpr():
     title = ("Survey DPRD")
+    check = Survey.checkSurveyDprd()
+    if (check == True):
+        flash('Gagal, Anda sudah mengisi data sebelumnya')
+        return redirect(url_for('surveys'))
     data = Survey.saveDPRDSurvey()
-    ahp = Survey.saveAHPDewan()
+    # ahp = Survey.saveAHPDewan()
     return redirect(url_for('surveys', title=title))
 
+# SAVE partai
 @app.route('/surveys/partai/save', methods = ['POST'])
 def saveSurveyPartai():
-    title = ("Survey DPRD")
+    title = ("Survey Partai")
+    check = Survey.checkSurveyPartai()
+    if (check == True):
+        flash('Gagal, Anda sudah mengisi data sebelumnya')
+        return redirect(url_for('surveyPartai'))
     data = Survey.savePartaiSurvey()
-    ahp = Survey.saveAHPPartai()
+    # ahp = Survey.saveAHPPartai()
     return redirect(url_for('surveys', title=title))

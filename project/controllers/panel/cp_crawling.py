@@ -20,7 +20,7 @@ def cp_crawling_partai():
     sentimentIntegritas = Sentiment.predictPartai(tweetIntegritas)
     dataIntegritas = Sentiment.mergedPartaiIntegritas(partaiIntegritas, sentimentIntegritas)
 
-    return render_template('panel/cp_crawling_partai/index.html', integritas=dataIntegritas, komunikator=dataKomunikator, title=title, response="success")
+    return render_template('panel/cp_crawling_partai/index.html', integritas=dataIntegritas, komunikator=dataKomunikator, title=title)
 
 @app.route("/dashboard/crawling/partai/integritas", methods=["POST"])
 def cp_crawling_partai_integritas():
@@ -76,6 +76,6 @@ def cp_crawling_dprd_integritas():
         try:
             save = Crawling.integritasDprd(Tweets_df['tweet'], items['user_id'], riwayatId)
         except: 
-            return items['akun_twitter']
+             return redirect(url_for('cp_crawling_dprd'))
     flash('Berhasil Crawling Integritas Dewan')
     return redirect(url_for('cp_crawling_dprd'))

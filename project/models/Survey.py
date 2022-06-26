@@ -4,11 +4,32 @@ from datetime import datetime
 from flask import render_template, redirect, url_for, request, session
 from flask_mysqldb import MySQLdb
 
-# generate random integer values
 from random import seed
 from random import randint
 
 class Survey:
+
+    def checkSurveyDprd():
+        user_id_dprd = request.form['id_dprd']
+        answer_by = session['id']
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM tbl_survey_dprd WHERE user_id_dprd=%s AND answer_by=%s", (user_id_dprd,answer_by))
+        if cur.fetchone():
+            return True
+        else:
+            return False
+
+    def checkSurveyPartai():
+        id_partai = request.form['id_partai']
+        answer_by = session['id']
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM tbl_survey_partai WHERE id_partai=%s AND answer_by=%s", (id_partai,answer_by))
+        if cur.fetchone():
+            return True
+        else:
+            return False
     
     def countSurveyDPRD():
         cur = mysql.connection.cursor()
@@ -174,7 +195,6 @@ class Survey:
         mysql.connection.commit()
     
     def saveAHPPartai():
-        
         id_partai = request.form['id_partai']
         post_score_eksistensi = request.form['row1']
         post_score_citra = request.form['row10']

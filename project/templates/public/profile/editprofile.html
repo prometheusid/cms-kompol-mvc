@@ -1,10 +1,7 @@
 {% extends '/public/index.html' %} {% block content %}
 <section class="py-5" style="margin-top: 40px">
   <div class="container">
-    <div
-      class="d-sm-flex align-items-center justify-content-between mb-4"
-      style="margin-top: 2rem"
-    >
+    <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
       <h1 class="h3 mb-0 text-white-800">{{title}}</h1>
     </div>
   </div>
@@ -13,39 +10,22 @@
       <div class="row m-l-0 m-r-0">
         <div class="col-sm-4 bg-c-lite-green user-profile">
           <div class="card-block text-center text-white">
-            <div
-              class="m-b-25">
-              <img
-                src="https://img.icons8.com/bubbles/100/000000/user.png"
-                class="img-radius"
-                alt="User-Profile-Image"
-              />
+            <div class="m-b-25">
+              <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
+                alt="User-Profile-Image" />
             </div>
             <h3 class="f-w-700" style="color: white">{{profile.nama_user}}</h3>
             <br />
-            <a
-              href="https://twitter.com/{{profile.akun_twitter}}"
-              class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
-              target="_blank"
-              rel="noopener noreferrer"
-              style="color: white; font-weight: 600;"
-            >
-              <i
-                class="fab fa-twitter"
-                style="color: #1D9BF0"
-                aria-hidden="true"
-              ></i
-              >&nbsp; @{{profile.akun_twitter}}
+            <a href="https://twitter.com/{{profile.akun_twitter}}"
+              class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm" target="_blank" rel="noopener noreferrer"
+              style="color: white; font-weight: 600;">
+              <i class="fab fa-twitter" style="color: #1D9BF0" aria-hidden="true"></i>&nbsp; @{{profile.akun_twitter}}
             </a>
             <br />
             <br />
             <br />
-            <a
-              href="/profile/{{session['id']}}"
-              class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
-            >
-              <i class="fas fa-arrow-left"></i>&nbsp; Kembali</a
-            >
+            <a href="/profile/{{session['id']}}" class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm">
+              <i class="fas fa-arrow-left"></i>&nbsp; Kembali</a>
           </div>
         </div>
         <div class="col-sm-8">
@@ -54,41 +34,26 @@
             <form action="/profile/edit/{{profile.user_id}}" method="POST">
               <div class="row">
                 <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control form-control-user"
-                    name="idu"
-                    id="idu"
-                    value="{{profile.user_id}}"
-                    hidden
-                  />
+                  <input type="text" class="form-control form-control-user" name="idu" id="idu"
+                    value="{{profile.user_id}}" hidden />
                 </div>
               </div>
+
+              <!-- JIKA SUPER ADMIN -->
               {% if profile.role_id == 1 %}
               <div class="row">
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Name</p>
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="name"
-                      id="name"
-                      value="{{profile.nama_user}}"
-                    />
+                    <input type="text" class="form-control form-control-user" name="name" id="name"
+                      value="{{profile.nama_user}}" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Email</p>
                   <div class="form-group">
-                    <input
-                      type="email"
-                      class="form-control form-control-user"
-                      name="emailAnggota"
-                      id="emailAnggota"
-                      value="{{profile.email_user}}"
-                      disabled
-                    />
+                    <input type="email" class="form-control form-control-user" name="emailAnggota" id="emailAnggota"
+                      value="{{profile.email_user}}" disabled />
                   </div>
                 </div>
               </div>
@@ -96,67 +61,41 @@
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Twitter Account</p>
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="twitter"
-                      id="twitter"
-                      value="{{profile.akun_twitter}}"
-                    />
+                    <input type="text" class="form-control form-control-user" name="twitter" id="twitter"
+                      value="{{profile.akun_twitter}}" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="education"
-                      id="education"
-                      value="{{profile.id_pendidikan}}"
-                      hidden
-                    />
+                    <input type="text" class="form-control form-control-user" name="education" id="education"
+                      value="{{profile.id_pendidikan}}" hidden />
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="pengalaman"
-                      id="pengalaman"
-                      value="{{profile.pengalaman}}"
-                      hidden
-                    />
+                    <input type="text" class="form-control form-control-user" name="pengalaman" id="pengalaman"
+                      value="{{profile.pengalaman}}" hidden />
                   </div>
                 </div>
               </div>
+
+              <!-- JIKA ADMIN PARTAI -->
               {% endif %} {% if profile.role_id == 2 %}
               <div class="row">
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Name</p>
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="name"
-                      id="name"
-                      value="{{profile.nama_user}}"
-                    />
+                    <input type="text" class="form-control form-control-user" name="name" id="name"
+                      value="{{profile.nama_user}}" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Email</p>
                   <div class="form-group">
-                    <input
-                      type="email"
-                      class="form-control form-control-user"
-                      name="emailAnggota"
-                      id="emailAnggota"
-                      value="{{profile.email_user}}"
-                      disabled
-                    />
+                    <input type="email" class="form-control form-control-user" name="emailAnggota" id="emailAnggota"
+                      value="{{profile.email_user}}" disabled />
                   </div>
                 </div>
               </div>
@@ -164,67 +103,41 @@
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Twitter Account</p>
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="twitter"
-                      id="twitter"
-                      value="{{profile.akun_twitter}}"
-                    />
+                    <input type="text" class="form-control form-control-user" name="twitter" id="twitter"
+                      value="{{profile.akun_twitter}}" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="education"
-                      id="education"
-                      value="{{profile.id_pendidikan}}"
-                      hidden
-                    />
+                    <input type="text" class="form-control form-control-user" name="education" id="education"
+                      value="{{profile.id_pendidikan}}" hidden />
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="pengalaman"
-                      id="pengalaman"
-                      value="{{profile.pengalaman}}"
-                      hidden
-                    />
+                    <input type="text" class="form-control form-control-user" name="pengalaman" id="pengalaman"
+                      value="{{profile.pengalaman}}" hidden />
                   </div>
                 </div>
               </div>
+
+              <!-- JIKA ANGGOTA DPPRD -->
               {% endif %} {% if profile.role_id == 3 %}
               <div class="row">
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Name</p>
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="name"
-                      id="name"
-                      value="{{profile.nama_user}}"
-                    />
+                    <input type="text" class="form-control form-control-user" name="name" id="name"
+                      value="{{profile.nama_user}}" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Email</p>
                   <div class="form-group">
-                    <input
-                      type="email"
-                      class="form-control form-control-user"
-                      name="emailAnggota"
-                      id="emailAnggota"
-                      value="{{profile.email_user}}"
-                      disabled
-                    />
+                    <input type="email" class="form-control form-control-user" name="emailAnggota" id="emailAnggota"
+                      value="{{profile.email_user}}" disabled />
                   </div>
                 </div>
               </div>
@@ -244,56 +157,54 @@
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Twitter Account</p>
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="twitter"
-                      id="twitter"
-                      value="{{profile.akun_twitter}}"
-                    />
+                    <input type="text" class="form-control form-control-user" name="twitter" id="twitter"
+                      value="{{profile.akun_twitter}}" />
                   </div>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Experience</p>
                   <div class="form-group">
-                    <textarea
-                      class="form-control form-control-user"
-                      name="pengalaman"
-                      id="pengalaman"
-                    >
-{{profile.pengalaman}}</textarea
-                    >
+                    <textarea class="form-control form-control-user" name="pengalaman" id="pengalaman">
+                      {{profile.pengalaman}}
+                    </textarea>
+                  </div>
+                </div> -->
+
+                <div class="col-sm-12">
+                  <p class="m-b-10 f-w-600">Pengalaman</p>
+                  <div class="row">
+                    <div class="col-sm-10" id="experiences">
+                      <div class="form-group">
+                        <input type="text" class="form-control form-control-user" name="name" id="name"
+                          value="{{profile.nama_user}}" />
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <button id="add_item" type="button" class="btn btn-success btn-tambah"><i class="fa fa-plus"></i></button>
+                    </div>
                   </div>
                 </div>
+
               </div>
+
+              <!-- JIKA WARGA NEGARA -->
               {% endif %} {% if profile.role_id == 4 %}
               <div class="row">
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Name</p>
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="name"
-                      id="name"
-                      value="{{profile.nama_user}}"
-                    />
+                    <input type="text" class="form-control form-control-user" name="name" id="name"
+                      value="{{profile.nama_user}}" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Email</p>
                   <div class="form-group">
-                    <input
-                      type="email"
-                      class="form-control form-control-user"
-                      name="emailAnggota"
-                      id="emailAnggota"
-                      value="{{profile.email_user}}"
-                      disabled
-                    />
+                    <input type="email" class="form-control form-control-user" name="emailAnggota" id="emailAnggota"
+                      value="{{profile.email_user}}" disabled />
                   </div>
                 </div>
               </div>
@@ -301,52 +212,32 @@
                 <div class="col-sm-6">
                   <p class="m-b-10 f-w-600">Twitter Account</p>
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="twitter"
-                      id="twitter"
-                      value="{{profile.akun_twitter}}"
-                    />
+                    <input type="text" class="form-control form-control-user" name="twitter" id="twitter"
+                      value="{{profile.akun_twitter}}" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="education"
-                      id="education"
-                      value="{{profile.id_pendidikan}}"
-                      hidden
-                    />
+                    <input type="text" class="form-control form-control-user" name="education" id="education"
+                      value="{{profile.id_pendidikan}}" hidden />
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      name="pengalaman"
-                      id="pengalaman"
-                      value="{{profile.pengalaman}}"
-                      hidden
-                    />
+                    <input type="text" class="form-control form-control-user" name="pengalaman" id="pengalaman"
+                      value="{{profile.pengalaman}}" hidden />
                   </div>
                 </div>
-              {% endif %}
-              <h6 class="m-b-20 p-b-5 b-b-default f-w-600"></h6>
-              <button
-                type="submit"
-                name="submit"
-                style="color: white"
-                class="mdi d-none d-sm-inline-block btn btn-md shadow-md bg-c-lite-green"
-              >
-                <i class="fas fa-user-edit" style="color: white"></i>&nbsp;
-                Simpan
-              </button>
+                {% endif %}
+
+                <h6 class="m-b-20 p-b-5 b-b-default f-w-600"></h6>
+                <button type="submit" name="submit" style="color: white"
+                  class="mdi d-none d-sm-inline-block btn btn-md shadow-md bg-c-lite-green">
+                  <i class="fas fa-user-edit" style="color: white"></i>&nbsp;
+                  Simpan
+                </button>
             </form>
           </div>
         </div>
@@ -364,5 +255,18 @@
     }
     return true;
   }
+</script>
+<script>
+  $(document).ready(function () {
+    var count_item = 0;
+    $("#add_item").on("click", function () {
+      count_item += 1;
+      $("<input/>").attr({
+        class: "form-control form-control-user",
+        type: "text", placeholder: "PT. Telkom Indonesia 2005-2008",
+        name: "item_" + count_item
+      }).appendTo("#experiences").wrap($("<div/>"));
+    });
+  })
 </script>
 {% endblock %}

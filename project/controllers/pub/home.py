@@ -14,6 +14,8 @@ from project.models.Ahp import Ahp
 from project.models.Calculate import Calculate
 from project.models.Criteria import Criteria
 from project.models.CalculateDewan import CalculateDewan
+from project.models.Rekomendasi import Rekomendasi
+
 #route index
 @app.route('/', methods = ['GET'])
 def pub_home():
@@ -22,22 +24,30 @@ def pub_home():
     forum = Forum.fetchDataForumHome()
     count = Forum.fetchCountForumHome()
     info = Info.fetchInfo3()
+
+    # AHP PARTAI
+    criteria = Ahp.fetchCriteriaPartai()
+    value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c23'], criteria['c24'], criteria['c34']], 4)
+    dataAhpPartai = Ahp.fetchValue()
+    sumDataAhpPartai = Ahp.sumValue()
+    ahpPartai = Calculate.eigen_partai(dataAhpPartai, sumDataAhpPartai, value['rata_eigen'])
+        
+    # AHP DEWAN
+    criteriaDewan = Ahp.fetchCriteriaDewan()
+    valueDewan = Criteria.perbandingan([criteriaDewan['c12'], criteriaDewan['c13'], criteriaDewan['c14'], criteriaDewan['c15'], criteriaDewan['c23'], criteriaDewan['c24'], criteriaDewan['c25'], criteriaDewan['c34'], criteriaDewan['c35'], criteriaDewan['c45']], 5)
+    dataAhpDewan = Ahp.fetchValueDewan()
+    sumDataAhpDewan = Ahp.sumValueDewan()
+    ahpDewan = CalculateDewan.eigen_dewan(dataAhpDewan, sumDataAhpDewan, valueDewan['rata_eigen'])
+    
+
+    # Rekomendasi partai
+    sortScore = Rekomendasi.getHighestScoreAhpPartai(ahpPartai)
+    dataRekomendasiPartai = Rekomendasi.getPartaiRekomendasi(sortScore)
+
     if 'loggedin' in session:
         sess = session['id']
         profiles = Profile.detaiilProfile(sess)
-        # AHP PARTAI
-        criteria = Ahp.fetchCriteriaPartai()
-        value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c23'], criteria['c24'], criteria['c34']], 4)
-        dataAhpPartai = Ahp.fetchValue()
-        sumDataAhpPartai = Ahp.sumValue()
-        ahpPartai = Calculate.eigen_partai(dataAhpPartai, sumDataAhpPartai, value['rata_eigen'])
-            
-        # AHP DEWAN
-        criteriaDewan = Ahp.fetchCriteriaDewan()
-        valueDewan = Criteria.perbandingan([criteriaDewan['c12'], criteriaDewan['c13'], criteriaDewan['c14'], criteriaDewan['c15'], criteriaDewan['c23'], criteriaDewan['c24'], criteriaDewan['c25'], criteriaDewan['c34'], criteriaDewan['c35'], criteriaDewan['c45']], 5)
-        dataAhpDewan = Ahp.fetchValueDewan()
-        sumDataAhpDewan = Ahp.sumValueDewan()
-        ahpDewan = CalculateDewan.eigen_dewan(dataAhpDewan, sumDataAhpDewan, valueDewan['rata_eigen'])
+
         dataPartai = Ahp.fetchValueId(sess)
         dataDewan = Ahp.fetchDewanId(sess)
 
@@ -61,8 +71,8 @@ def pub_home():
                 
         # return key
         rekomendasi = Knn.knn(key)
-        return render_template('public/homepage/index.html', title=title, profiles=profiles, laporan=laporan, info=info, forum=forum, count = count, rekomendasi = rekomendasi, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan)
-    return render_template('public/homepage/index.html', title=title, laporan=laporan, info=info, forum=forum, count = count)
+        return render_template('public/homepage/index.html', title=title, profiles=profiles, laporan=laporan, info=info, forum=forum, count = count, rekomendasi = rekomendasi, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan, rekomendasiPartai = dataRekomendasiPartai)
+    return render_template('public/homepage/index.html', title=title, laporan=laporan, info=info, forum=forum, count = count, rekomendasiPartai = dataRekomendasiPartai)
 
 @app.route("/rekomendasi", methods=["GET", "POST"])
 def pub_rekomendas():

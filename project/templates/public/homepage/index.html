@@ -192,6 +192,7 @@
   </div>
 </section>
 <!-- End Info Publik -->
+
 <!-- Start Survei -->
 {% if session['role'] == 1 or session['role'] == 2 or session['role'] == 3%}
 <section class="send section">
@@ -209,6 +210,7 @@
 </section>
 {% endif %}
 <!-- End Survei -->
+
 <!-- Start Forum -->
 <section class="accessory section bd-container">
   <!-- Featured Video Area -->
@@ -253,4 +255,45 @@
   </div>
 </section>
 <!-- End Forum -->
+
+<!-- Start Rekomendasi Partai -->
+<section class="section bd-container accessory" style="margin-top: -5rem">
+  <div class="container">
+    <div class="row justify-content-center">
+      <!-- Intro News Tabs Area -->
+      <div class="intro-news-tab">
+        <!-- Intro News Filter -->
+        <div class="intro-news-filter d-flex justify-content-between">
+          <h6>Rekomendasi Partai</h6>
+        </div>
+
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-1" role="tabpanel" aria-labelledby="nav1">
+            <div class="row">
+              {% for item in rekomendasiPartai%}
+              <!-- Single News Area -->
+              <div class="col-12 col-sm-6">
+                <div class="single-blog-post d-flex style-4 mb-30">
+                  <!-- Blog Thumbnail -->
+                  <div class="blog-thumbnail">
+                    <a href=""><img
+                        src="{{ url_for('uploadedFiles', filename=item['images']) }}" alt="" /></a>
+                  </div>
+
+                  <!-- Blog Content -->
+                  <div class="blog-content">
+                    <span class="post-date">{{item.created_at.strftime('%d %b %Y')}}</span>
+                    <a href="" class="post-title">{{item['judul']}}</a>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Rekomendasi Partai -->
 {% endblock %}

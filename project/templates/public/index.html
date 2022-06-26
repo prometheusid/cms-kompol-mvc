@@ -67,14 +67,14 @@
           <li class="nav__item">
             <a class="nav__link" href="/profile/{{session['id']}}">Profile</a>
           </li>
-          {% endif %} 
+          {% endif %}
 
           <!-- Login Role Dewan -->
           {% if session['role'] == 3 %}
           <li class="nav__item">
             <a class="nav__link text-capitalize" href="/profile/{{session['id']}}">Profile</a>
           </li>
-          {% endif %} 
+          {% endif %}
 
           <!-- Login Role Warga Negara -->
           {% if session['role'] == 4 %}
@@ -189,6 +189,14 @@
   <!-- Active js -->
   <script src="{{url_for ('static', filename='/assets/front/js/active.js')}}"></script>
   <script src="https://kit.fontawesome.com/8da0a2e753.js" crossorigin="anonymous"></script>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{url_for ('static', filename='js/jquery.min.js')}}"></script>
+  <script src="{{url_for ('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="{{url_for ('static', filename='js/jquery.easing.min.js')}}"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="{{url_for ('static', filename='js/sb-admin-2.min.js')}}"></script>
 </body>
 
 </html>

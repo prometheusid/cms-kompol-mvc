@@ -69,7 +69,7 @@ class GenerateAhpPartai:
 
         return "berhasil"
     
-    def updateLapkun():
+    def updateSentimentLapkun():
         connect = mysql.connection.cursor()
         connect.execute("SELECT A.lapkun_id, A.user_id, B.komentar as tweet, C.partai_id FROM tbl_lapkun as A JOIN tbl_detail_lapkun as B ON A.lapkun_id = B.lapkun_id JOIN users as C ON A.user_id = C.user_id")
         lapkun = connect.fetchall()
@@ -79,12 +79,26 @@ class GenerateAhpPartai:
         updatedAt = datetime.now()
         update = mysql.connection.cursor()
         for item in data:
-            laporanJumlah = item['total_positive'] + item['total_negative']
             laporanSentiment = (item['total_positive'] / (item['total_positive'] + item['total_negative'])) * 100
             pointLaporanSentiment = GenerateAhpPartai.valueSentiment(laporanSentiment)
 
-            sql_update = "UPDATE tbl_ahp_partai SET laporan_jumlah = %s, laporan_sentiment = %s, updated_at = %s WHERE partai_id = %s"
-            value = (laporanJumlah, pointLaporanSentiment, updatedAt, item['partai_id'])
+            sql_update = "UPDATE tbl_ahp_partai SET laporan_sentiment = %s, updated_at = %s WHERE partai_id = %s"
+            value = (pointLaporanSentiment, updatedAt, item['partai_id'])
+            update.execute(sql_update, value)
+        mysql.connection.commit()
+
+        return "berhasil"
+    
+    def updateJumlahLapkun():
+        connect = mysql.connection.cursor()
+        connect.execute("SELECT COUNT(A.lapkun_id) as jumlah,B.partai_id FROM tbl_lapkun as A JOIN users as B ON A.user_id = B.user_id GROUP BY B.partai_id")
+        lapkun = connect.fetchall() 
+
+        updatedAt = datetime.now()
+        update = mysql.connection.cursor()
+        for item in lapkun:
+            sql_update = "UPDATE tbl_ahp_partai SET laporan_jumlah = %s, updated_at = %s WHERE partai_id = %s"
+            value = (item['jumlah'], updatedAt, item['partai_id'])
             update.execute(sql_update, value)
         mysql.connection.commit()
 

@@ -63,6 +63,7 @@
             <a class="nav-link" style="color: white" href="{{url_for('login')}}">Login</a>
           </li>
           {% endif %}
+
           {% if session['role'] == 1 %}
           <li class="nav-item">
             <div class="dropdown">
@@ -87,6 +88,7 @@
             </div>
           </li>
           {% endif %}
+          
           {% if session['role'] == 2 %}
           <li class="nav-item">
             <div class="dropdown">
