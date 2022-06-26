@@ -61,11 +61,16 @@ def profileedit(id):
         name = request.form['name']
         update = datetime.now()
         education = request.form['education']
-        pengalaman = request.form['pengalaman']
+        # pengalaman = request.form['pengalaman']
         twitter = request.form['twitter']
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE users SET nama_user = %s, updated_at = %s, id_pendidikan = %s, pengalaman = %s, akun_twitter = %s WHERE user_id = %s",
-                    (name, update, education, pengalaman, twitter, idu))
+        cur.execute("UPDATE users SET nama_user = %s, updated_at = %s, id_pendidikan = %s, akun_twitter = %s WHERE user_id = %s",
+                    (name, update, education, twitter, idu))
+        
+        experience = request.form.getlist('experience[]')
+        for value in experience:  
+            cur.execute("INSERT INTO tbl_pengalaman (user_id, pengalaman, created_at, updated_at) VALUES (%s, %s, %s, %s)",[id, value, update, update])       
         mysql.connection.commit()
+        cur.close()
         return redirect(url_for('profileuser', id=id))
     return redirect(url_for('login'))
