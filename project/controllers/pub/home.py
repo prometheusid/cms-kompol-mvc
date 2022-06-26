@@ -44,6 +44,8 @@ def pub_home():
     sortScore = Rekomendasi.getHighestScoreAhpPartai(ahpPartai)
     dataRekomendasiPartai = Rekomendasi.getPartaiRekomendasi(sortScore)
 
+    dataRekomendasiDewan = Rekomendasi.dprdSementara()
+
     if 'loggedin' in session:
         sess = session['id']
         profiles = Profile.detaiilProfile(sess)
@@ -71,8 +73,8 @@ def pub_home():
                 
         # return key
         rekomendasi = Knn.knn(key)
-        return render_template('public/homepage/index.html', title=title, profiles=profiles, laporan=laporan, info=info, forum=forum, count = count, rekomendasi = rekomendasi, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan, rekomendasiPartai = dataRekomendasiPartai)
-    return render_template('public/homepage/index.html', title=title, laporan=laporan, info=info, forum=forum, count = count, rekomendasiPartai = dataRekomendasiPartai)
+        return render_template('public/homepage/index.html', title=title, profiles=profiles, laporan=laporan, info=info, forum=forum, count = count, rekomendasi = rekomendasi, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan, rekomendasiPartai = dataRekomendasiPartai, rekomendasiDewan = dataRekomendasiDewan)
+    return render_template('public/homepage/index.html', title=title, laporan=laporan, info=info, forum=forum, count = count, rekomendasiPartai = dataRekomendasiPartai, rekomendasiDewan = dataRekomendasiDewan)
 
 @app.route("/rekomendasi", methods=["GET", "POST"])
 def pub_rekomendas():

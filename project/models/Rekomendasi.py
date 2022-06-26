@@ -31,9 +31,28 @@ class Rekomendasi:
             rekomendasiData.append(sortData[n])
         return rekomendasiData
 
+    def dprdSementara():
+        cur = mysql.connection.cursor()
+        cur.execute(
+        "SELECT * from rekomendasi_dewan ORDER BY id")
+        data = cur.fetchall()
+
+        rekomendasiData = []
+        x = range(4)
+        for n in x:
+            rekomendasiData.append(data[n])
+        return rekomendasiData
+
     def detail(id):
         cur = mysql.connection.cursor()
         cur.execute(
         "SELECT * from rekomendasi_partai WHERE id=%s", (id,))
+        data = cur.fetchone()
+        return data
+    
+    def detailDewan(id):
+        cur = mysql.connection.cursor()
+        cur.execute(
+        "SELECT * from rekomendasi_dewan WHERE id=%s", (id,))
         data = cur.fetchone()
         return data
