@@ -22,7 +22,7 @@ class Rekomendasi:
         for item in listScore: 
             for data in datas:
                 if (data['partai_id'] == item['partai_id']):
-                    sortData.append({'partai_id' : data['partai_id'], 'judul' : data['judul'], 'content' : data['content'],'images' : data['images'], 'created_at' : data['created_at']});
+                    sortData.append({'id': data['id'], 'partai_id' : data['partai_id'], 'judul' : data['judul'], 'content' : data['content'],'images' : data['images'], 'created_at' : data['created_at']});
         
         # mengambil  4 data saja untuk ditampilkan karena sebuah rekomendasi
         rekomendasiData = []
@@ -30,3 +30,10 @@ class Rekomendasi:
         for n in x:
             rekomendasiData.append(sortData[n])
         return rekomendasiData
+
+    def detail(id):
+        cur = mysql.connection.cursor()
+        cur.execute(
+        "SELECT * from rekomendasi_partai WHERE id=%s", (id,))
+        data = cur.fetchone()
+        return data

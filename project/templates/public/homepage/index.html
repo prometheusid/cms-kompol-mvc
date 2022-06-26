@@ -173,7 +173,7 @@
                     <a href="info/detail/{{infos['info_id']}}"><img
                         src="{{ url_for('uploadedFiles', filename=infos['thumb']) }}" alt="" /></a>
                   </div>
-                  
+
                   <!-- Blog Content -->
                   <div class="blog-content">
                     <span class="post-date">{{infos.created_at.strftime('%d %b %Y')}}</span>
@@ -276,14 +276,14 @@
                 <div class="single-blog-post d-flex style-4 mb-30">
                   <!-- Blog Thumbnail -->
                   <div class="blog-thumbnail">
-                    <a href=""><img
+                    <a href="rekomendasi/detail/{{item['id']}}"><img
                         src="{{ url_for('uploadedFiles', filename=item['images']) }}" alt="" /></a>
                   </div>
 
                   <!-- Blog Content -->
                   <div class="blog-content">
                     <span class="post-date">{{item.created_at.strftime('%d %b %Y')}}</span>
-                    <a href="" class="post-title">{{item['judul']}}</a>
+                    <a href="rekomendasi/detail/{{item['id']}}" class="post-title">{{item['judul']}}</a>
                   </div>
                 </div>
               </div>
