@@ -56,5 +56,6 @@ def cp_ahp_dewan_generate():
     GenerateAhpDewan.updateSentimentLapkun()
     GenerateAhpDewan.updateForum()
     GenerateAhpDewan.updateKompetensiAkademik()
-    GenerateAhpDewan.updateKompetensiExperience() 
+    GenerateAhpDewan.updateKompetensiExperience()
+    GenerateAhpDewan.updateSurvey() 
     return redirect(url_for('cp_ahp_dewan'))

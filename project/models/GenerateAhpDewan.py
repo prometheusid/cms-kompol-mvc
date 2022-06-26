@@ -5,6 +5,10 @@ from datetime import datetime
 from project.models.Crawling import Crawling
 from project.models.Sentiment import Sentiment
 
+from operator import itemgetter
+from itertools import groupby
+from functools import partial
+
 class GenerateAhpDewan:
     def valueSentiment(value):
         if (value >= 90):
@@ -146,4 +150,53 @@ class GenerateAhpDewan:
             update.execute(sql_update, value)
         mysql.connection.commit()
         return "berhasil"
+    
+    def updateSurvey():
+        connect = mysql.connection.cursor()
+        connect.execute("SELECT A.user_id_dprd as user_id, A.code_answer, B.id_survey_question, B.answer FROM tbl_survey_dprd as A JOIN tbl_survey_answer as B ON A.code_answer = B.code_answer")
+        survey = connect.fetchall() 
+
+        groupCodeAnswers = dict(map(lambda k_v: (k_v[0], tuple(map(partial(GenerateAhpDewan.del_ret, key="code_answer"), k_v[1]))),groupby(survey, itemgetter("code_answer"))))
+        groups = []
+        for k, v in groupCodeAnswers.items():
+            groups.append({"code_answer" : k, "value" : v})
+        
+        valueCodeAnswer = []
+        for i in range(0, len(groups)):
+            pointCitra = 0
+            pointEksistensi = 0
+            for j in range(0, len(groups[i]['value'])):
+                if ((groups[i]['value'][j]['id_survey_question'] == 15) or (groups[i]['value'][j]['id_survey_question'] == 16) or (groups[i]['value'][j]['id_survey_question'] == 17) or (groups[i]['value'][j]['id_survey_question'] == 18) or (groups[i]['value'][j]['id_survey_question'] == 19)):
+                    pointCitra  += int(groups[i]['value'][j]['answer'])
+                else:
+                    pointEksistensi += int(groups[i]['value'][j]['answer'])
+            valueCodeAnswer.append({"user_id" : groups[i]['value'][0]['user_id'], "point_citra" : pointCitra * 4, "point_eksistensi" : pointEksistensi * 4})
+
+        groupDewan = dict(map(lambda k_v: (k_v[0], tuple(map(partial(GenerateAhpDewan.del_ret, key="user_id"), k_v[1]))),groupby(valueCodeAnswer, itemgetter("user_id"))))
+       
+        arrayGroupDewan = []
+        for k, v in groupDewan.items():
+           arrayGroupDewan.append({"user_id" : k, "value" : v})
+        
+        result = []
+        for i in range(0, len(arrayGroupDewan)):
+            finalPointCitra = 0
+            finalPointEksistensi = 0
+            for j in range(0, len(arrayGroupDewan[i]['value'])):
+                finalPointCitra += arrayGroupDewan[i]['value'][j]['point_citra']
+                finalPointEksistensi += arrayGroupDewan[i]['value'][j]['point_eksistensi']
+            result.append({"user_id" : arrayGroupDewan[i]['user_id'],"point_citra" : finalPointCitra / len(arrayGroupDewan[i]['value']) , "point_eksistensi" : finalPointEksistensi / len(arrayGroupDewan[i]['value']) })
+        
+        updatedAt = datetime.now()
+        update = mysql.connection.cursor()
+        for item in result:
+            sql_update = "UPDATE tbl_ahp_dprd SET popularitas_eksistensi = %s, popularitas_citra = %s, updated_at = %s WHERE user_id = %s"
+            value = (item['point_eksistensi'], item['point_citra'], updatedAt, item['user_id'])
+            update.execute(sql_update, value)
+        mysql.connection.commit()
+        return "berhasil"
+    
+    def del_ret(d, key):
+        del d[key]
+        return d
 

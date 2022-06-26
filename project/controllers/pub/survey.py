@@ -37,7 +37,7 @@ def saveSurveyDpr():
     check = Survey.checkSurveyDprd()
     if (check == True):
         flash('Gagal, Anda sudah mengisi data sebelumnya')
-        return redirect(url_for('surveys'))
+        return redirect(url_for('surveyDpr'))
     data = Survey.saveDPRDSurvey()
     return redirect(url_for('surveys', title=title))
 
