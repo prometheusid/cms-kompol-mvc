@@ -1,14 +1,44 @@
+import os
 from project import app
 from project.config.Database import mysql
 from datetime import datetime
-from flask import render_template, redirect, url_for, request, session
+from os.path import join, dirname, realpath
+from flask import render_template, redirect, url_for, request, session, flash
 from flask_mysqldb import MySQLdb
+from werkzeug.utils import secure_filename
 
 # generate random integer values
 from random import seed
 from random import randint
 
 class Profile:
+
+    UPLOAD_FOLDER = join(dirname(realpath(__file__)), '../uploadedFiles/users')
+
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+    def allowed_file(filename):
+        return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in Profile.ALLOWED_EXTENSIONS
+
+    def updateImage(id):
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and Profile.allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE users SET images = %s WHERE user_id = %s",
+                    (filename, id))
+        mysql.connection.commit()
 
     def detaiilProfile(id):
         cur = mysql.connection.cursor()

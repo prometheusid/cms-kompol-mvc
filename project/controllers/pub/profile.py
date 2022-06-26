@@ -79,6 +79,9 @@ def profileedit(id):
         cur = mysql.connection.cursor()
         cur.execute("UPDATE users SET nama_user = %s, updated_at = %s, id_pendidikan = %s, akun_twitter = %s WHERE user_id = %s",
                     (name, update, education, twitter, idu))
+
+        # Update Image
+        image = Profile.updateImage(id)
         
         # Pengalaman
         cur.execute("DELETE FROM tbl_pengalaman WHERE user_id=%s", (id,))
