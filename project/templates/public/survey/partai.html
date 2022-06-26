@@ -27,7 +27,7 @@
       <p>5 - Sangat Setuju</p>
     </div>
     <br>
-    <form action="/surveys/partai/save" class="needs-validation" novalidate method="POST">
+    <form action="/surveys/partai/save" method="POST">
       <div class="mx-0 mx-sm-auto">
         <div class="text-left" style="margin-left: 1rem;">
           <p>
@@ -101,14 +101,4 @@
   </div>
   <br>
 </div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="{{url_for ('static', filename='js/jquery.min.js')}}"></script>
-<script src="{{url_for ('static', filename='js/bootstrap.bundle.min.js')}}"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="{{url_for ('static', filename='js/jquery.easing.min.js')}}"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="{{url_for ('static', filename='js/sb-admin-2.min.js')}}"></script>
 {% endblock %}
