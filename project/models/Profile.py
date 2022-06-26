@@ -43,3 +43,9 @@ class Profile:
         ahp.execute("SELECT * FROM users as A JOIN tbl_ahp_partai as B ON a.partai_id = B.partai_id WHERE a.user_id=%s", (id,))
         ahp = ahp.fetchone()
         return ahp
+
+    def listPengalaman(id):
+        experiences = mysql.connection.cursor()
+        experiences.execute("SELECT id, user_id, pengalaman FROM tbl_pengalaman WHERE user_id = %s", [id])
+        experiences = experiences.fetchall()
+        return experiences 

@@ -39,8 +39,19 @@ def profileuser(id):
         ahpDewan = CalculateDewan.eigen_dewan(dataAhpDewan, sumDataAhpDewan, valueDewan['rata_eigen'])
         dataPartai = Ahp.fetchValueId(id)
         dataDewan = Ahp.fetchDewanId(id)
-        return render_template('public/profile/index.html', title=title, profileu=profileu, profile=profile, profiles=profiles, edu=edu, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan)
+
+        # Pengalaman List
+        experiences = Profile.listPengalaman(id)
+        return render_template('public/profile/index.html', title=title, profileu=profileu, profile=profile, profiles=profiles, edu=edu, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan, experiences=experiences)
     return redirect(url_for('login'))
+
+@app.route("/profile/delete/pengalaman/<int:id_pengalaman>/<int:id>")
+def deletePengalaman(id_pengalaman, id):
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM tbl_pengalaman WHERE id=%s", (id_pengalaman,))
+        mysql.connection.commit()
+    return redirect(url_for('profileedit', id=id))
 
 @app.route("/profile/edit/<id>", methods=["GET", "POST"])
 def profileedit(id):
@@ -55,7 +66,9 @@ def profileedit(id):
         edus = mysql.connection.cursor()
         edus.execute("SELECT * FROM tbl_pendidikan LEFT JOIN users ON tbl_pendidikan.id_pendidikan=users.id_pendidikan WHERE users.user_id=%s", [id])
         edus = edus.fetchall()
-        return render_template('public/profile/editprofile.html', edus=edus, edu=edu, profile=profile, title=title)
+
+        experiences = Profile.listPengalaman(id)
+        return render_template('public/profile/editprofile.html', edus=edus, edu=edu, profile=profile, experiences=experiences, title=title)
     elif 'loggedin' in session:
         idu = request.form['idu']
         name = request.form['name']
@@ -67,10 +80,12 @@ def profileedit(id):
         cur.execute("UPDATE users SET nama_user = %s, updated_at = %s, id_pendidikan = %s, akun_twitter = %s WHERE user_id = %s",
                     (name, update, education, twitter, idu))
         
+        # Pengalaman
+        cur.execute("DELETE FROM tbl_pengalaman WHERE user_id=%s", (id,))
         experience = request.form.getlist('experience[]')
         for value in experience:  
             cur.execute("INSERT INTO tbl_pengalaman (user_id, pengalaman, created_at, updated_at) VALUES (%s, %s, %s, %s)",[id, value, update, update])       
         mysql.connection.commit()
         cur.close()
-        return redirect(url_for('profileuser', id=id))
+        return redirect(url_for('profileedit', id=id))
     return redirect(url_for('login'))
