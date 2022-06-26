@@ -9,7 +9,7 @@ import os
 
 class LaporanKunjungan:
 
-    UPLOAD_FOLDER = join(dirname(realpath(__file__)), '../uploadedFiles')
+    UPLOAD_FOLDER = join(dirname(realpath(__file__)), '../uploadedFiles/users')
 
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'pdf'}
 
