@@ -51,9 +51,10 @@ def cp_ahp_bobot_dewan_save():
 
 @app.route("/dashboard/ahp/dewan/generate", methods=["POST"])
 def cp_ahp_dewan_generate():
-    # TODO : masih harus dibenarkan
     GenerateAhpDewan.updateIntegritas()
-    GenerateAhpDewan.updateLapkun()
+    GenerateAhpDewan.updateJumlahLapkun()
+    GenerateAhpDewan.updateSentimentLapkun()
     GenerateAhpDewan.updateForum()
-    # GenerateAhpDewan.updateKompetensi()
+    GenerateAhpDewan.updateKompetensiAkademik()
+    GenerateAhpDewan.updateKompetensiExperience() 
     return redirect(url_for('cp_ahp_dewan'))

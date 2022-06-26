@@ -4,7 +4,7 @@ from datetime import datetime
 
 from project.models.Crawling import Crawling
 from project.models.Sentiment import Sentiment
-# TODO : kompetensi belum beres karena field db masih salah
+
 class GenerateAhpDewan:
     def valueSentiment(value):
         if (value >= 90):
@@ -64,8 +64,22 @@ class GenerateAhpDewan:
             update.execute(sql_update, value)
         mysql.connection.commit()
         return "berhasil"
-    
-    def updateLapkun():
+
+    def updateJumlahLapkun():
+        connect = mysql.connection.cursor()
+        connect.execute("SELECT COUNT(user_id) as jumlah, user_id FROM tbl_lapkun GROUP BY user_id")
+        lapkun = connect.fetchall() 
+
+        updatedAt = datetime.now()
+        update = mysql.connection.cursor()
+        for item in lapkun:
+            sql_update = "UPDATE tbl_ahp_dprd SET laporan_jumlah = %s, updated_at = %s WHERE user_id = %s"
+            value = (item['jumlah'], updatedAt, item['user_id'])
+            update.execute(sql_update, value)
+        mysql.connection.commit()
+        return "berhasil"
+
+    def updateSentimentLapkun():
         connect = mysql.connection.cursor()
         connect.execute("SELECT A.lapkun_id, A.user_id, B.komentar as tweet FROM tbl_lapkun as A JOIN tbl_detail_lapkun as B ON A.lapkun_id = B.lapkun_id")
         lapkun = connect.fetchall()
@@ -75,12 +89,11 @@ class GenerateAhpDewan:
         updatedAt = datetime.now()
         update = mysql.connection.cursor()
         for item in data:
-            laporanJumlah = item['total_positive'] + item['total_negative']
             laporanSentiment = (item['total_positive'] / (item['total_positive'] + item['total_negative'])) * 100
             pointLaporanSentiment = GenerateAhpDewan.valueSentiment(laporanSentiment)
 
-            sql_update = "UPDATE tbl_ahp_dprd SET laporan_jumlah = %s, laporan_sentiment = %s, updated_at = %s WHERE user_id = %s"
-            value = (laporanJumlah, pointLaporanSentiment, updatedAt, item['user_id'])
+            sql_update = "UPDATE tbl_ahp_dprd SET laporan_sentiment = %s, updated_at = %s WHERE user_id = %s"
+            value = (pointLaporanSentiment, updatedAt, item['user_id'])
             update.execute(sql_update, value)
         mysql.connection.commit()
         return "berhasil"
@@ -105,21 +118,32 @@ class GenerateAhpDewan:
         mysql.connection.commit()
         return "berhasil"
     
-    # def updateKompetensi():
-    #     # TODO : untuk pengalaman belum dikarenakan field datanya blm dibenarkan
-    #     connect = mysql.connection.cursor()
-    #     connect.execute("SELECT * FROM users WHERE role_id = 3")
-    #     kompetensi= connect.fetchall()
+    def updateKompetensiAkademik():
+        connect = mysql.connection.cursor()
+        connect.execute("SELECT * FROM users WHERE role_id = 3")
+        kompetensi = connect.fetchall()
 
-    #     updatedAt = datetime.now()
-    #     update = mysql.connection.cursor()
-    #     for item in kompetensi:
-    #         kompetensiAkademik = GenerateAhpDewan.valueKompetensiAkademik(item['id_pendidikan'])
-    #         # TODO : belum diambil terlebih dahulu masih harus dibenarkan
-    #         kompetensiExperience =  2
-    #         sql_update = "UPDATE tbl_ahp_dprd SET kompetensi_akademik = %s, kompetensi_experience = %s, updated_at = %s WHERE user_id = %s"
-    #         value = (kompetensiAkademik, kompetensiExperience, updatedAt, item['user_id'])
-    #         update.execute(sql_update, value)
-    #     mysql.connection.commit()
-    #     return "berhasil"
+        updatedAt = datetime.now()
+        update = mysql.connection.cursor()
+        for item in kompetensi:
+            kompetensiAkademik = GenerateAhpDewan.valueKompetensiAkademik(item['id_pendidikan'])
+            sql_update = "UPDATE tbl_ahp_dprd SET kompetensi_akademik = %s, updated_at = %s WHERE user_id = %s"
+            value = (kompetensiAkademik, updatedAt, item['user_id'])
+            update.execute(sql_update, value)
+        mysql.connection.commit()
+        return "berhasil"
+    
+    def updateKompetensiExperience():
+        connect = mysql.connection.cursor()
+        connect.execute("SELECT COUNT(user_id) as jumlah, user_id FROM tbl_pengalaman GROUP BY user_id")
+        experience = connect.fetchall()
+
+        updatedAt = datetime.now()
+        update = mysql.connection.cursor()
+        for item in experience:
+            sql_update = "UPDATE tbl_ahp_dprd SET kompetensi_experience = %s, updated_at = %s WHERE user_id = %s"
+            value = (item['jumlah'], updatedAt, item['user_id'])
+            update.execute(sql_update, value)
+        mysql.connection.commit()
+        return "berhasil"
 

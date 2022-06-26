@@ -1,7 +1,10 @@
 import math
 
 def nilai_eigen(criteria, total):
-    x = criteria / total
+    if total != 0:
+        x = criteria / total
+    else:
+        x = 0
     return x
 
 def eigen_criteria(eigenAkademikC1, eigenExperienceC1, eigenEksiC2, eigenCitraC2, eigenJmlC3, eigenSentimentC3, eigenJmlC4, eigenSentimentC4, eigenJmlC5, eigenSentimentC5, rataEigenCriteria):
@@ -11,7 +14,7 @@ def eigen_criteria(eigenAkademikC1, eigenExperienceC1, eigenEksiC2, eigenCitraC2
     c4 = (eigenJmlC4 + eigenSentimentC4) * rataEigenCriteria[3]
     c5 = (eigenJmlC5 + eigenSentimentC5) * rataEigenCriteria[4]
     total = c1 + c2 + c3 + c4 + c5
-    return [round(c1, 3), round(c2, 3), round(c3, 3), round(c4, 3), round(c5, 3), round(total, 3)]
+    return [round(c1, 5), round(c2, 5), round(c3, 5), round(c4, 5), round(c5, 5), round(total, 5)]
 
 class CalculateDewan():
     def eigen_dewan(data, countData, rataEigenCriteria):
