@@ -175,17 +175,34 @@
 
                 <div class="col-sm-12">
                   <p class="m-b-10 f-w-600">Pengalaman</p>
-                  <!-- <div class="row">
-                    <div class="col-sm-10" id="experiences">
-                      <div class="form-group">
-                        <input type="text" class="form-control form-control-user" name="name" id="name"
-                          value="{{profile.nama_user}}" />
+                  <div id="InputsWrapper">
+                    <div class="row">
+                      <!-- <div class="col-sm-10">
+                        <input type="text" name="experience[]" placeholder="Tambah Pengalaman"
+                          class="form-control name_list" />
+                      </div> -->
+                      <div class="col-sm-10"><button type="button" name="add" id="AddMoreFileBox"
+                          class="btn btn-success"><i class="fa fa-plus"></i></button>
                       </div>
                     </div>
-                    <div class="col-sm-2">
-                      <button id="add_item" type="button" class="btn btn-success btn-tambah"><i class="fa fa-plus"></i></button>
+                  </div>
+                    {% for pengalaman in experiences %}
+                    <div class="row">
+                      <div class="col-sm-10">
+                        <input type="text" name="experience[]" placeholder="Masukan Pengalaman"
+                          class="form-control name_list" value="{{pengalaman['pengalaman']}}" />
+                      </div>
+                      <div class="col-sm-2">
+                        <!-- <button type="button" name="add" id="AddMoreFileBox" class="btn btn-primary"><i class="fa fa-pencil"></i></button> -->
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_delete{{pengalaman['id']}}">Hapus</button>
+                      </div>
                     </div>
-                  </div> -->
+                    {% endfor %}
+                  </div>
+                </div>
+
+                <!-- <div class="col-sm-12">
+                  <p class="m-b-10 f-w-600">Pengalaman</p>
                   <div id="InputsWrapper">
                     <div class="row">
                       <div class="col-sm-10">
@@ -197,7 +214,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
               </div>
 
@@ -255,6 +272,29 @@
       </div>
     </div>
   </div>
+  <!-- Modal Delete -->
+  <!-- Modal -->
+  {% for pengalaman in experiences %}
+  <div class="modal fade" id="modal_delete{{pengalaman['id']}}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal_delete{{pengalaman['id']}}">Anda Akan Menghapus Pertanyaan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Yakin akan menghapus data?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+          <a href="/profile/delete/pengalaman/{{pengalaman['id']}}/{{pengalaman['user_id']}}"><button class="btn btn-sm btn-danger">Ya, Hapus</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </section>
 <script type="text/javascript">
   function Validate() {
@@ -291,7 +331,7 @@
       {
         FieldCount++; //text box added increment
         //add input box
-        $(InputsWrapper).append('<div class="row"><p class="col-sm-10"><input type="text" placeholder="Masukan Pengalaman" class="form-control skill_list" name="experience[]" id="field_' + FieldCount + '"/></p><a href="#" class="col-sm-2 btn btn-danger removeclass">×</a></div>');
+        $(InputsWrapper).append('<div class="row"><p class="col-sm-10"><input type="text" placeholder="Masukan Pengalaman" class="form-control skill_list" name="experience[]" id="field_' + FieldCount + '"/></p><a href="#" type="button" class="col-sm-2 btn btn-danger removeclass">×</a></div>');
         x++; //text box increment
       }
       return false;
