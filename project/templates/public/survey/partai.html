@@ -36,8 +36,8 @@
         </div>
 
         <div class="col-12" style="padding-left: 1rem; padding-right: 1rem;">
-          <select class="form-control" name="id_partai">
-            <option>Pilih Partai</option>
+          <select class="form-control" name="id_partai" required>
+            <option value="">Pilih Partai</option>
             {% for selects in select %}
             <option value="{{selects['partai_id']}}">{{selects['nama_partai']}}</option>
             {% endfor %}
@@ -60,7 +60,7 @@
 
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="row{{data.index(row)+1}}" id="row{{data.index(row)+1}}"
-              value="1" />
+              value="1" required/>
             <label class="form-check-label" for="inlineRadio1">1</label>
           </div>
 
