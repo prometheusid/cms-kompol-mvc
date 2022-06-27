@@ -35,6 +35,17 @@ def tambahanggota():
         cur.execute("INSERT INTO users (nama_user, email_user, password, role_id, partai_id, created_at) VALUES (%s,%s,%s,%s,%s,%s)",
                         (nameAnggota, emailAnggota, hash_password, role_id, partai, created))
         mysql.connection.commit()
+
+        if (role_id == "3"):
+            cursor = mysql.connection.cursor()
+            cursor.execute("INSERT INTO tbl_ahp_dprd (user_id, kompetensi_akademik,\
+                            kompetensi_experience, popularitas_eksistensi, popularitas_citra,\
+                            forum_jumlah, forum_sentiment, laporan_jumlah, laporan_sentiment,\
+                            integritas_jumlah, integritas_sentiment, created_at, updated_at)\
+                            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                            (cur.lastrowid, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, created, created))
+            mysql.connection.commit()
+
     return redirect(url_for('cp_anggota'))
 
 @app.route("/dashboard/anggota/delete/<int:id>")
