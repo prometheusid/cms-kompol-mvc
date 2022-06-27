@@ -11,12 +11,24 @@ def cp_crawling_partai_data_integritas_riwayat():
     title = ("Data Integritas Partai")
     data = Crawling.getAllRiwayatIntegritasPartai()
     return render_template('panel/cp_crawling_partai/integritas_riwayat.html', data=data, title=title)
-    
+
+@app.route("/dashboard/crawling/partai/data/komunikator/riwayat")
+def cp_crawling_partai_data_komunikator_riwayat():
+    title = ("Data Komunikator Partai")
+    data = Crawling.getAllRiwayatKomunikatorPartai()
+    return render_template('panel/cp_crawling_partai/komunikator_riwayat.html', data=data, title=title)
+
 @app.route("/dashboard/crawling/partai/data/integritas")
 def cp_crawling_partai_data_integritas():
     title = ("Data Integritas Partai")
     data = Crawling.getAllDataIntegritasPartai()
     return render_template('panel/cp_crawling_partai/integritas_data.html', data=data, title=title)
+
+@app.route("/dashboard/crawling/partai/data/komunikator")
+def cp_crawling_partai_data_komunikator():
+    title = ("Data Komunikator Partai")
+    data = Crawling.getAllDataKomunikatorPartai()
+    return render_template('panel/cp_crawling_partai/komunikator_data.html', data=data, title=title)
 
 @app.route("/dashboard/crawling/partai")
 def cp_crawling_partai():
