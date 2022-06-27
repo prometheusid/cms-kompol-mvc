@@ -6,6 +6,18 @@ from flask import render_template, redirect, url_for, flash
 from project.models.Crawling import Crawling
 from project.models.Sentiment import Sentiment
 
+@app.route("/dashboard/crawling/partai/data/integritas/riwayat")
+def cp_crawling_partai_data_integritas_riwayat():
+    title = ("Data Integritas Partai")
+    data = Crawling.getAllRiwayatIntegritasPartai()
+    return render_template('panel/cp_crawling_partai/integritas_riwayat.html', data=data, title=title)
+    
+@app.route("/dashboard/crawling/partai/data/integritas")
+def cp_crawling_partai_data_integritas():
+    title = ("Data Integritas Partai")
+    data = Crawling.getAllDataIntegritasPartai()
+    return render_template('panel/cp_crawling_partai/integritas_data.html', data=data, title=title)
+
 @app.route("/dashboard/crawling/partai")
 def cp_crawling_partai():
     title = ("Data Twitter")
