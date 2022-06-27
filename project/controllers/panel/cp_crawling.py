@@ -76,10 +76,21 @@ def cp_crawling_partai_komunikator():
     flash('Berhasil Crawling Komunikator Partai')
     return redirect(url_for('cp_crawling_partai'))
 
+@app.route("/dashboard/crawling/dprd/data/integritas/riwayat")
+def cp_crawling_dprd_data_integritas_riwayat():
+    title = ("Data Integritas Dewan")
+    data = Crawling.getAllRiwayatIntegritasDprd()
+    return render_template('panel/cp_crawling_dprd/integritas_riwayat.html', data=data, title=title)
+
+@app.route("/dashboard/crawling/dprd/data/integritas")
+def cp_crawling_dprd_data_integritas():
+    title = ("Data Integritas Dewan")
+    data = Crawling.getAllDataIntegritasDewan()
+    return render_template('panel/cp_crawling_dprd/integritas_data.html', data=data, title=title)
+
 @app.route("/dashboard/crawling/dprd")
 def cp_crawling_dprd():
     title = ("Data Twitter")
-
     dprdIntegritas = Crawling.getIntegritasDprd()
     tweetIntegritas = Crawling.getTweetIntegritasDprd()
     sentimentIntegritas = Sentiment.predictDprd(tweetIntegritas)
