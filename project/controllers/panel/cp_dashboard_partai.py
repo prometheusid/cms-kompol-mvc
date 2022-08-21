@@ -216,4 +216,41 @@ def dashboard_partai_tweet_komunikator():
     data = DashboardPartai.getAllDataKomunikatorPartaiById(user['partai_id'])
     return render_template('panel/cp_dashboard_partai/komunikator.html', title=title, data=data)
 
-# c
+# Data Twitter
+@app.route("/dashboard-partai/crawling/dprd")
+def dashboard_dewan_crawling_dprd():
+    title = ("Data Twitter")
+    user = Dashboard.getUsers(session['id'])
+
+    dprdIntegritas = DashboardPartai.getIntegritasDprd(user['partai_id'])
+    tweetIntegritas = Crawling.getTweetIntegritasDprd()
+    sentimentIntegritas = Sentiment.predictDprd(tweetIntegritas)
+    dataIntegritas = Sentiment.mergedDprdIntegritas(dprdIntegritas, sentimentIntegritas)
+
+    return render_template('panel/cp_dashboard_partai/dprd.html', title=title, data=dataIntegritas)
+
+@app.route("/dashboard-partai/tweet/dprd/refresh" , methods=["POST"])
+def dashboard_partai_tweet_dprd_refresh():
+    GenerateAhpPartai.updateSurvey()
+    GenerateAhpPartai.updateJumlahLapkun()
+    GenerateAhpPartai.updateSentimentLapkun()
+    GenerateAhpPartai.updateIntegritas()
+    GenerateAhpPartai.updateKomunikator()
+
+    GenerateAhpDewan.updateIntegritas()
+    GenerateAhpDewan.updateJumlahLapkun()
+    GenerateAhpDewan.updateSentimentLapkun()
+    GenerateAhpDewan.updateForum()
+    GenerateAhpDewan.updateKompetensiAkademik()
+    GenerateAhpDewan.updateKompetensiExperience()
+    GenerateAhpDewan.updateSurvey()
+
+    return redirect(url_for('dashboard_dewan_crawling_dprd'))
+
+@app.route("/dashboard-partai/crawling/dprd/integritas")
+def dashboard_dewan_crawling_integritas():
+    title = ("Data Twitr")
+    user = Dashboard.getUsers(session['id'])
+
+    data = DashboardPartai.getAllDataIntegritasDewan(user['partai_id'])
+    return render_template('panel/cp_dashboard_partai/dprd-integritas.html', title=title, data=data)

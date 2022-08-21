@@ -126,11 +126,11 @@ class DashboardDewan:
         data = cur.fetchall()
         return data 
 
-    def countAhpDewan(id): # id adalah partai_id
-        criteria = Ahp.fetchCriteriaDewan()
-        value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c15'], criteria['c23'], criteria['c24'], criteria['c25'], criteria['c34'], criteria['c35'], criteria['c45']], 5)
-        dataAhpDewan = Ahp.fetchValueDewanByPartaiId(id)
-        sumDataAhpDewan = Ahp.sumValueDewan()
-        data = CalculateDewan.eigen_dewan(dataAhpDewan, sumDataAhpDewan, value['rata_eigen'])
-        return data
+    # def countAhpDewan(id): # id adalah partai_id
+    #     criteria = Ahp.fetchCriteriaDewan()
+    #     value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c15'], criteria['c23'], criteria['c24'], criteria['c25'], criteria['c34'], criteria['c35'], criteria['c45']], 5)
+    #     dataAhpDewan = Ahp.fetchValueDewanByPartaiId(id)
+    #     sumDataAhpDewan = Ahp.sumValueDewan()
+    #     data = CalculateDewan.eigen_dewan(dataAhpDewan, sumDataAhpDewan, value['rata_eigen'])
+    #     return data
 # a

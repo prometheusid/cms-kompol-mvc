@@ -124,7 +124,7 @@ def dashboard_dewan_tweet():
     sentimentIntegritas = Sentiment.predictDprd(tweetIntegritas)
     dataIntegritas = Sentiment.mergedDprdIntegritas(dprdIntegritas, sentimentIntegritas)
 
-    return str(dprdIntegritas)
+    return str(dataIntegritas)
     # return render_template('panel/cp_dashboard_partai/tweet.html', title=title, kom=dataKomunikator, integritas=dataIntegritas)
 
 @app.route("/dashboard-dewan/tweet/refresh" , methods=["POST"])

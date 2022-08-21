@@ -213,3 +213,28 @@ class DashboardPartai:
             ORDER BY A.created_at DESC", (id,)) 
         data = cur.fetchall()
         return data
+    
+    def getIntegritasDprd(id): # id adalah partai_id
+        cur = mysql.connection.cursor() 
+        cur.execute("SELECT a.user_id, a.nama_user, a.akun_twitter, c.nama_partai, COUNT('b.user_id') as jumlah_tweet\
+            from users as a \
+            JOIN tbl_crawling_integritas_dprd as b \
+            ON a.user_id = b.user_id \
+            JOIN tbl_partai as c \
+            ON a.partai_id = c.partai_id \
+            WHERE c.partai_id = %s \
+            GROUP BY b.user_id \
+            ORDER BY a.user_id ASC", (id,)) 
+        data = cur.fetchall()
+        return data
+    
+    def getAllDataIntegritasDewan(id): # id adalah user_id
+        cur = mysql.connection.cursor() 
+        cur.execute("SELECT A.id, A.tweet, B.nama_user \
+            from tbl_crawling_integritas_dprd as A \
+            JOIN users as B \
+            ON A.user_id = B.user_id \
+            WHERE b.partai_id = %s \
+            ORDER BY A.created_at DESC", (id,)) 
+        data = cur.fetchall()
+        return data
