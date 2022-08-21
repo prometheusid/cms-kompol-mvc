@@ -117,15 +117,14 @@ def dashboard_dewan_ahp_refresh():
 @app.route("/dashboard-dewan/tweet")
 def dashboard_dewan_tweet():
     title = ("Data Twitter")
-    user = Dashboard.getUsers(session['id'])
 
-    dprdIntegritas = Crawling.getIntegritasDprd()
-    tweetIntegritas = Crawling.getTweetIntegritasDprd()
+    dprdIntegritas = DashboardDewan.getIntegritasDprd(session['id'])
+    tweetIntegritas = DashboardDewan.getTweetIntegritasDprd(session['id'])
     sentimentIntegritas = Sentiment.predictDprd(tweetIntegritas)
     dataIntegritas = Sentiment.mergedDprdIntegritas(dprdIntegritas, sentimentIntegritas)
 
-    return str(dataIntegritas)
-    # return render_template('panel/cp_dashboard_partai/tweet.html', title=title, kom=dataKomunikator, integritas=dataIntegritas)
+    data = DashboardDewan.getAllDataIntegritasDewanById(session['id'])
+    return render_template('panel/cp_dashboard_dewan/tweet.html', data=data, title=title, integritas=dataIntegritas)
 
 @app.route("/dashboard-dewan/tweet/refresh" , methods=["POST"])
 def dashboard_dewan_tweet_refresh():
@@ -143,12 +142,4 @@ def dashboard_dewan_tweet_refresh():
     GenerateAhpDewan.updateKompetensiExperience()
     GenerateAhpDewan.updateSurvey()
 
-    return redirect(url_for('dashboard_partai_tweet'))
-
-@app.route("/dashboard-dewan/tweet/integritas")
-def dashboard_dewan_tweet_integritas():
-    title = ("Data Integritas Partai")
-    user = Dashboard.getUsers(session['id'])
-
-    data = DashboardPartai.getAllDataIntegritasPartaiById(user['partai_id'])
-    return render_template('panel/cp_dashboard_partai/integritas.html', title=title, data=data)
+    return redirect(url_for('dashboard_dewan_tweet'))
