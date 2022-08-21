@@ -255,86 +255,89 @@
 </section>
 <!-- End Forum -->
 
-<!-- Start Rekomendasi Partai -->
+<!-- Start Rekomndasi -->
 <section class="section bd-container accessory" style="margin-top: -5rem">
     <div class="container">
         <div class="row justify-content-center">
             <!-- Intro News Tabs Area -->
             <div class="intro-news-tab">
-                <!-- Intro News Filter -->
-                <div class="intro-news-filter d-flex justify-content-between">
-                    <h6>Rekomendasi Partai</h6>
-                </div>
+                <p>
+                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Rekomendasi Partai
+                    </a>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample1"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Rekomendasi Dewan
+                    </button>
+                </p>
 
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-1" role="tabpanel" aria-labelledby="nav1">
-                        <div class="row">
-                            {% for item in rekomendasiPartai%}
-                            <!-- Single News Area -->
-                            <div class="col-12 col-sm-6">
-                                <div class="single-blog-post d-flex style-4 mb-30">
-                                    <!-- Blog Thumbnail -->
-                                    <div class="blog-thumbnail">
-                                        <a href="rekomendasi/detail/{{item['id']}}"><img
-                                                src="{{ url_for('uploadedFiles', filename=item['images']) }}"
-                                                alt="" /></a>
-                                    </div>
+                <!-- Rekomendasi Partai -->
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-1" role="tabpanel" aria-labelledby="nav1">
+                                <div class="row">
+                                    {% for item in rekomendasiPartai%}
+                                    <!-- Single News Area -->
+                                    <div class="col-12 col-sm-6">
+                                        <div class="single-blog-post d-flex style-4 mb-30">
+                                            <!-- Blog Thumbnail -->
+                                            <div class="blog-thumbnail">
+                                                <a href="rekomendasi/detail/{{item['id']}}"><img
+                                                        src="{{ url_for('uploadedFiles', filename=item['images']) }}"
+                                                        alt="" /></a>
+                                            </div>
 
-                                    <!-- Blog Content -->
-                                    <div class="blog-content">
-                                        <span class="post-date">{{item.created_at.strftime('%d %b %Y')}}</span>
-                                        <a href="rekomendasi/detail/{{item['id']}}"
-                                            class="post-title">{{item['judul']}}</a>
+                                            <!-- Blog Content -->
+                                            <div class="blog-content">
+                                                <span class="post-date">{{item.created_at.strftime('%d %b %Y')}}</span>
+                                                <a href="rekomendasi/detail/{{item['id']}}"
+                                                    class="post-title">{{item['judul']}}</a>
+                                            </div>
+                                        </div>
                                     </div>
+                                    {% endfor %}
                                 </div>
                             </div>
-                            {% endfor %}
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Rekomendasi Partai -->
+                <!-- End Rekomendasi Partai -->
 
-<!-- Start Rekomendasi Dewan -->
-<section class="section bd-container accessory" style="margin-top: -5rem">
-    <div class="container">
-        <div class="row justify-content-center">
-            <!-- Intro News Tabs Area -->
-            <div class="intro-news-tab">
-                <!-- Intro News Filter -->
-                <div class="intro-news-filter d-flex justify-content-between">
-                    <h6>Rekomendasi Dewan</h6>
-                </div>
-
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-1" role="tabpanel" aria-labelledby="nav1">
-                        <div class="row">
-                            {% for item in rekomendasiDewan%}
-                            <!-- Single News Area -->
-                            <div class="col-12 col-sm-6">
-                                <div class="single-blog-post d-flex style-4 mb-30">
-                                    <!-- Blog Thumbnail -->
-                                    <div class="blog-thumbnail">
-                                        <a href="rekomendasi/dewan/detail/{{item['id']}}"><img
-                                                src="{{ url_for('uploadedFiles', filename=item['images']) }}"
-                                                alt="" /></a>
+                <!-- Start Rekomendasi Dewan -->
+                <div class="collapse" id="collapseExample1">
+                    <div class="card card-body">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-1" role="tabpanel" aria-labelledby="nav1">
+                                <div class="row">
+                                    {% for item in rekomendasiDewan%}
+                                    <!-- Single News Area -->
+                                    <div class="col-12 col-sm-6">
+                                        <div class="single-blog-post d-flex style-4 mb-30">
+                                            <!-- Blog Thumbnail -->
+                                            <div class="blog-thumbnail">
+                                                <a href="rekomendasi/dewan/detail/{{item['id']}}"><img
+                                                        src="{{ url_for('uploadedFiles', filename=item['images']) }}"
+                                                        alt="" /></a>
+                                            </div>
+        
+                                            <!-- Blog Content -->
+                                            <div class="blog-content">
+                                                <span class="post-date">{{item.created_at.strftime('%d %b %Y')}}</span>
+                                                <a href="rekomendasi/dewan/detail/{{item['id']}}"
+                                                    class="post-title">{{item['judul']}}</a>
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <!-- Blog Content -->
-                                    <div class="blog-content">
-                                        <span class="post-date">{{item.created_at.strftime('%d %b %Y')}}</span>
-                                        <a href="rekomendasi/dewan/detail/{{item['id']}}"
-                                            class="post-title">{{item['judul']}}</a>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
-                            {% endfor %}
                         </div>
                     </div>
                 </div>
+                <!-- End Rekomendasi Dewan -->
+
             </div>
         </div>
     </div>
