@@ -13,92 +13,32 @@
         <!-- TODO : Top Laporan Kunjungan -->
         <div class="card shadow mb-4">
             <div class="card-body">
-                <h5 class="card-title">Top Kunjungan :</h5>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="/static/img/dedi.jpeg" alt="Avatar" class="rounded-corners-small">
+                <h5 class="card-title">Top Kunjungan Partai :</h5>
+                <div class="row">
+                    {% for item in dewan%}
+                    <!-- Single News Area -->
+                    <div class="col-12 col-md-6">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{{ url_for('uploadedFiles', filename=item['images']) }}" alt="Avatar"
+                                        class="rounded-corners-small">
+                                </div>
+                                <div class="col-md-8">
+                                    <p style="line-height:1.5">
+                                        <span style="font-size:16pt; font-weight: bold;">{{ item['nama'] }}</span><br/>
+                                        <span style="font-size:12pt">Total Kunjunangan : {{ item['jumlah_kunjungan'] }}
+                                        </span><br>
+                                        <span style="font-size:12pt">Total Comment : {{ item['jumlah_komentar'] }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div class="col-md-4">
-                            <p style="line-height:1.5">
-                                <span style="font-size:16pt; font-weight: bold;">Dedi Mulyadi</span><br />
-                                <span style="font-size:12pt">Jumlah Kunjungan : 100 </span><br>
-                                <span style="font-size:12pt">Jumlah Comment : 100 </span><br>
-                                <span style="font-size:12pt">Jumlah Survei : 100 </span>
-                            </p>
-                        </div>
-                        <div class="col-md-2">
-                            <img src="/static/img/puan.jpeg" alt="Avatar" class="rounded-corners-small">
-                        </div>
-                        <div class="col-md-4">
-                            <p style="line-height:1.5">
-                                <span style="font-size:16pt; font-weight: bold;">Puan Maharani</span><br />
-                                <span style="font-size:12pt">Jumlah Kunjungan : 40 </span><br>
-                                <span style="font-size:12pt">Jumlah Comment : 30 </span><br>
-                                <span style="font-size:12pt">Jumlah Survei : 20 </span>
-                            </p>
-                        </div>
-
                     </div>
+                    {% endfor %}
                 </div>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="/static/img/fadli.jpeg" alt="Avatar" class="rounded-corners-small">
-                        </div>
-                        <div class="col-md-4">
-                            <p style="line-height:1.5">
-                                <span style="font-size:16pt; font-weight: bold;">Fadli Zon</span><br />
-                                <span style="font-size:12pt">Jumlah Kunjungan : 30 </span><br>
-                                <span style="font-size:12pt">Jumlah Comment : 30 </span><br>
-                                <span style="font-size:12pt">Jumlah Survei : 20 </span>
-                            </p>
-                        </div>
-                        <div class="col-md-2">
-                            <img src="/static/img/rieke.jpeg" alt="Avatar" class="rounded-corners-small">
-                        </div>
-                        <div class="col-md-4">
-                            <p style="line-height:1.5">
-                                <span style="font-size:16pt; font-weight: bold;">Rieke Diah Pitaloka</span><br />
-                                <span style="font-size:12pt">Jumlah Kunjungan : 20 </span><br>
-                                <span style="font-size:12pt">Jumlah Comment : 30 </span><br>
-                                <span style="font-size:12pt">Jumlah Survei : 100 </span>
-                            </p>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="/static/img/puteri.jpeg" alt="Avatar" class="rounded-corners-small">
-                        </div>
-                        <div class="col-md-4">
-                            <p style="line-height:1.5">
-                                <span style="font-size:16pt; font-weight: bold;">Putri Komarudin</span><br />
-                                <span style="font-size:12pt">Jumlah Kunjungan : 10 </span><br>
-                                <span style="font-size:12pt">Jumlah Comment : 10 </span><br>
-                                <span style="font-size:12pt">Jumlah Survei : 10 </span>
-                            </p>
-                        </div>
-                        <div class="col-md-2">
-                            <img src="/static/img/sahroni.jpeg" alt="Avatar" class="rounded-corners-small">
-                        </div>
-                        <div class="col-md-4">
-                            <p style="line-height:1.5">
-                                <span style="font-size:16pt; font-weight: bold;">Ahmad Sahroni</span><br />
-                                <span style="font-size:12pt">Jumlah Kunjungan : 4 </span><br>
-                                <span style="font-size:12pt">Jumlah Comment : 5 </span><br>
-                                <span style="font-size:12pt">Jumlah Survei : 8 </span>
-                            </p>
-                        </div>
-
-                    </div>
-                </div>
-
             </div>
         </div>
 
@@ -106,54 +46,30 @@
         <div class="card shadow mb-4">
             <div class="card-body">
                 <h5 class="card-title">Top Kunjungan Partai :</h5>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="/static/img/golkar.jpeg" alt="Avatar" class="rounded-corners-small">
+                <div class="row">
+                    {% for item in partai%}
+                    <!-- Single News Area -->
+                    <div class="col-12 col-md-6">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{{ url_for('uploadedFiles', filename=item['logo']) }}" alt="Avatar"
+                                        class="rounded-corners-small">
+                                </div>
+                                <div class="col-md-8">
+                                    <p style="line-height:1.5">
+                                        <span style="font-size:16pt; font-weight: bold;">{{ item['nama_partai'] }}</span><br/>
+                                        <span style="font-size:12pt">Total Kunjunangan Dewan : {{ item['kunjungan'] }}
+                                        </span><br>
+                                        <span style="font-size:12pt">Total Comment : {{ item['komentar'] }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div class="col-md-4">
-                            <p style="line-height:1.5">
-                                <span style="font-size:16pt; font-weight: bold;">Partai Golkar</span><br />
-                                <span style="font-size:12pt">Total Kunjunangan Seluruh Anggota dewan : 300 </span><br>
-                            </p>
-                        </div>
-                        <div class="col-md-2">
-                            <img src="/static/img/pdip.png" alt="Avatar" class="rounded-corners-small">
-                        </div>
-                        <div class="col-md-4">
-                            <p style="line-height:1.5">
-                                <span style="font-size:16pt; font-weight: bold;">Partai Demokerasi Indonesia
-                                    Perjuangan</span><br />
-                                <span style="font-size:12pt">Total Kunjunangan Seluruh Anggota dewan : 200 </span><br>
-                            </p>
-                        </div>
-
                     </div>
-                </div>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="/static/img/gerindra.png" alt="Avatar" class="rounded-corners-small">
-                        </div>
-                        <div class="col-md-4">
-                            <p style="line-height:1.5">
-                                <span style="font-size:16pt; font-weight: bold;">Partai Gerindra</span><br />
-                                <span style="font-size:12pt">Total Kunjunangan Seluruh Anggota dewan : 150 </span><br>
-                            </p>
-                        </div>
-                        <div class="col-md-2">
-                            <img src="/static/img/nasdem.png" alt="Avatar" class="rounded-corners-small">
-                        </div>
-                        <div class="col-md-4">
-                            <p style="line-height:1.5">
-                                <span style="font-size:16pt; font-weight: bold;">Partai Nasdem</span><br />
-                                <span style="font-size:12pt">Total Kunjunangan Seluruh Anggota dewan : 100 </span><br>
-                            </p>
-                        </div>
-
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

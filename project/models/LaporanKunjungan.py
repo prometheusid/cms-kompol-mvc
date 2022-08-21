@@ -137,3 +137,82 @@ class LaporanKunjungan:
             ")
         data = cur.fetchall()
         return data
+
+    def partai(): 
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT B.partai_id, C.nama_partai, C.logo_partai, COUNT(B.partai_id) as jumlah_kunjungan \
+            from tbl_lapkun as A \
+            JOIN users as B \
+            ON A.user_id = B.user_id\
+            JOIN tbl_partai as C\
+            ON B.partai_id = C.partai_id \
+            GROUP BY B.partai_id \
+            ORDER BY B.partai_id")
+        lapkun = cur.fetchall()
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT B.partai_id, COUNT(C.lapkun_id) as jumlah_komentar\
+            from tbl_lapkun as A \
+            JOIN users as B \
+            ON A.user_id = B.user_id\
+            LEFT JOIN tbl_detail_lapkun as C \
+            ON A.lapkun_id = C.lapkun_id \
+            GROUP BY B.partai_id \
+            ORDER BY B.partai_id" )
+        komentar = cur.fetchall()
+        
+        dataScore = []
+        for idx, x in enumerate(lapkun):
+            dataScore.append({'partai_id' : x['partai_id'], 'nama_partai' : x['nama_partai'], 'logo' : x['logo_partai'], 'kunjungan' : x['jumlah_kunjungan'], 'komentar' : komentar[idx]['jumlah_komentar']});
+        newlist = sorted(dataScore, key=lambda k: k['kunjungan'], reverse=True)
+
+        a = len(newlist)
+        if (a < 4):
+            idx = a
+        else:
+            idx = 4
+
+        dataResponse = []
+        x = range(idx)
+        for n in x:
+            dataResponse.append(newlist[n])
+        return dataResponse
+    
+    def lapkunDewan(): 
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT B.user_id, COUNT(C.lapkun_id) as jumlah_komentar\
+            from tbl_lapkun as A \
+            JOIN users as B \
+            ON A.user_id = B.user_id\
+            LEFT JOIN tbl_detail_lapkun as C \
+            ON A.lapkun_id = C.lapkun_id \
+            GROUP BY B.user_id \
+            ORDER BY B.user_id ASC")
+        komentar = cur.fetchall()
+
+        cur.execute("SELECT B.images, B.nama_user, B.user_id, COUNT(A.lapkun_id) as jumlah_kunjungan, C.laporan_sentiment \
+            from tbl_lapkun as A \
+            JOIN users as B \
+            ON A.user_id = B.user_id\
+            JOIN tbl_ahp_dprd as C \
+            ON B.user_id = C.user_id\
+            GROUP BY B.user_id \
+            ORDER BY B.user_id ASC")
+        lapkun = cur.fetchall()
+
+        data = []
+        for i in range(len(lapkun)):
+            data.append({'images' : lapkun[i]['images'],'nama' : lapkun[i]['nama_user'], 'jumlah_kunjungan' : lapkun[i]['jumlah_kunjungan'], 'sentiment' : lapkun[i]['laporan_sentiment'], 'jumlah_komentar' : komentar[i]['jumlah_komentar']});
+        newlist = sorted(data, key=lambda k: k['jumlah_kunjungan'], reverse=True)
+
+        a = len(newlist)
+        if (a < 4):
+            idx = a
+        else:
+            idx = 4
+
+        dataResponse = []
+        x = range(idx)
+        for n in x:
+            dataResponse.append(newlist[n])
+        return dataResponse

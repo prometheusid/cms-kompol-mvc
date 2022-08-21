@@ -3,10 +3,7 @@ from flask import render_template, redirect, url_for, request, session
 from project.config.Database import mysql
 from datetime import datetime
 
-"""
-    Import MOdels
-from project.models.Hello import Hello
-"""
+from project.models.DashboardPartai import DashboardPartai
 from project.models.LaporanKunjungan import LaporanKunjungan
 # route index
 
@@ -15,7 +12,9 @@ from project.models.LaporanKunjungan import LaporanKunjungan
 def lapkun():
     title = ('LAPORAN KUNJUNGAN')
     data = LaporanKunjungan.fetchLapkun()
-    return render_template("/public/lapkun/index.html", data=data, title=title)
+    partai = LaporanKunjungan.partai()
+    dewan = LaporanKunjungan.lapkunDewan()
+    return render_template("/public/lapkun/index.html", dewan=dewan, partai=partai, data=data, title=title)
 
 
 @app.route("/kunjungan/thread/<int:id>")
@@ -58,8 +57,3 @@ def tambahlaporan():
     else:
         data = LaporanKunjungan.addDataLaporanKunjungan()
     return redirect(url_for('lapkun'))
-
-# @app.route('/uploads/<filename>')
-# def uploadedFiles(filename=''):
-#     from flask import send_from_directory
-#     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
