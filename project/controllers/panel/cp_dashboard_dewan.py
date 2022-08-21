@@ -91,9 +91,12 @@ def dashboard_dewan_ahp():
 
     partai = DashboardPartai.countAhpPartai(user['partai_id'])
     jumlah = DashboardPartai.countPartai()
-    # dewan = DashboardPartai.countAhpDewan(user['partai_id'])
-    # return str(partai)
-    return render_template('panel/cp_dashboard_dewan/ahp.html', title=title, partai=partai[0], jumlah=jumlah)
+    allDewan = DashboardDewan.countAhpDewan(session['id'])
+    jumlahAllDewan = DashboardDewan.countAllDewan()
+    jumlahlDewan = DashboardDewan.countAllDewanPartai(user['partai_id'])
+    dewan = DashboardDewan.countAhpDewanById(user['partai_id'],session['id'])
+  
+    return render_template('panel/cp_dashboard_dewan/ahp.html', dewan=dewan[0], jumlahlDewan=jumlahlDewan, jumlahAllDewan=jumlahAllDewan, allDewan=allDewan[0], title=title, partai=partai[0], jumlah=jumlah)
 
 @app.route("/dashboard-dewan/ahp/refresh" , methods=["POST"])
 def dashboard_dewan_ahp_refresh():

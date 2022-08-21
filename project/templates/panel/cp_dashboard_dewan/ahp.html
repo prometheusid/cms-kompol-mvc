@@ -95,7 +95,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Hasil Ahp Berdasarkan Keseluruhan Anggota Dewan</h3>
+                        <h3 class="card-title">Hasil Ahp</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -103,15 +103,10 @@
                             <div class="row"></div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped dataTable dtr-inline"
-                                        role="grid" aria-describedby="example1_info">
+                                    <table class="table table-bordered table-striped dataTable dtr-inline" role="grid"
+                                        aria-describedby="example1_info">
                                         <thead>
                                             <tr role="row">
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="Platform(s): activate to sort column ascending">
-                                                    Nama Dewan
-                                                </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                     colspan="1" aria-label="Browser: activate to sort column ascending">
                                                     Kompetensi</th>
@@ -131,73 +126,27 @@
                                                     colspan="1"
                                                     aria-label="Platform(s): activate to sort column ascending">
                                                     Score</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                           
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-</section>
-
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Hasil Ahp Berdasarkan Kesuluruhan Anggota Dewan di Partai {{ partai.nama_partai }}</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                            <div class="row"></div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped dataTable dtr-inline"
-                                        role="grid" aria-describedby="example1_info">
-                                        <thead>
-                                            <tr role="row">
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                     colspan="1"
                                                     aria-label="Platform(s): activate to sort column ascending">
-                                                    Nama Dewan
-                                                </th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Browser: activate to sort column ascending">
-                                                    Kompetensi</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Browser: activate to sort column ascending">
-                                                    Popularitas</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Browser: activate to sort column ascending">
-                                                    Content</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Browser: activate to sort column ascending">
-                                                    Akuntabilitas</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Browser: activate to sort column ascending">
-                                                    Integritas</th>
+                                                    Ranking Keseluruhan Dewan</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                     colspan="1"
                                                     aria-label="Platform(s): activate to sort column ascending">
-                                                    Score</th>
+                                                    Ranking Partai</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           
+                                            <tr role="row" class="odd">
+                                                <td>{{allDewan['value'][0]}}</td>
+                                                <td>{{allDewan['value'][1]}}</td>
+                                                <td>{{allDewan['value'][2]}}</td>
+                                                <td>{{allDewan['value'][3]}}</td>
+                                                <td>{{allDewan['value'][4]}}</td>
+                                                <td>{{allDewan['value'][5]}}</td>
+                                                <td>{{allDewan['ranking']}} / {{ jumlahAllDewan.jumlah }}</td>
+                                                <td>{{ dewan['ranking']}} / {{ jumlahlDewan.jumlah }}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

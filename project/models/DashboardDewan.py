@@ -157,11 +157,36 @@ class DashboardDewan:
         data = cur.fetchall()
         return data
 
-    # def countAhpDewan(id): # id adalah partai_id
-    #     criteria = Ahp.fetchCriteriaDewan()
-    #     value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c15'], criteria['c23'], criteria['c24'], criteria['c25'], criteria['c34'], criteria['c35'], criteria['c45']], 5)
-    #     dataAhpDewan = Ahp.fetchValueDewanByPartaiId(id)
-    #     sumDataAhpDewan = Ahp.sumValueDewan()
-    #     data = CalculateDewan.eigen_dewan(dataAhpDewan, sumDataAhpDewan, value['rata_eigen'])
-    #     return data
-# a
+    def countAllDewan():
+        cur = mysql.connection.cursor() 
+        cur.execute("SELECT COUNT(user_id) as jumlah \
+            from users \
+            WHERE role_id = 3") 
+        data = cur.fetchone()
+        return data
+
+    def countAllDewanPartai(id): #id adalah partai_id
+        cur = mysql.connection.cursor() 
+        cur.execute("SELECT COUNT(user_id) as jumlah \
+            from users \
+            WHERE role_id = 3 AND partai_id = %s", (id,)) 
+        data = cur.fetchone()
+        return data 
+    
+    def countAhpDewanById(id, user_id): # id adalah partai_id
+        criteria = Ahp.fetchCriteriaDewan()
+        value = Criteria.perbandingan([criteria['c12'], criteria['c13'], criteria['c14'], criteria['c15'], criteria['c23'], criteria['c24'], criteria['c25'], criteria['c34'], criteria['c35'], criteria['c45']], 5)
+        dataAhpDewan = Ahp.fetchValueDewanByPartaiId(id)
+        sumDataAhpDewan = Ahp.sumValueDewan()
+        data = CalculateDewan.eigen_dewan(dataAhpDewan, sumDataAhpDewan, value['rata_eigen'])
+
+        dataScore = []
+        for item in data:
+            dataScore.append({'user_id' : item['user_id'], 'score' : item['value'][5], 'value' : item['value']});
+        newlist = sorted(dataScore, key=lambda k: k['score'], reverse=True)
+
+        ranking = []
+        for idx, x in enumerate(newlist):
+            if x['user_id'] == user_id:
+                ranking.append({'user_id' : x['user_id'], 'score' : x['score'], 'ranking' : idx + 1, 'value' : x['value']});
+        return ranking
