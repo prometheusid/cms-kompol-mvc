@@ -9,7 +9,6 @@ from project.models.CalculateDewan import CalculateDewan
 from project.models.Criteria import Criteria
 from project.models.GenerateAhpDewan import GenerateAhpDewan
 
-
 @app.route("/dashboard/ahp/dewan")
 def cp_ahp_dewan():
     title = ("Ahp Dewan")

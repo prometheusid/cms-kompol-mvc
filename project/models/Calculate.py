@@ -1,8 +1,10 @@
 import math
 
 def nilai_eigen(criteria, total):
-    x = criteria / total
-    return x
+    if criteria != 0:
+        return criteria / total
+    else:
+        return 0
 
 def eigen_criteria(eigenJmlC1, eigenSentimentC1, eigenEksiC2, eigenCitraC2, eigenJmlC3, eigenSentimentC3, eigenJmlC4, eigenSentimentC4, rataEigenCriteria):
     c1 = (eigenJmlC1 + eigenSentimentC1) * rataEigenCriteria[0]

@@ -1,0 +1,166 @@
+{% extends '/panel/cp_base_partai.html' %} {% block body %}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>{{title}}</h1>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Data Anggota Partai</h3>
+                        <div class="card-tools">
+                            <button class="btn btn-success" data-toggle="modal" data-target="#modal_add">
+                                <i class="fas fa-plus"></i>&nbsp;Tambah Anggota
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row"></div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example1" class="table table-bordered table-striped dataTable dtr-inline"
+                                        role="grid" aria-describedby="example1_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example1"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Rendering engine: activate to sort column descending">
+                                                    No
+                                                </th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example1"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Rendering engine: activate to sort column descending">
+                                                    Nama Anggota
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1"
+                                                    aria-label="Platform(s): activate to sort column ascending">
+                                                    Email Anggota
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1"
+                                                    aria-label="Platform(s): activate to sort column ascending">
+                                                    Partai
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1"
+                                                    aria-label="Platform(s): activate to sort column ascending">
+                                                    Aksi
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for row in data %}
+
+                                            <tr role="row" class="odd">
+                                                <td tabindex="0" class="sorting_1">{{ loop.index }}</td>
+                                                <td>{{row['nama_user']}}</td>
+                                                <td>{{row['email_user']}}</td>
+                                                <td>{{row['nama_partai']}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        data-target="#modal_delete{{row['user_id']}}">
+                                                        Hapus
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Modal add -->
+<div class="modal fade" id="modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Tambah Anggota</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{url_for('dashboard_partai_create_anggota')}}" method="POST">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="code"><span style="color: red">*</span> Nama Anggota</label>
+                                <input type="text" class="form-control" id="nameAnggota" name="nameAnggota" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="question"><span style="color: red">*</span> Email Anggota</label>
+                                <input type="text" class="form-control" id="emailAnggota" name="emailAnggota"
+                                    required />
+                            </div>
+                            <div class="form-group">
+                                <label for="question"><span style="color: red">*</span> Password</label>
+                                <input type="password" class="form-control" id="passwordAnggota" name="passwordAnggota"
+                                    required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">
+                        Tutup
+                    </button>
+                    <button class="btn btn-success">Tambah</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END Modal add -->
+
+<!-- Modal Delete -->
+{% for row in data %}
+<div class="modal fade" id="modal_delete{{row['user_id']}}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_delete{{row['user_id']}}">
+                    Anda Akan Menghapus Akun {{row['nama_user']}}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Yakin akan menghapus data?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+                    Cancel
+                </button>
+                <a href="/dashboard-partai/anggota/delete/{{row['user_id']}}"><button class="btn btn-sm btn-danger">Ya,
+                        Hapus</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %} {% endblock %}

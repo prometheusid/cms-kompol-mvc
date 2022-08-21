@@ -8,7 +8,8 @@ from cryptography.fernet import Fernet
 # untuk ini bisa di setting berdasarkan email client
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-
+app.config['MAIL_USERNAME'] = 'melektechnology@gmail.com'
+app.config['MAIL_PASSWORD'] = 'kmqcpmizgyrrvfou'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail= Mail(app)

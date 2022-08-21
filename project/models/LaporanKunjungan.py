@@ -111,3 +111,29 @@ class LaporanKunjungan:
         cur = mysql.connection.cursor()
         cur.execute("DELETE FROM tbl_lapkun WHERE lapkun_id=%s", (id,))
         mysql.connection.commit()
+    
+    def countLapkunPartai():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT B.partai_id, COUNT(B.partai_id) as jumlah, C.nama_partai\
+            from tbl_lapkun as A \
+            JOIN users as B \
+            ON A.user_id = B.user_id\
+            JOIN tbl_partai as C \
+            ON B.partai_id = C.partai_id \
+            GROUP BY B.partai_id\
+            ")
+        data = cur.fetchall()
+        return data
+    
+    def countLapkunDewan():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT B.user_id, B.nama_user as nama, COUNT(B.user_id) as jumlah, C.nama_partai\
+            from tbl_lapkun as A \
+            JOIN users as B \
+            ON A.user_id = B.user_id \
+            JOIN tbl_partai as C \
+            ON B.partai_id = C.partai_id \
+            GROUP BY B.user_id \
+            ")
+        data = cur.fetchall()
+        return data

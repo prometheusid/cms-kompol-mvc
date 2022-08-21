@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dashboard | {{title}}</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{url_for ('static', filename='/plugins/fontawesome-free/css/all.min.css')}}" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <!-- Datatabel -->
+    <link rel="stylesheet"
+        href="{{url_for ('static', filename='/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}" />
+    <link rel="stylesheet"
+        href="{{url_for ('static', filename='/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}" />
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet"
+        href="{{url_for ('static', filename='/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}" />
+    <!-- iCheck -->
+    <link rel="stylesheet"
+        href="{{url_for ('static', filename='/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}" />
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="{{url_for ('static', filename='/plugins/jqvmap/jqvmap.min.css')}}" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{url_for ('static', filename='/dist/css/adminlte.min.css')}}" />
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet"
+        href="{{url_for ('static', filename='/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}" />
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{{url_for ('static', filename='/plugins/daterangepicker/daterangepicker.css')}}" />
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{url_for ('static', filename='/plugins/summernote/summernote-bs4.css')}}" />
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
+
+    <!-- jQuery -->
+    <script src="{{url_for ('static', filename='/plugins/jquery/jquery.min.js')}}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{{url_for ('static', filename='/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge("uibutton", $.ui.button);
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="{{url_for ('static', filename='/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- ChartJS -->
+    <script src="{{url_for ('static', filename='/plugins/chart.js/Chart.min.js')}}"></script>
+    <!-- Sparkline -->
+    <script src="{{url_for ('static', filename='/plugins/sparklines/sparkline.js')}}"></script>
+    <!-- JQVMap -->
+    <script src="{{url_for ('static', filename='/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+    <script src="{{url_for ('static', filename='/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="{{url_for ('static', filename='/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+    <!-- daterangepicker -->
+    <script src="{{url_for ('static', filename='/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{url_for ('static', filename='/plugins/daterangepicker/daterangepicker.js')}}"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script
+        src="{{url_for ('static', filename='/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+    <!-- Summernote -->
+    <script src="{{url_for ('static', filename='/plugins/summernote/summernote-bs4.min.js')}}"></script>
+    <!-- overlayScrollbars -->
+    <script
+        src="{{url_for ('static', filename='/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{url_for ('static', filename='/dist/js/adminlte.js')}}"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="{{url_for ('static', filename='/dist/js/pages/dashboard.js')}}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{{url_for ('static', filename='/dist/js/demo.js')}}"></script>
+    <!-- DataTables -->
+    <script src="{{url_for ('static', filename='/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url_for ('static', filename='/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script
+        src="{{url_for ('static', filename='/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script
+        src="{{url_for ('static', filename='/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                responsive: true,
+                autoWidth: false,
+            });
+            $("#example2").DataTable({
+                paging: true,
+                lengthChange: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: true,
+                responsive: true,
+            });
+            $("#example3").DataTable({
+                paging: true,
+                lengthChange: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: true,
+                responsive: true,
+            });
+            $("#example4").DataTable({
+                paging: true,
+                lengthChange: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: true,
+                responsive: true,
+            });
+        });
+    </script>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ url_for('pub_home')}}" class="nav-link">Home</a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('logout')}}" role="button">
+                        <i class="fas fa-right-to-bracket"></i>&nbsp;&nbsp;{{session['name']}} | Logout
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="{{ url_for('pub_home')}}" class="brand-link">
+                <span class="brand-text font-weight-light">Komunikasi Politik</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="info">
+                        <a href="/dashboard-partai/{{session['id']}}" class="d-block"><i class="fas fa-user">&nbsp;
+                                {{session['name']}}</i></a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <!-- Anggota Partai -->
+                        <li class="nav-item">
+                            <a href="{{ url_for('cp_dashboard_partai_anggota')}}" class="nav-link">
+                                <i class="nav-icon fas fa-newspaper"></i>
+                                <p>Anggota Partai</p>
+                            </a>
+                        </li>
+                        <!-- End Anggota Partai -->
+                    </ul>
+                </nav>
+
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <!-- Anggota Partai -->
+                        <li class="nav-item">
+                            <a href="/dashboard-partai/lapkun" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>Laporan Kunjungan</p>
+                            </a>
+                        </li>
+                        <!-- End Anggota Partai -->
+                    </ul>
+                </nav>
+
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <!-- Anggota Partai -->
+                        <li class="nav-item">
+                            <a href="/dashboard-partai/survey" class="nav-link">
+                                <i class="nav-icon fas fa-poll"></i>
+                                <p>Survey</p>
+                            </a>
+                        </li>
+                        <!-- End Anggota Partai -->
+                    </ul>
+                </nav>
+
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <!-- Anggota Partai -->
+                        <li class="nav-item">
+                            <a href="/dashboard-partai/ahp" class="nav-link">
+                                <i class="nav-icon fas fa-chart-bar"></i>
+                                <p>Ahp</p>
+                            </a>
+                        </li>
+                        <!-- End Anggota Partai -->
+                    </ul>
+                </nav>
+
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class='nav-icon fab fa-twitter'></i>
+                                <p>
+                                    Data Twitter
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+
+                            <ul class="nav nav-treeview">
+                                <!-- Sub Menu - Data Survey -->
+                                <li class="nav-item">
+                                    <a href="/dashboard-partai/tweet" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Partai</p>
+                                    </a>
+                                </li>
+
+                                <!-- Sub Menu - Hasil Survey -->
+                                <li class="nav-item">
+                                    <a href="/dashboard-partai/crawling/dprd" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Dewan</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- End Anggota Partai -->
+                    </ul>
+                </nav>
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            {% block body %}
+            <div class="content-header"></div>
+            {% endblock %}
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-block"><b>Version</b> 1.0.0</div>
+            <strong>Copyright &copy; 2022 Team DEV. </strong> All rights reserved.
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+</body>
+
+</html>
