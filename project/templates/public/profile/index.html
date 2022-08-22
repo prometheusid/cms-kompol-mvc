@@ -1,339 +1,217 @@
 {% extends '/public/index.html' %} {% block content %}
 <section class="py-5" style="margin-top: 40px">
-  <div class="container">
-    <div
-      class="d-sm-flex align-items-center justify-content-between mb-4"
-      style="margin-top: 2rem"
-    >
-      <h1 class="h3 mb-0 text-white-800">{{title}}</h1>
-    </div>
-  </div>
-  <div class="container">
-    <div class="card user-card-full">
-      <div class="row m-l-0 m-r-0">
-        <div class="col-sm-4 bg-c-lite-green user-profile">
-          <div class="card-block text-center text-white">
-            <div class="m-b-25">
-              {% if profile.images == null %}
-              <img
-                src="https://img.icons8.com/bubbles/100/000000/user.png"
-                class="img-radius"
-                alt="User-Profile-Image"
-              />
-              {% endif %}
-              {% if profile.images %}
-              <img src="{{ url_for('uploadedFiles', filename=profile.images) }}" alt="User-Profile-Image" class="img-radius" style="width:100px"/>
-              {% endif %}
-              <!-- <h3 class="f-w-700" style="color: white">{{session['name']}}</h3> -->
-              <h3 class="f-w-700" style="color: white">{{profile.nama_user}}</h3>
-              <a
-                href="https://twitter.com/{{profiles.akun_twitter}}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
-                style="color: white; font-weight: 600"
-              >
-                <i
-                  class="fab fa-twitter"
-                  style="color: #1d9bf0"
-                  aria-hidden="true"
-                ></i
-                >&nbsp; @{{profile.akun_twitter}}
-              </a>
-            </div>
-
-            <div class="m-b-25">
-              <a
-                href="/profile/edit/{{session['id']}}"
-                class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
-              >
-                <i class="fas fa-user-edit"></i>&nbsp; Edit</a
-              >
-            </div>
-            <div class="m-b-25">
-              <a
-                style="color: white; font-size: 16px; font-weight: bold"
-                href="{{url_for('logout')}}"
-                class="mdi d-none d-sm-inline-block btn btn-primary shadow-sm"
-                >Logout</a
-              >
-            </div>
-          </div>
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
+            <h1 class="h3 mb-0 text-white-800">{{title}}</h1>
         </div>
-        <div class="col-sm-8">
-          <div class="card-block">
-            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-            {% if profileu.role_id == 1 %}
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600" style="font-weight: bold;">Email</p>
-                <h6 class="text-muted f-w-400">{{session['email']}}</h6>
-              </div>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600" style="font-weight: bold;">Role</p>
-                <h6 class="text-muted f-w-400">{{profileu.role_user}}</h6>
-              </div>
-            </div>
-            {% endif %} {% if profileu.role_id == 4 %}
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600" style="font-weight: bold;">Email</p>
-                <h6 class="text-muted f-w-400">{{session['email']}}</h6>
-              </div>
-              <!-- <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Role</p>
-                <h6 class="text-muted f-w-400">{{profileu.role_user}}</h6>
-              </div> -->
-            </div>
-            {% endif %} {% if profiles.role_id == 3 %}
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600" style="font-weight: bold;">Email</p>
-                <h6 class="text-muted f-w-400">{{session['email']}}</h6>
-              </div>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600" style="font-weight: bold;">SKOR AHP</p>
-                {% for row in ahpDewan %} {% if row['user_id'] ==
-                dataDewan['user_id'] %}
-                <h6 class="text-muted f-w-400">{{row['value'][5]}}</h6>
-                {% endif %} {% endfor %}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600" style="font-weight: bold;">Partai</p>
-                <h6 class="text-muted f-w-400">{{profiles.nama_partai}}</h6>
-              </div>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600" style="font-weight: bold;">Role</p>
-                <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600" style="font-weight: bold;">Pendidikan</p>
-                <h6 class="text-muted f-w-400">{{edu.pendidikan}}</h6>
-              </div>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600" style="font-weight: bold;">Pengalaman</p>
-                {% for pengalaman in experiences %}
-                <h6 class="text-muted f-w-400">{{pengalaman['pengalaman']}}</h6>
-                {% endfor %}
-              </div>
-            </div>
-            {% endif %} {% if profiles.role_id == 2 %}
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Email</p>
-                <h6 class="text-muted f-w-400">{{session['email']}}</h6>
-              </div>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">SKOR AHP</p>
-                {% for row in ahpPartai %} {% if row['partai_id'] ==
-                dataPartai['partai_id'] %}
-                <h6 class="text-muted f-w-400">{{row['value'][4]}}</h6>
-                {% endif %} {% endfor %}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Partai</p>
-                <h6 class="text-muted f-w-400">{{profiles.nama_partai}}</h6>
-              </div>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Role</p>
-                <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
-              </div>
-            </div>
-            <div class="row" hidden>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Pendidikan</p>
-                <h6 class="text-muted f-w-400">{{edu.pendidikan}}</h6>
-              </div>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Pengalaman</p>
-                <h6 class="text-muted f-w-400">{{profiles.pengalaman}}</h6>
-              </div>
-            </div>
-            {% endif %}
-            <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Timeline</h6>
-
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Joined</p>
-                <h6 class="text-muted f-w-400">{{profileu.created_at.strftime('%d %B %Y - %H:%M')}}</h6>
-              </div>
-              {% if profiles.updated_at == null %}
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Last Update</p>
-                <h6 class="text-muted f-w-400">
-                  -
-                </h6>
-              </div>
-              {% else %}
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Last Update</p>
-                <h6 class="text-muted f-w-400">
-                  {{profileu.updated_at.strftime('%d %B %Y - %H:%M')}}
-                </h6>
-              </div>
-              {% endif %}
-            </div>
-            <!-- {% if profiles.updated_at %}
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Joined</p>
-                <h6 class="text-muted f-w-400">
-                  -
-                </h6>
-              </div>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Last Update</p>
-                <h6 class="text-muted f-w-400">
-                  {{profiles.updated_at.strftime('%d %B %Y - %H:%M')}}
-                </h6>
-              </div>
-            </div>
-             {% else %} - {% endif %} -->
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
+    <div class="container">
+        <div class="card user-card-full">
+            <div class="row m-l-0 m-r-0">
+                <div class="col-sm-4 bg-c-lite-green user-profile">
+                    <div class="card-block text-center text-white">
+                        <div class="m-b-25">
+                            {% if profile.images == null %}
+                            <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
+                                alt="User-Profile-Image" />
+                            {% endif %}
+                            {% if profile.images %}
+                            <img src="{{ url_for('uploadedFiles', filename=profile.images) }}" alt="User-Profile-Image"
+                                class="img-radius" style="width:100px" />
+                            {% endif %}
+                            <h3 class="f-w-700" style="color: white">{{profile.nama_user}}</h3>
+                            <a href="https://twitter.com/{{profiles.akun_twitter}}" target="_blank"
+                                rel="noopener noreferrer" class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm"
+                                style="color: white; font-weight: 600">
+                                <i class="fab fa-twitter" style="color: #1d9bf0" aria-hidden="true"></i>&nbsp;
+                                @{{profile.akun_twitter}}
+                            </a>
+                        </div>
+
+                        <div class="m-b-25">
+                            <a href="/profile/edit/{{session['id']}}"
+                                class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm">
+                                <i class="fas fa-user-edit"></i>&nbsp; Edit</a>
+                        </div>
+                        <div class="m-b-25">
+                            <a style="color: white; font-size: 16px; font-weight: bold" href="{{url_for('logout')}}"
+                                class="mdi d-none d-sm-inline-block btn btn-primary shadow-sm">Logout</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="card-block">
+                        <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                        {% if profileu.role_id == 1 %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600" style="font-weight: bold;">Email</p>
+                                <h6 class="text-muted f-w-400">{{session['email']}}</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600" style="font-weight: bold;">Role</p>
+                                <h6 class="text-muted f-w-400">{{profileu.role_user}}</h6>
+                            </div>
+                        </div>
+                        {% endif %} {% if profileu.role_id == 4 %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600" style="font-weight: bold;">Email</p>
+                                <h6 class="text-muted f-w-400">{{session['email']}}</h6>
+                            </div>
+                        </div>
+                        {% endif %} {% if profiles.role_id == 3 %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600" style="font-weight: bold;">Email</p>
+                                <h6 class="text-muted f-w-400">{{session['email']}}</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600" style="font-weight: bold;">Pendidikan</p>
+                                <h6 class="text-muted f-w-400">{{edu.pendidikan}}</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600" style="font-weight: bold;">Partai</p>
+                                <h6 class="text-muted f-w-400">{{profiles.nama_partai}}</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600" style="font-weight: bold;">Role</p>
+                                <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600" style="font-weight: bold;">Pengalaman</p>
+                                {% for pengalaman in experiences %}
+                                <h6 class="text-muted f-w-400">{{pengalaman['pengalaman']}}</h6>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %} {% if profiles.role_id == 2 %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Email</p>
+                                <h6 class="text-muted f-w-400">{{session['email']}}</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">SKOR AHP</p>
+                                {% for row in ahpPartai %} {% if row['partai_id'] ==
+                                dataPartai['partai_id'] %}
+                                <h6 class="text-muted f-w-400">{{row['value'][4]}}</h6>
+                                {% endif %} {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Partai</p>
+                                <h6 class="text-muted f-w-400">{{profiles.nama_partai}}</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Role</p>
+                                <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
+                            </div>
+                        </div>
+                        <div class="row" hidden>
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Pendidikan</p>
+                                <h6 class="text-muted f-w-400">{{edu.pendidikan}}</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Pengalaman</p>
+                                <h6 class="text-muted f-w-400">{{profiles.pengalaman}}</h6>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Timeline</h6>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Joined</p>
+                                <h6 class="text-muted f-w-400">{{profileu.created_at.strftime('%d %B %Y - %H:%M')}}</h6>
+                            </div>
+                            {% if profiles.updated_at == null %}
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Last Update</p>
+                                <h6 class="text-muted f-w-400">
+                                    -
+                                </h6>
+                            </div>
+                            {% else %}
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Last Update</p>
+                                <h6 class="text-muted f-w-400">
+                                    {{profileu.updated_at.strftime('%d %B %Y - %H:%M')}}
+                                </h6>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Untuk Detail Point -->
+    {% if profiles.role_id == 3 %}
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
+            <h1 class="h3 mb-0 text-white-800">Hasil Komunikasi Politik</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card user-card-full">
+            <div class="row m-l-0 m-r-0">
+                <div class="col-sm-4  user-profile">
+                    <div class="card-block text-center text-white">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 class="text-muted f-w-400">Rekomendasi Video Untuk Meningkatkan Komunikasi Politik
+                                </h6>
+                            </div>
+                            <div class="col-sm-12">
+                                <iframe width="350" height="350" src="{{ rekomendasi }}"
+                                    title="Rekomendasi" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="card-block">
+                        <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Detail Point</h6>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600" style="font-weight: bold;">SKOR AHP</p>
+                                {% for row in ahpDewan %} {% if row['user_id'] ==
+                                dataDewan['user_id'] %}
+                                <h6 class="text-muted f-w-400">{{row['value'][5]}}</h6>
+                                {% endif %} {% endfor %}
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600" style="font-weight: bold;">Jumlah Kunjungan</p>
+                                <h6 class="text-muted f-w-400">{{ survey }}</h6>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600" style="font-weight: bold;">Jumlah Survey</p>
+                                <h6 class="text-muted f-w-400">{{ kunjungan }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!-- End Untuk Detail Point -->
+
 </section>
-<!--<div class="container">
-  <div class="card user-card-full">
-    <div class="row m-l-0 m-r-0">
-      <div class="col-sm-12">
-        <div class="card-block">
-          <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Hasil SPK</h6>
-
-          {% if profiles.role_id == 1 %}
-          <div class="row">
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Email</p>
-              <h6 class="text-muted f-w-400">{{session['email']}}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Role</p>
-              <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
-            </div>
-          </div>
-          {% endif %} {% if profiles.role_id == 4 %}
-          <div class="row">
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Email</p>
-              <h6 class="text-muted f-w-400">{{session['email']}}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Role</p>
-              <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
-            </div>
-          </div>
-          {% endif %} {% if profiles.role_id == 3 %}
-          <div class="row">
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">SKOR AHP</p>
-              {% for row in ahpDewan %} {% if row['user_id'] ==
-              dataDewan['user_id'] %}
-              <h6 class="text-muted f-w-400">{{row['value'][5]}}</h6>
-              {% endif %} {% endfor %}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Partai</p>
-              <h6 class="text-muted f-w-400">{{profiles.nama_partai}}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Role</p>
-              <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Pendidikan</p>
-              <h6 class="text-muted f-w-400">{{edu.pendidikan}}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Pengalaman</p>
-              <h6 class="text-muted f-w-400">{{profiles.pengalaman}}</h6>
-            </div>
-          </div>
-          {% endif %} {% if profiles.role_id == 2 %}
-          <div class="row">
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">SKOR AHP</p>
-              {% for row in ahpPartai %} {% if row['partai_id'] ==
-              dataPartai['partai_id'] %}
-              <h6 class="text-muted f-w-400">{{row['value'][4]}}</h6>
-              {% endif %} {% endfor %}
-            </div>
-          </div>
-          <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Identitas</h6>
-          <div class="row">
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Email</p>
-              <h6 class="text-muted f-w-400">{{session['email']}}</h6>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Partai</p>
-              <h6 class="text-muted f-w-400">{{profiles.nama_partai}}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Role</p>
-              <h6 class="text-muted f-w-400">{{profiles.role_user}}</h6>
-            </div>
-          </div>
-          <div class="row" hidden>
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Pendidikan</p>
-              <h6 class="text-muted f-w-400">{{edu.pendidikan}}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Pengalaman</p>
-              <h6 class="text-muted f-w-400">{{profiles.pengalaman}}</h6>
-            </div>
-          </div>
-          {% endif %}
-          <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">REKOMENDASI</h6>
-          {% if profiles.created_at %}
-          <div class="row">
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Joined</p>
-              <h6 class="text-muted f-w-400">
-                {{profiles.created_at.strftime('%d %B %Y - %H:%M')}}
-              </h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="m-b-10 f-w-600">Last Update</p>
-              <h6 class="text-muted f-w-400">
-                {{profiles.updated_at.strftime('%d %B %Y - %H:%M')}}
-              </h6>
-            </div>
-          </div>
-          {% endif %}
-           {% if profiles.updated_at %}
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Joined</p>
-                <h6 class="text-muted f-w-400">
-                  -
-                </h6>
-              </div>
-              <div class="col-sm-6">
-                <p class="m-b-10 f-w-600">Last Update</p>
-                <h6 class="text-muted f-w-400">
-                  {{profiles.updated_at.strftime('%d %B %Y - %H:%M')}}
-                </h6>
-              </div>
-            </div>
-             {% else %} - {% endif %} 
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
 {% endblock %}

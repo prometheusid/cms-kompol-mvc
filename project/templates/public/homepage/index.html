@@ -85,11 +85,21 @@
             <br>
         </div>
 
+        {% if profiles.videos is not none %}
         <div class="share__img">
-            <iframe width="370" height="210" src="{{rekomendasi}}" title="Rekomendasi" frameborder="0"
+            <iframe width="370" height="210" src="{{ profiles.videos }}" title="Kampanye" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
+                allowfullscreen>
+            </iframe>
         </div>
+        {% else %}
+        <div class="share__img">
+            <iframe width="370" height="210" src="https://www.youtube.com/embed/Pqc1p7AxQZ0" title="Kampanye" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+        {% endif %}
     </div>
 </section>
 {% endif %}
@@ -104,9 +114,25 @@
             </h6>
             {% endif %} {% endfor %}
         </div>
+        {% if profiles.videos is not none %}
+        <div class="share__img">
+            <iframe width="370" height="210" src="{{ profiles.videos }}" title="Kampanye" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+        {% else %}
+        <div class="share__img">
+            <iframe width="370" height="210" src="https://www.youtube.com/embed/Pqc1p7AxQZ0" title="Kampanye" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+        {% endif %}
     </div>
 </section>
 {% endif %}
+
 <!-- Start Info Kunjungan -->
 <section class="decoration section bd-container">
     <div class="top-news-area">

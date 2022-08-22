@@ -7,13 +7,14 @@ from project.config.Database import mysql
 import bcrypt
 from ..auth.auth import session
 
-# Import models
+from project.models.DashboardDewan import DashboardDewan
 from project.models.Profile import Profile
 
 from project.models.Ahp import Ahp
 from project.models.Calculate import Calculate
 from project.models.Criteria import Criteria
 from project.models.CalculateDewan import CalculateDewan
+from project.models.Knn import Knn 
 
 @app.route("/profile/<id>")
 def profileuser(id):
@@ -40,8 +41,30 @@ def profileuser(id):
         dataPartai = Ahp.fetchValueId(id)
         dataDewan = Ahp.fetchDewanId(id)
 
-        # Pengalaman List
         experiences = Profile.listPengalaman(id)
+        if (session['role'] == 3):
+            key = ''
+            for row in ahpDewan:
+                sentimentRek = row['value'][2]
+                popularitasRek = row['value'][1]
+                akuntabilitasRek = row['value'][3]
+                integritasRek = row['value'][4]
+
+                if row['user_id'] == dataDewan['user_id']:
+                    if popularitasRek < sentimentRek and popularitasRek < integritasRek:
+                        key = 'Menaikan Popularitas'
+                    if akuntabilitasRek <integritasRek and akuntabilitasRek < sentimentRek:
+                        key = 'Memperbaiki akuntabilitas'
+                    if integritasRek < sentimentRek and integritasRek < popularitasRek:
+                        key ='Menjaga Integritas'
+                    if sentimentRek < popularitasRek and sentimentRek < akuntabilitasRek:
+                        key = 'Menaikan Kinerja'
+
+            rekomendasi = Knn.knn(key)
+            countSurvey = DashboardDewan.countSurvey(session['id'])
+            countKunjungan = DashboardDewan.countKunjungan(session['id'])
+            return render_template('public/profile/index.html', rekomendasi=rekomendasi, title=title, profileu=profileu, profile=profile, profiles=profiles, edu=edu, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan, experiences=experiences, kunjungan=countKunjungan, survey=countSurvey)
+        
         return render_template('public/profile/index.html', title=title, profileu=profileu, profile=profile, profiles=profiles, edu=edu, ahpPartai=ahpPartai, dataPartai=dataPartai, ahpDewan=ahpDewan, dataDewan=dataDewan, experiences=experiences)
     return redirect(url_for('login'))
 
