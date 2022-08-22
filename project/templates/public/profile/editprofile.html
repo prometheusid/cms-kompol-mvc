@@ -1,360 +1,344 @@
 {% extends '/public/index.html' %} {% block content %}
 <section class="py-5" style="margin-top: 40px">
-  <div class="container">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
-      <h1 class="h3 mb-0 text-white-800">{{title}}</h1>
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 2rem">
+            <h1 class="h3 mb-0 text-white-800">{{title}}</h1>
+        </div>
     </div>
-  </div>
-  <div class="container">
-    <form action="/profile/edit/{{profile.user_id}}" method="POST" enctype=multipart/form-data>
-    <div class="card user-card-full">
-      <div class="row m-l-0 m-r-0">
-        <div class="col-sm-4 bg-c-lite-green user-profile">
-          <div class="card-block text-center text-white">
-            <div class="m-b-25">
-              {% if profile.images == null %}
-              <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
-                alt="User-Profile-Image" />
-              {% endif %}
-              {% if profile.images %}
-              <img src="{{ url_for('uploadedFiles', filename=profile.images) }}" alt="User-Profile-Image" class="img-radius" style="width:100px"/>
-              {% endif %}
-              <div class="m-b-25 text-center">
-                <label for="file">Edit Foto</label><br>
-                <input class="text-center f-w-700" type=file name=file accept="image/*" >
-              </div>
-              
+    <div class="container">
+        <form action="/profile/edit/{{profile.user_id}}" method="POST" enctype=multipart/form-data>
+            <div class="card user-card-full">
+                <div class="row m-l-0 m-r-0">
+                    <div class="col-sm-4 bg-c-lite-green user-profile">
+                        <div class="card-block text-center text-white">
+                            {% if profile.images == null %}
+                            <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
+                                alt="User-Profile-Image" />
+                            {% endif %}
+                            {% if profile.images %}
+                            <img src="{{ url_for('uploadedFiles', filename=profile.images) }}" alt="User-Profile-Image"
+                                class="img-radius" style="width:150px;height:150px;" />
+                            {% endif %}
+                            <div class="m-b-25 text-center">
+                                <label for="file">Edit Foto</label><br>
+                                <input class="text-center f-w-700" type=file name=file accept="image/*">
+                            </div>
+
+
+                            <h3 class="f-w-700" style="color: white">{{profile.nama_user}}</h3>
+                            <br />
+                            <a href="https://twitter.com/{{profile.akun_twitter}}"
+                                class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm" target="_blank"
+                                rel="noopener noreferrer" style="color: white; font-weight: 600;">
+                                <i class="fab fa-twitter" style="color: #1D9BF0" aria-hidden="true"></i>&nbsp;
+                                @{{profile.akun_twitter}}
+                            </a>
+                            <br />
+                            <br />
+                            <br />
+                            <a href="/profile/{{session['id']}}"
+                                class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm">
+                                <i class="fas fa-arrow-left"></i>&nbsp; Kembali</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="card-block">
+                            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                            <div class="row">
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" name="idu" id="idu"
+                                        value="{{profile.user_id}}" hidden />
+                                </div>
+                            </div>
+
+                            <!-- JIKA SUPER ADMIN -->
+                            {% if profile.role_id == 1 %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Name</p>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="name" id="name"
+                                            value="{{profile.nama_user}}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Email</p>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control form-control-user" name="emailAnggota"
+                                            id="emailAnggota" value="{{profile.email_user}}" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Twitter Account</p>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="twitter"
+                                            id="twitter" value="{{profile.akun_twitter}}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="education"
+                                            id="education" value="{{profile.id_pendidikan}}" hidden />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="pengalaman"
+                                            id="pengalaman" value="{{profile.pengalaman}}" hidden />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- JIKA ADMIN PARTAI -->
+                            {% endif %} {% if profile.role_id == 2 %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Name</p>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="name" id="name"
+                                            value="{{profile.nama_user}}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Email</p>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control form-control-user" name="emailAnggota"
+                                            id="emailAnggota" value="{{profile.email_user}}" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Twitter Account</p>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="twitter"
+                                            id="twitter" value="{{profile.akun_twitter}}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="education"
+                                            id="education" value="{{profile.id_pendidikan}}" hidden />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="pengalaman"
+                                            id="pengalaman" value="{{profile.pengalaman}}" hidden />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- JIKA ANGGOTA DPPRD -->
+                            {% endif %} {% if profile.role_id == 3 %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Name</p>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="name" id="name"
+                                            value="{{profile.nama_user}}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Email</p>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control form-control-user" name="emailAnggota"
+                                            id="emailAnggota" value="{{profile.email_user}}" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Last Education</p>
+                                    <div class="form-group">
+                                        <select class="form-control" name="education" method="GET">
+                                            {% if edus[0]['id_pendidikan'] != null %}
+                                            <option value="{{ edus[0]['id_pendidikan'] }}" selected="{{ edus[0]['id_pendidikan'] }}">{{ edus[0]['pendidikan'] }}</option>
+                                            {% endif %}
+                                            {% if edus[0].id_pendidikan == null %}
+                                            <option value="">Pilih Pendidikan</option>
+                                            {% endif %}
+                                            ...
+                                            {% for column in edu %}
+                                            <option value="{{column['id_pendidikan']}}"">
+                                                {{column['pendidikan']}}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class=" col-sm-6">
+                                                <p class="m-b-10 f-w-600">Twitter Account</p>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-control-user"
+                                                        name="twitter" id="twitter" value="{{profile.akun_twitter}}" />
+                                                </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="m-b-10 f-w-600">Pengalaman</p>
+                                        <div id="InputsWrapper">
+                                            <div class="row">
+                                                <div class="col-sm-10"><button type="button" name="add"
+                                                        id="AddMoreFileBox" class="btn btn-success"><i
+                                                            class="fa fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% for pengalaman in experiences %}
+                                        <div class="row">
+                                            <div class="col-sm-10">
+                                                <input type="text" name="experience[]" placeholder="Masukan Pengalaman"
+                                                    class="form-control name_list"
+                                                    value="{{pengalaman['pengalaman']}}" />
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                    data-target="#modal_delete{{pengalaman['id']}}">Hapus</button>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- JIKA WARGA NEGARA -->
+                            {% endif %} {% if profile.role_id == 4 %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Name</p>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="name" id="name"
+                                            value="{{profile.nama_user}}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Email</p>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control form-control-user" name="emailAnggota"
+                                            id="emailAnggota" value="{{profile.email_user}}" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600">Twitter Account</p>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="twitter"
+                                            id="twitter" value="{{profile.akun_twitter}}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="education"
+                                            id="education" value="{{profile.id_pendidikan}}" hidden />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="pengalaman"
+                                            id="pengalaman" value="{{profile.pengalaman}}" hidden />
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600"></h6>
+                                <button type="submit" name="submit" style="color: white"
+                                    class="mdi d-none d-sm-inline-block btn btn-md shadow-md bg-c-lite-green">
+                                    <i class="fas fa-user-edit" style="color: white"></i>&nbsp;
+                                    Simpan
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+    <!-- Modal Delete -->
+
+    <!-- Modal -->
+    {% for pengalaman in experiences %}
+    <div class="modal fade" id="modal_delete{{pengalaman['id']}}">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_delete{{pengalaman['id']}}">Anda Akan Menghapus Pertanyaan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Yakin akan menghapus data?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="/profile/delete/pengalaman/{{pengalaman['id']}}/{{pengalaman['user_id']}}"><button
+                            class="btn btn-sm btn-danger">Ya, Hapus</button></a>
+                </div>
             </div>
-            <h3 class="f-w-700" style="color: white">{{profile.nama_user}}</h3>
-            <br />
-            <a href="https://twitter.com/{{profile.akun_twitter}}"
-              class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm" target="_blank" rel="noopener noreferrer"
-              style="color: white; font-weight: 600;">
-              <i class="fab fa-twitter" style="color: #1D9BF0" aria-hidden="true"></i>&nbsp; @{{profile.akun_twitter}}
-            </a>
-            <br />
-            <br />
-            <br />
-            <a href="/profile/{{session['id']}}" class="mdi d-none d-sm-inline-block btn btn-sm shadow-sm">
-              <i class="fas fa-arrow-left"></i>&nbsp; Kembali</a>
-          </div>
         </div>
-        <div class="col-sm-8">
-          <div class="card-block">
-            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-              <div class="row">
-                <div class="form-group">
-                  <input type="text" class="form-control form-control-user" name="idu" id="idu"
-                    value="{{profile.user_id}}" hidden />
-                </div>
-              </div>
-
-              <!-- JIKA SUPER ADMIN -->
-              {% if profile.role_id == 1 %}
-              <div class="row">
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Name</p>
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="name" id="name"
-                      value="{{profile.nama_user}}" />
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Email</p>
-                  <div class="form-group">
-                    <input type="email" class="form-control form-control-user" name="emailAnggota" id="emailAnggota"
-                      value="{{profile.email_user}}" disabled />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Twitter Account</p>
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="twitter" id="twitter"
-                      value="{{profile.akun_twitter}}" />
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="education" id="education"
-                      value="{{profile.id_pendidikan}}" hidden />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="pengalaman" id="pengalaman"
-                      value="{{profile.pengalaman}}" hidden />
-                  </div>
-                </div>
-              </div>
-
-              <!-- JIKA ADMIN PARTAI -->
-              {% endif %} {% if profile.role_id == 2 %}
-              <div class="row">
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Name</p>
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="name" id="name"
-                      value="{{profile.nama_user}}" />
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Email</p>
-                  <div class="form-group">
-                    <input type="email" class="form-control form-control-user" name="emailAnggota" id="emailAnggota"
-                      value="{{profile.email_user}}" disabled />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Twitter Account</p>
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="twitter" id="twitter"
-                      value="{{profile.akun_twitter}}" />
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="education" id="education"
-                      value="{{profile.id_pendidikan}}" hidden />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="pengalaman" id="pengalaman"
-                      value="{{profile.pengalaman}}" hidden />
-                  </div>
-                </div>
-              </div>
-
-              <!-- JIKA ANGGOTA DPPRD -->
-              {% endif %} {% if profile.role_id == 3 %}
-              <div class="row">
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Name</p>
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="name" id="name"
-                      value="{{profile.nama_user}}" />
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Email</p>
-                  <div class="form-group">
-                    <input type="email" class="form-control form-control-user" name="emailAnggota" id="emailAnggota"
-                      value="{{profile.email_user}}" disabled />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Last Education</p>
-                  <div class="form-group">
-                    <select class="form-control" name="education" method="GET">
-                      {% for column in edu %}
-                      <option value="{{column['id_pendidikan']}}" selected="{{edus['pendidikan']}}">
-                        {{column['pendidikan']}}
-                      </option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Twitter Account</p>
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="twitter" id="twitter"
-                      value="{{profile.akun_twitter}}" />
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <!-- <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Experience</p>
-                  <div class="form-group">
-                    <textarea class="form-control form-control-user" name="pengalaman" id="pengalaman">
-                      {{profile.pengalaman}}
-                    </textarea>
-                  </div>
-                </div> -->
-
-                <div class="col-sm-12">
-                  <p class="m-b-10 f-w-600">Pengalaman</p>
-                  <div id="InputsWrapper">
-                    <div class="row">
-                      <!-- <div class="col-sm-10">
-                        <input type="text" name="experience[]" placeholder="Tambah Pengalaman"
-                          class="form-control name_list" />
-                      </div> -->
-                      <div class="col-sm-10"><button type="button" name="add" id="AddMoreFileBox"
-                          class="btn btn-success"><i class="fa fa-plus"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                    {% for pengalaman in experiences %}
-                    <div class="row">
-                      <div class="col-sm-10">
-                        <input type="text" name="experience[]" placeholder="Masukan Pengalaman"
-                          class="form-control name_list" value="{{pengalaman['pengalaman']}}" />
-                      </div>
-                      <div class="col-sm-2">
-                        <!-- <button type="button" name="add" id="AddMoreFileBox" class="btn btn-primary"><i class="fa fa-pencil"></i></button> -->
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_delete{{pengalaman['id']}}">Hapus</button>
-                      </div>
-                    </div>
-                    {% endfor %}
-                  </div>
-                </div>
-
-                <!-- <div class="col-sm-12">
-                  <p class="m-b-10 f-w-600">Pengalaman</p>
-                  <div id="InputsWrapper">
-                    <div class="row">
-                      <div class="col-sm-10">
-                        <input type="text" name="experience[]" placeholder="Masukan Pengalaman"
-                          class="form-control name_list" />
-                      </div>
-                      <div class="col-sm-2"><button type="button" name="add" id="AddMoreFileBox"
-                          class="btn btn-success"><i class="fa fa-plus"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
-              </div>
-
-              <!-- JIKA WARGA NEGARA -->
-              {% endif %} {% if profile.role_id == 4 %}
-              <div class="row">
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Name</p>
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="name" id="name"
-                      value="{{profile.nama_user}}" />
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Email</p>
-                  <div class="form-group">
-                    <input type="email" class="form-control form-control-user" name="emailAnggota" id="emailAnggota"
-                      value="{{profile.email_user}}" disabled />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <p class="m-b-10 f-w-600">Twitter Account</p>
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="twitter" id="twitter"
-                      value="{{profile.akun_twitter}}" />
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="education" id="education"
-                      value="{{profile.id_pendidikan}}" hidden />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="pengalaman" id="pengalaman"
-                      value="{{profile.pengalaman}}" hidden />
-                  </div>
-                </div>
-                {% endif %}
-
-                <h6 class="m-b-20 p-b-5 b-b-default f-w-600"></h6>
-                <button type="submit" name="submit" style="color: white"
-                  class="mdi d-none d-sm-inline-block btn btn-md shadow-md bg-c-lite-green">
-                  <i class="fas fa-user-edit" style="color: white"></i>&nbsp;
-                  Simpan
-                </button>
-            
-          </div>
-        </div>
-      </div>
     </div>
-  </form>
-  </div>
-  <!-- Modal Delete -->
-  <!-- Modal -->
-  {% for pengalaman in experiences %}
-  <div class="modal fade" id="modal_delete{{pengalaman['id']}}">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal_delete{{pengalaman['id']}}">Anda Akan Menghapus Pertanyaan</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Yakin akan menghapus data?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
-          <a href="/profile/delete/pengalaman/{{pengalaman['id']}}/{{pengalaman['user_id']}}"><button class="btn btn-sm btn-danger">Ya, Hapus</button></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
 </section>
 <script type="text/javascript">
-  function Validate() {
-    var password = document.getElementById("txtPassword").value;
-    var confirmPassword = document.getElementById("txtConfirmPassword").value;
-    if (password != confirmPassword) {
-      alert("Passwords do not match.");
-      return false;
+    function Validate() {
+        var password = document.getElementById("txtPassword").value;
+        var confirmPassword = document.getElementById("txtConfirmPassword").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
     }
-    return true;
-  }
 </script>
 <script>
-  $(document).ready(function () {
-    // var count_item = 0;
-    // $("#add_item").on("click", function () {
-    //   count_item += 1;
-    //   $("<input/>").attr({
-    //     class: "form-control form-control-user",
-    //     type: "text", placeholder: "PT. Telkom Indonesia 2005-2008",
-    //     name: "item_" + count_item
-    //   }).appendTo("#experiences").wrap($("<div/>"));
-    // });
-    var InputsWrapper = $("#InputsWrapper"); //Input boxes wrapper ID
-    var AddButton = $("#AddMoreFileBox"); //Add button ID
+    $(document).ready(function () {
+        // var count_item = 0;
+        // $("#add_item").on("click", function () {
+        //   count_item += 1;
+        //   $("<input/>").attr({
+        //     class: "form-control form-control-user",
+        //     type: "text", placeholder: "PT. Telkom Indonesia 2005-2008",
+        //     name: "item_" + count_item
+        //   }).appendTo("#experiences").wrap($("<div/>"));
+        // });
+        var InputsWrapper = $("#InputsWrapper"); //Input boxes wrapper ID
+        var AddButton = $("#AddMoreFileBox"); //Add button ID
 
-    var x = InputsWrapper.length; //initlal text box count
-    var FieldCount = 1; //to keep track of text box added
-    var MaxInputs = FieldCount+ 1; //maximum input boxes allowed
+        var x = InputsWrapper.length; //initlal text box count
+        var FieldCount = 1; //to keep track of text box added
+        var MaxInputs = FieldCount + 1; //maximum input boxes allowed
 
-    $(AddButton).click(function (e)  //on add input button click
-    {
-      if (x <= MaxInputs) //max input box allowed
-      {
-        FieldCount++; //text box added increment
-        //add input box
-        $(InputsWrapper).append('<div class="row"><p class="col-sm-10"><input type="text" placeholder="Masukan Pengalaman" class="form-control skill_list" name="experience[]" id="field_' + FieldCount + '"/></p><a href="#" type="button" class="col-sm-2 btn btn-danger removeclass">×</a></div>');
-        x++; //text box increment
-      }
-      return false;
+        $(AddButton).click(function (e)  //on add input button click
+        {
+            if (x <= MaxInputs) //max input box allowed
+            {
+                FieldCount++; //text box added increment
+                //add input box
+                $(InputsWrapper).append('<div class="row"><div class="col-sm-11"><input type="text" placeholder="Masukan Pengalaman" class="form-control skill_list" name="experience[]" id="field_' + FieldCount + '"/></div> <a href="#" type="button" class="col-sm-1 btn btn-danger removeclass">X</a></div>');
+                x++; //text box increment
+            }
+            return false;
+        });
+
+        $("body").on("click", ".removeclass", function (e) { //user click on remove text
+            if (x > 1) {
+                $(this).parent('div').remove(); //remove text box
+                x--; //decrement textbox
+            }
+            return false;
+        })
     });
-
-    $("body").on("click", ".removeclass", function (e) { //user click on remove text
-      if (x > 1) {
-        $(this).parent('div').remove(); //remove text box
-        x--; //decrement textbox
-      }
-      return false;
-    })
-  });
 </script>
 {% endblock %}

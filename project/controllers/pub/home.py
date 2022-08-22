@@ -44,8 +44,9 @@ def pub_home():
     sortScore = Rekomendasi.getHighestScoreAhpPartai(ahpPartai)
     dataRekomendasiPartai = Rekomendasi.getPartaiRekomendasi(sortScore)
 
-    dataRekomendasiDewan = Rekomendasi.dprdSementara()
-
+    sortScoreDwn = Rekomendasi.getHighestScoreAhpDewan(ahpDewan)
+    dataRekomendasiDewan = Rekomendasi.getDewanRekomendasi(sortScoreDwn)
+   
     if 'loggedin' in session:
         sess = session['id']
         profiles = Profile.detaiilProfile(sess)
