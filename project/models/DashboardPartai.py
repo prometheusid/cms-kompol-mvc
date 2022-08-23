@@ -92,7 +92,10 @@ class DashboardPartai:
         komentar = cur.fetchone()
         
         data = []
-        data.append({'jumlah_kunjungan' : lapkun['jumlah_kunjungan'], 'jumlah_komentar' : komentar['jumlah_komentar']});
+        if lapkun == None:
+            data.append({'jumlah_kunjungan' : 0, 'jumlah_komentar' : 0});
+        else:
+            data.append({'jumlah_kunjungan' : lapkun['jumlah_kunjungan'], 'jumlah_komentar' : komentar['jumlah_komentar']});
         return data[0]
     
     def sentimentLapkun(id): # id adalah partai_id
