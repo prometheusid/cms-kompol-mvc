@@ -42,8 +42,8 @@ def login():
         # dump(user)
         curl.close()
 
-        if len(user) > 0:
-            if bcrypt.hashpw(password, user["password"].encode('utf-8')) == user["password"].encode('utf-8'):
+        if user is not None and len(user) > 0:
+            if bcrypt.checkpw(password, user["password"].encode('utf-8')):
                 session['id'] = user['user_id']
                 session['name'] = user['nama_user']
                 session['email'] = user['email_user']

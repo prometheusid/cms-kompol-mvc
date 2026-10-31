@@ -34,6 +34,7 @@ def tambahinfo():
         cur.execute("INSERT INTO info (user_id, judul_info, isi_info, created_at) VALUES (%s,%s,%s,%s)",
                     (author, judul, isi, waktu))
         mysql.connection.commit()
+        return redirect(url_for('info'))
     return render_template('public/info/tambahinfo.html', title=title)
 
 # Detail Info

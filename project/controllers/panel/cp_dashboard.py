@@ -9,8 +9,8 @@ from project.models.Hello import Hello
 # dashboard / cpanel admin
 @app.route("/dashboard")
 def dashboard():
-    user_role = session['role']
-    if user_role == 0 and user_role != None:
+    user_role = session.get('role')
+    if user_role == 0:
         return render_template('panel/cp_dashboard/index.html')
     else:
         return redirect(url_for('pub_home'))

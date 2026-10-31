@@ -70,7 +70,8 @@ def tambahforum():
         cur.execute("INSERT INTO tbl_forum (forum_id, forum_judul, forum_isi, user_id, created_at) VALUES (%s,%s,%s,%s,%s)",
                     (idForum, judulForum, isi, ts, waktu))
         mysql.connection.commit()
-    return render_template('public/forum/index.html', title=title)
+        return redirect(url_for('forum'))
+    return render_template('public/forum/tambahforum.html', title=title)
 
 
 @app.route("/pub_forum/update/<int:id>", methods=["GET", "POST"])
@@ -82,7 +83,7 @@ def updateforum(id):
         data = cur.fetchone()
         return render_template('public/forum/update.html', data=data, title=title)
     else:
-        return render_template("public/forum/thread/%s", (id))
+        return redirect(url_for('thread', id=id))
 
 @app.route("/pub_forum/simpanupdate/<int:id>", methods=["GET", "POST"])
 def simpanupdate(id):
